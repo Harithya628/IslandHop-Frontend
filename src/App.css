@@ -1,6 +1,8 @@
 body {
   margin: 0; 
   line-height: normal;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
 }
 
 #root {
@@ -8,12 +10,14 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
+  font-family: 'Roboto', sans-serif;
 }
 
 .app {
   display: flex;
   height: 100vh;
   background-color: #E6F0FA; /* Blue background for the entire app */
+  font-family: 'Roboto', sans-serif;
 }
 
 .main-content {
@@ -30,5 +34,7 @@ body {
   align-items: center;
   min-height: 100vh;
   font-size: 1.2rem;
+  font-weight: 500; /* Medium for loading text */
   color: #4285f4;
+  font-family: 'Roboto', sans-serif;
 }

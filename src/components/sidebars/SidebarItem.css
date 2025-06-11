@@ -14,6 +14,7 @@
   box-sizing: border-box;
   will-change: transform, background-color;
   contain: layout style;
+  font-family: 'Roboto', sans-serif;
 }
 
 .sidebar-item.active {
@@ -64,7 +65,7 @@
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   color: #333;
-  font-weight: 400;
+  font-weight: 500; /* Medium for sidebar labels */
   transition: color 0.3s ease;
   white-space: nowrap;
   overflow: hidden;
@@ -78,6 +79,7 @@
 
 .sidebar-item.active .sidebar-item-label {
   color: #1E90FF;
+  font-weight: 600; /* Semi-bold for active sidebar items */
 }
 
 .sidebar-item.active .sidebar-item-icon {

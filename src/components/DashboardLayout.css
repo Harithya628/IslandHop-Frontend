@@ -2,6 +2,7 @@
   display: flex;
   min-height: 100vh;
   background-color: #E6F0FA; /* Changed to match the blue background */
+  font-family: 'Roboto', sans-serif;
 }
 
 .main-content {
@@ -46,7 +47,7 @@
   background: transparent;
   color: #666;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 500; /* Medium for role buttons */
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: 'Roboto', sans-serif;
@@ -55,6 +56,7 @@
 .role-button.active {
   background: #1E90FF;
   color: white;
+  font-weight: 600; /* Semi-bold for active role button */
   box-shadow: 0 2px 4px rgba(30, 144, 255, 0.3);
 }
 
@@ -75,7 +77,9 @@
   align-items: center;
   height: 100vh;
   font-size: 18px;
+  font-weight: 500; /* Medium for loading text */
   color: #666;
+  font-family: 'Roboto', sans-serif;
 }
 
 @media (max-width: 768px) {

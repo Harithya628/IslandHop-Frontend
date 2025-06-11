@@ -5,6 +5,7 @@
   background-color: transparent; /* Transparent to show blue background */
   border-radius: 16px;
   padding: 0; /* Remove padding from outer container */
+  font-family: 'Roboto', sans-serif;
 }
 
 .page-content-card {
@@ -28,6 +29,7 @@
 .page-header h1 {
   font-family: 'Roboto', sans-serif;
   font-size: 32px;
+  font-weight: 900; /* Extra bold for main page titles */
   color: #1a1a1a;
   margin: 0 0 8px 0;
 }
@@ -35,6 +37,7 @@
 .page-header p {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
+  font-weight: 400; /* Regular for subtitles */
   color: #666;
   margin: 0;
 }
@@ -58,7 +61,7 @@
 .account-name {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 600; /* Semi-bold for account name */
   color: #333;
   margin-bottom: 2px;
 }
@@ -66,6 +69,7 @@
 .account-role {
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
+  font-weight: 400; /* Regular for account role */
   color: #666;
 }
 
@@ -80,7 +84,7 @@
   color: white;
   font-family: 'Roboto', sans-serif;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 600; /* Semi-bold for avatar initials */
   box-shadow: 0 2px 6px rgba(30, 144, 255, 0.2);
   transition: transform 0.2s ease;
 }
@@ -124,6 +128,7 @@
   text-align: left;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
+  font-weight: 500; /* Medium for dropdown items */
   color: #333;
   cursor: pointer;
   transition: background-color 0.2s ease;
@@ -135,6 +140,7 @@
 
 .dropdown-item.logout {
   color: #dc3545;
+  font-weight: 600; /* Semi-bold for logout emphasis */
   border-top: 1px solid #e9ecef;
 }
 
@@ -167,13 +173,13 @@
   font-size: 14px;
   color: #666;
   margin: 0 0 12px 0;
-  font-weight: 500;
+  font-weight: 500; /* Medium for stat card labels */
 }
 
 .stat-number {
   font-family: 'Roboto', sans-serif;
   font-size: 28px;
-  font-weight: bold;
+  font-weight: 700; /* Bold for stat numbers */
   color: #1E90FF;
   margin: 0;
 }
@@ -194,19 +200,25 @@
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #eee;
+  font-family: 'Roboto', sans-serif;
 }
 
 .trips-table th {
   background-color: #f8f9fa;
-  font-weight: 600;
+  font-weight: 600; /* Semi-bold for table headers */
   color: #333;
+}
+
+.trips-table td {
+  font-weight: 400; /* Regular for table data */
 }
 
 .status {
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 500; /* Medium for status badges */
+  font-family: 'Roboto', sans-serif;
 }
 
 .status.completed {
@@ -242,6 +254,7 @@
   color: #333;
   margin: 0 0 16px 0;
   font-size: 18px;
+  font-weight: 700; /* Bold for pool card titles */
 }
 
 .pool-info p {
@@ -249,6 +262,7 @@
   margin: 8px 0;
   color: #666;
   font-size: 14px;
+  font-weight: 400; /* Regular for pool info */
 }
 
 .progress-bar {
@@ -541,7 +555,7 @@
   align-items: center;
   justify-content: center;
   font-size: 36px;
-  font-weight: bold;
+  font-weight: 700; /* Bold for profile picture initials */
   color: white;
   font-family: 'Roboto', sans-serif;
 }
@@ -556,7 +570,7 @@
 .profile-section h2 {
   font-family: 'Roboto', sans-serif;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 700; /* Bold for section titles */
   color: #333;
   margin: 0 0 24px 0;
   padding-bottom: 12px;

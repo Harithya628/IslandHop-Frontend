@@ -6,6 +6,7 @@
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 1rem;
   box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
 }
 
 .login-box {
@@ -22,8 +23,9 @@
   text-align: center;
   margin-bottom: 2rem;
   color: #333;
-  font-weight: 600;
+  font-weight: 700; /* Bold for login title */
   font-size: 1.8rem;
+  font-family: 'Roboto', sans-serif;
 }
 
 .input-group {
@@ -36,6 +38,8 @@
   border: 2px solid #e1e5e9;
   border-radius: 8px;
   font-size: 1rem;
+  font-weight: 400; /* Regular for input text */
+  font-family: 'Roboto', sans-serif;
   transition: all 0.3s ease;
   box-sizing: border-box;
 }
@@ -52,7 +56,8 @@
   border: none;
   border-radius: 8px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 600; /* Semi-bold for buttons */
+  font-family: 'Roboto', sans-serif;
   cursor: pointer;
   margin-bottom: 1rem;
   transition: all 0.3s ease;

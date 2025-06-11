@@ -8,13 +8,15 @@
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   text-align: center;
+  font-family: 'Roboto', sans-serif;
 }
 
 .landing-container h1 {
   font-size: 3.5rem;
   margin-bottom: 1rem;
   color: white;
-  font-weight: 700;
+  font-weight: 900; /* Extra bold for main landing title */
+  font-family: 'Roboto', sans-serif;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -22,7 +24,8 @@
   font-size: 1.25rem;
   margin-bottom: 2rem;
   color: rgba(255, 255, 255, 0.9);
-  font-weight: 300;
+  font-weight: 400; /* Regular for landing subtitle */
+  font-family: 'Roboto', sans-serif;
 }
 
 .button-container {
@@ -36,7 +39,8 @@
   border: none;
   border-radius: 50px;
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 600; /* Semi-bold for buttons */
+  font-family: 'Roboto', sans-serif;
   cursor: pointer;
   transition: all 0.3s ease;
   min-width: 140px;
