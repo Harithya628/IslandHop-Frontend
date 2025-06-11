@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { 
-  Home,
-  BarChart3,
-  Settings,
-  Server,
-  Bot,
-  Zap,
-  History,
-  Users,
-  Star,
-  Bell,
-  ChevronDown
-} from 'lucide-react';
+  HomeIcon,
+  ChartBarIcon,
+  CogIcon,
+  ServerIcon,
+  RocketLaunchIcon,
+  BoltIcon,
+  ClockIcon,
+  UsersIcon,
+  StarIcon,
+  BellIcon
+} from '@heroicons/react/24/solid';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import SidebarItem from './SidebarItem';
 import './Sidebar.css';
 import islandHopLogo from '../../assets/IslandHop.png';
@@ -44,13 +44,13 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
       >
         OVERVIEW
         <span className={`chevron-icon ${collapsedSections.overview ? 'rotated' : ''}`}>
-          <ChevronDown size={14} />
+          <ChevronDownIcon className="w-3.5 h-3.5" />
         </span>
       </div>
       <div className={`section-content ${collapsedSections.overview ? 'collapsed' : 'expanded'}`}>
         <div style={{ animationDelay: '0ms' }}>
           <SidebarItem
-            icon={<Home size={18} />}
+            icon={<HomeIcon className="w-4.5 h-4.5" />}
             label="Home"
             isActive={currentPage === 'AdminDashboard'}
             onClick={() => onPageChange('AdminDashboard')}
@@ -66,13 +66,13 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
       >
         CONFIGURATION & STATUS
         <span className={`chevron-icon ${collapsedSections.configuration ? 'rotated' : ''}`}>
-          <ChevronDown size={14} />
+          <ChevronDownIcon className="w-3.5 h-3.5" />
         </span>
       </div>
       <div className={`section-content ${collapsedSections.configuration ? 'collapsed' : 'expanded'}`}>
         <div style={{ animationDelay: '0ms' }}>
           <SidebarItem
-            icon={<BarChart3 size={18} />}
+            icon={<ChartBarIcon className="w-4.5 h-4.5" />}
             label="Analytics"
             isActive={currentPage === 'Analytics'}
             onClick={() => onPageChange('Analytics')}
@@ -81,7 +81,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
         </div>
         <div style={{ animationDelay: '50ms' }}>
           <SidebarItem
-            icon={<Settings size={18} />}
+            icon={<CogIcon className="w-4.5 h-4.5" />}
             label="System Settings"
             isActive={currentPage === 'SystemSettings'}
             onClick={() => onPageChange('SystemSettings')}
@@ -90,7 +90,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
         </div>
         <div style={{ animationDelay: '100ms' }}>
           <SidebarItem
-            icon={<Server size={18} />}
+            icon={<ServerIcon className="w-4.5 h-4.5" />}
             label="Hosting"
             isActive={currentPage === 'Hosting'}
             onClick={() => onPageChange('Hosting')}
@@ -99,7 +99,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
         </div>
         <div style={{ animationDelay: '150ms' }}>
           <SidebarItem
-            icon={<Bot size={18} />}
+            icon={<RocketLaunchIcon className="w-4.5 h-4.5" />}
             label="AI Settings"
             isActive={currentPage === 'AISettings'}
             onClick={() => onPageChange('AISettings')}
@@ -108,7 +108,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
         </div>
         <div style={{ animationDelay: '200ms' }}>
           <SidebarItem
-            icon={<Zap size={18} />}
+            icon={<BoltIcon className="w-4.5 h-4.5" />}
             label="APIs"
             isActive={currentPage === 'APIs'}
             onClick={() => onPageChange('APIs')}
@@ -117,7 +117,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
         </div>
         <div style={{ animationDelay: '250ms' }}>
           <SidebarItem
-            icon={<History size={18} />}
+            icon={<ClockIcon className="w-4.5 h-4.5" />}
             label="System History"
             isActive={currentPage === 'SystemHistory'}
             onClick={() => onPageChange('SystemHistory')}
@@ -133,13 +133,13 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
       >
         USER MANAGEMENT
         <span className={`chevron-icon ${collapsedSections.userManagement ? 'rotated' : ''}`}>
-          <ChevronDown size={14} />
+          <ChevronDownIcon className="w-3.5 h-3.5" />
         </span>
       </div>
       <div className={`section-content ${collapsedSections.userManagement ? 'collapsed' : 'expanded'}`}>
         <div style={{ animationDelay: '0ms' }}>
           <SidebarItem
-            icon={<Users size={18} />}
+            icon={<UsersIcon className="w-4.5 h-4.5" />}
             label="Accounts"
             isActive={currentPage === 'Accounts'}
             onClick={() => onPageChange('Accounts')}
@@ -148,7 +148,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
         </div>
         <div style={{ animationDelay: '50ms' }}>
           <SidebarItem
-            icon={<Star size={18} />}
+            icon={<StarIcon className="w-4.5 h-4.5" />}
             label="Reviews"
             isActive={currentPage === 'Reviews'}
             onClick={() => onPageChange('Reviews')}
@@ -157,7 +157,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
         </div>
         <div style={{ animationDelay: '100ms' }}>
           <SidebarItem
-            icon={<Bell size={18} />}
+            icon={<BellIcon className="w-4.5 h-4.5" />}
             label="Notifications"
             isActive={currentPage === 'Notifications'}
             onClick={() => onPageChange('Notifications')}

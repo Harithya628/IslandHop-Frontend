@@ -43,7 +43,6 @@
 }
 
 .sidebar-item-icon svg {
-  stroke-width: 1.5;
   width: 18px;
   height: 18px;
   transition: transform 0.3s ease, color 0.3s ease;
