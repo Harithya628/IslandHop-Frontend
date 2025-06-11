@@ -11,7 +11,7 @@ import {
   StarIcon,
   BellIcon
 } from '@heroicons/react/24/solid';
-import { ChevronDownIcon, Bars3Icon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import SidebarItem from './SidebarItem';
 import './Sidebar.css';
 import islandHopLogo from '../../assets/IslandHop.png';
@@ -69,7 +69,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
           >
             OVERVIEW
             <span className={`chevron-icon ${collapsedSections.overview ? 'rotated' : ''}`}>
-              <ChevronDownIcon className="w-3.5 h-3.5" />
+              ›
             </span>
           </div>
           <div className={`section-content ${collapsedSections.overview ? 'collapsed' : 'expanded'}`}>
@@ -91,7 +91,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
           >
             CONFIGURATION & STATUS
             <span className={`chevron-icon ${collapsedSections.configuration ? 'rotated' : ''}`}>
-              <ChevronDownIcon className="w-3.5 h-3.5" />
+              ›
             </span>
           </div>
           <div className={`section-content ${collapsedSections.configuration ? 'collapsed' : 'expanded'}`}>
@@ -158,7 +158,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
           >
             USER MANAGEMENT
             <span className={`chevron-icon ${collapsedSections.userManagement ? 'rotated' : ''}`}>
-              <ChevronDownIcon className="w-3.5 h-3.5" />
+              ›
             </span>
           </div>
           <div className={`section-content ${collapsedSections.userManagement ? 'collapsed' : 'expanded'}`}>
@@ -202,7 +202,12 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
             iconColor="#3B82F6"
             collapsed={true}
             title="Admin Dashboard"
+            className="collapsed-item-home"
           />
+          
+          {/* Divider between OVERVIEW and CONFIGURATION & STATUS sections */}
+          <div className="collapsed-section-divider"></div>
+          
           <SidebarItem
             icon={<ChartBarIcon className="w-5 h-5" />}
             isActive={currentPage === 'Analytics'}
@@ -210,6 +215,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
             iconColor="#7C3AED"
             collapsed={true}
             title="Analytics"
+            className="collapsed-item-analytics"
           />
           <SidebarItem
             icon={<CogIcon className="w-5 h-5" />}
@@ -218,6 +224,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
             iconColor="#6B7280"
             collapsed={true}
             title="System Settings"
+            className="collapsed-item-settings"
           />
           <SidebarItem
             icon={<ServerIcon className="w-5 h-5" />}
@@ -226,6 +233,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
             iconColor="#059669"
             collapsed={true}
             title="Hosting"
+            className="collapsed-item-hosting"
           />
           <SidebarItem
             icon={<RocketLaunchIcon className="w-5 h-5" />}
@@ -234,6 +242,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
             iconColor="#8B5CF6"
             collapsed={true}
             title="AI Settings"
+            className="collapsed-item-ai"
           />
           <SidebarItem
             icon={<BoltIcon className="w-5 h-5" />}
@@ -242,6 +251,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
             iconColor="#F59E0B"
             collapsed={true}
             title="APIs"
+            className="collapsed-item-apis"
           />
           <SidebarItem
             icon={<ClockIcon className="w-5 h-5" />}
@@ -250,7 +260,12 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
             iconColor="#06B6D4"
             collapsed={true}
             title="System History"
+            className="collapsed-item-history"
           />
+          
+          {/* Divider between CONFIGURATION & STATUS and USER MANAGEMENT sections */}
+          <div className="collapsed-section-divider"></div>
+          
           <SidebarItem
             icon={<UsersIcon className="w-5 h-5" />}
             isActive={currentPage === 'Accounts'}
@@ -258,6 +273,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
             iconColor="#6366F1"
             collapsed={true}
             title="Accounts"
+            className="collapsed-item-accounts"
           />
           <SidebarItem
             icon={<StarIcon className="w-5 h-5" />}
@@ -266,6 +282,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
             iconColor="#EF4444"
             collapsed={true}
             title="Reviews"
+            className="collapsed-item-reviews"
           />
           <SidebarItem
             icon={<BellIcon className="w-5 h-5" />}
@@ -274,6 +291,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
             iconColor="#14B8A6"
             collapsed={true}
             title="Notifications"
+            className="collapsed-item-notifications"
           />
         </div>
       )}

@@ -11,6 +11,8 @@
   flex-direction: column;
   background-color: #E6F0FA; /* Ensure blue background matches */
   transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: margin-left;
+  contain: layout;
 }
 
 /* When sidebar is collapsed, adjust main content */

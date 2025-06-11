@@ -1,10 +1,10 @@
 import React from 'react';
 import './SidebarItem.css';
 
-const SidebarItem = ({ icon, label, isActive, onClick, iconColor, collapsed = false, title }) => {
+const SidebarItem = ({ icon, label, isActive, onClick, iconColor, collapsed = false, title, className }) => {
   return (
     <div
-      className={`sidebar-item ${isActive ? 'active' : ''} ${collapsed ? 'collapsed' : ''}`}
+      className={`sidebar-item ${isActive ? 'active' : ''} ${collapsed ? 'collapsed' : ''} ${className || ''}`}
       onClick={onClick}
       title={collapsed ? title || label : ''}
     >

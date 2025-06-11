@@ -7,7 +7,7 @@ import {
   PhoneIcon, 
   ExclamationTriangleIcon
 } from '@heroicons/react/24/solid';
-import { ChevronDownIcon, Bars3Icon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import SidebarItem from './SidebarItem';
 import './Sidebar.css';
 import islandHopLogo from '../../assets/IslandHop.png';
@@ -62,9 +62,9 @@ const Sidebar = ({ currentPage, onPageChange }) => {
             onClick={() => toggleSection('general')}
             style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
           >
-            GENERAL
+            <span>GENERAL</span>
             <span className={`chevron-icon ${collapsedSections.general ? 'rotated' : ''}`}>
-              <ChevronDownIcon className="w-3.5 h-3.5" />
+              ›
             </span>
           </div>
           <div className={`section-content ${collapsedSections.general ? 'collapsed' : 'expanded'}`}>
@@ -86,7 +86,7 @@ const Sidebar = ({ currentPage, onPageChange }) => {
           >
             TRIPS
             <span className={`chevron-icon ${collapsedSections.trips ? 'rotated' : ''}`}>
-              <ChevronDownIcon className="w-3.5 h-3.5" />
+              ›
             </span>
           </div>
           <div className={`section-content ${collapsedSections.trips ? 'collapsed' : 'expanded'}`}>
@@ -117,7 +117,7 @@ const Sidebar = ({ currentPage, onPageChange }) => {
           >
             MESSAGING & SUPPORT
             <span className={`chevron-icon ${collapsedSections.messaging ? 'rotated' : ''}`}>
-              <ChevronDownIcon className="w-3.5 h-3.5" />
+              ›
             </span>
           </div>
           <div className={`section-content ${collapsedSections.messaging ? 'collapsed' : 'expanded'}`}>
@@ -161,7 +161,12 @@ const Sidebar = ({ currentPage, onPageChange }) => {
             iconColor="#3B82F6"
             collapsed={true}
             title="Home"
+            className="collapsed-item-home"
           />
+          
+          {/* Divider between GENERAL and TRIPS sections */}
+          <div className="collapsed-section-divider"></div>
+          
           <SidebarItem
             icon={<MapIcon className="w-5 h-5" />}
             isActive={currentPage === 'Trips'}
@@ -169,6 +174,7 @@ const Sidebar = ({ currentPage, onPageChange }) => {
             iconColor="#10B981"
             collapsed={true}
             title="Trips"
+            className="collapsed-item-trips"
           />
           <SidebarItem
             icon={<TruckIcon className="w-5 h-5" />}
@@ -177,7 +183,12 @@ const Sidebar = ({ currentPage, onPageChange }) => {
             iconColor="#F59E0B"
             collapsed={true}
             title="Ride Pools"
+            className="collapsed-item-ridepools"
           />
+          
+          {/* Divider between TRIPS and MESSAGING & SUPPORT sections */}
+          <div className="collapsed-section-divider"></div>
+          
           <SidebarItem
             icon={<ChatBubbleLeftRightIcon className="w-5 h-5" />}
             isActive={currentPage === 'Messaging'}
@@ -185,6 +196,7 @@ const Sidebar = ({ currentPage, onPageChange }) => {
             iconColor="#8B5CF6"
             collapsed={true}
             title="Messaging"
+            className="collapsed-item-messaging"
           />
           <SidebarItem
             icon={<PhoneIcon className="w-5 h-5" />}
@@ -193,6 +205,7 @@ const Sidebar = ({ currentPage, onPageChange }) => {
             iconColor="#06B6D4"
             collapsed={true}
             title="Support"
+            className="collapsed-item-support"
           />
           <SidebarItem
             icon={<ExclamationTriangleIcon className="w-5 h-5" />}
@@ -201,6 +214,7 @@ const Sidebar = ({ currentPage, onPageChange }) => {
             iconColor="#EF4444"
             collapsed={true}
             title="Emergency"
+            className="collapsed-item-emergency"
           />
         </div>
       )}
