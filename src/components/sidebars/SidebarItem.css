@@ -43,10 +43,12 @@
 }
 
 .sidebar-item-icon svg {
+  stroke-width: 2.5;
   width: 18px;
   height: 18px;
   transition: transform 0.3s ease, color 0.3s ease;
-  fill: currentColor;
+  fill: none;
+  stroke: currentColor;
 }
 
 .sidebar-item:hover .sidebar-item-icon svg {
