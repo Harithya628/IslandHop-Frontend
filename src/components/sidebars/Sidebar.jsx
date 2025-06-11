@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { 
-  HiHome, 
-  HiLocationMarker, 
-  HiTruck, 
-  HiChatAlt2, 
-  HiVolumeUp, 
-  HiShieldExclamation,
-  HiChevronDown
-} from 'react-icons/hi';
+  Home, 
+  Map, 
+  Car, 
+  MessageCircle, 
+  Headphones, 
+  AlertTriangle,
+  ChevronDown
+} from 'lucide-react';
 import SidebarItem from './SidebarItem';
 import './Sidebar.css';
 import islandHopLogo from '../../assets/IslandHop.png';
@@ -40,13 +40,13 @@ const Sidebar = ({ currentPage, onPageChange }) => {
       >
         GENERAL
         <span className={`chevron-icon ${collapsedSections.general ? 'rotated' : ''}`}>
-          <HiChevronDown size={14} />
+          <ChevronDown size={14} />
         </span>
       </div>
       <div className={`section-content ${collapsedSections.general ? 'collapsed' : 'expanded'}`}>
         <div style={{ animationDelay: '0ms' }}>
           <SidebarItem
-            icon={<HiHome size={18} />}
+            icon={<Home size={18} />}
             label="Home"
             isActive={currentPage === 'Home'}
             onClick={() => onPageChange('Home')}
@@ -62,13 +62,13 @@ const Sidebar = ({ currentPage, onPageChange }) => {
       >
         TRIPS
         <span className={`chevron-icon ${collapsedSections.trips ? 'rotated' : ''}`}>
-          <HiChevronDown size={14} />
+          <ChevronDown size={14} />
         </span>
       </div>
       <div className={`section-content ${collapsedSections.trips ? 'collapsed' : 'expanded'}`}>
         <div style={{ animationDelay: '0ms' }}>
           <SidebarItem
-            icon={<HiLocationMarker size={18} />}
+            icon={<Map size={18} />}
             label="Trips"
             isActive={currentPage === 'Trips'}
             onClick={() => onPageChange('Trips')}
@@ -77,7 +77,7 @@ const Sidebar = ({ currentPage, onPageChange }) => {
         </div>
         <div style={{ animationDelay: '50ms' }}>
           <SidebarItem
-            icon={<HiTruck size={18} />}
+            icon={<Car size={18} />}
             label="Ride Pools"
             isActive={currentPage === 'RidePools'}
             onClick={() => onPageChange('RidePools')}
@@ -93,13 +93,13 @@ const Sidebar = ({ currentPage, onPageChange }) => {
       >
         MESSAGING & SUPPORT
         <span className={`chevron-icon ${collapsedSections.messaging ? 'rotated' : ''}`}>
-          <HiChevronDown size={14} />
+          <ChevronDown size={14} />
         </span>
       </div>
       <div className={`section-content ${collapsedSections.messaging ? 'collapsed' : 'expanded'}`}>
         <div style={{ animationDelay: '0ms' }}>
           <SidebarItem
-            icon={<HiChatAlt2 size={18} />}
+            icon={<MessageCircle size={18} />}
             label="Messaging"
             isActive={currentPage === 'Messaging'}
             onClick={() => onPageChange('Messaging')}
@@ -108,7 +108,7 @@ const Sidebar = ({ currentPage, onPageChange }) => {
         </div>
         <div style={{ animationDelay: '50ms' }}>
           <SidebarItem
-            icon={<HiVolumeUp size={18} />}
+            icon={<Headphones size={18} />}
             label="Support"
             isActive={currentPage === 'Support'}
             onClick={() => onPageChange('Support')}
@@ -117,7 +117,7 @@ const Sidebar = ({ currentPage, onPageChange }) => {
         </div>
         <div style={{ animationDelay: '100ms' }}>
           <SidebarItem
-            icon={<HiShieldExclamation size={18} />}
+            icon={<AlertTriangle size={18} />}
             label="Emergency"
             isActive={currentPage === 'Emergency'}
             onClick={() => onPageChange('Emergency')}
