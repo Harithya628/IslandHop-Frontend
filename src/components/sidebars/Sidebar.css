@@ -3,7 +3,7 @@
   min-height: calc(100vh - 40px);
   height: calc(100vh - 40px);
   background-color: white;
-  padding: 64px 16px 20px 16px;
+  padding: 20px 16px 20px 16px;
   box-sizing: border-box;
   position: fixed;
   top: 20px;
@@ -12,10 +12,16 @@
   overflow-x: hidden;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar.collapsed {
+  width: 72px;
 }
 
 .sidebar-logo {
   margin-bottom: 64px;
+  margin-top: 44px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,6 +37,20 @@
 .logo-image {
   max-width: 140px;
   max-height: 50px;
+  object-fit: contain;
+}
+
+.sidebar-logo-collapsed {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 64px;
+  margin-bottom: 32px;
+}
+
+.logo-icon-collapsed {
+  width: 32px;
+  height: 32px;
   object-fit: contain;
 }
 
@@ -154,4 +174,104 @@
 
 .section-content.collapsed > div:nth-child(6) {
   transition-delay: 0ms;
+}
+
+/* Collapsed navigation */
+.collapsed-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 8px;
+  margin-top: 64px;
+}
+
+.sidebar.collapsed .sidebar-logo {
+  display: none;
+}
+
+.sidebar.collapsed .sidebar-section-title {
+  display: none;
+}
+
+.sidebar.collapsed .section-content {
+  display: none;
+}
+
+.sidebar-toggle-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #e2e8f0;
+  background-color: transparent;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #64748b;
+  z-index: 10;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1;
+}
+
+.sidebar-toggle-btn:hover {
+  background-color: #E0E8F5;
+  color: #1976D2;
+  transform: translateX(-2px);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  border-color: #cbd5e1;
+}
+
+.sidebar-toggle-btn:active {
+  transform: translateX(-2px) scale(0.95);
+}
+
+/* Collapsed sidebar toggle button positioning */
+.sidebar.collapsed .sidebar-toggle-btn {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
+
+/* Collapsed sidebar toggle button hover adjustments */
+.sidebar.collapsed .sidebar-toggle-btn:hover {
+  transform: translateX(-50%) translateX(-2px);
+}
+
+.sidebar.collapsed .sidebar-toggle-btn:active {
+  transform: translateX(-50%) translateX(-2px) scale(0.95);
+}
+
+/* Ensure icon visibility and fallback */
+.sidebar-toggle-btn svg {
+  transition: transform 0.3s ease, color 0.3s ease;
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.5;
+  fill: none;
+  stroke: currentColor;
+}
+
+.sidebar-toggle-btn:hover svg {
+  transform: scale(1.1);
+}
+
+/* Fallback icon styling */
+.fallback-icon {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+/* Show fallback if SVG is not available */
+.sidebar-toggle-btn svg:not([data-loaded]) + .fallback-icon {
+  display: block !important;
+}
+
+.sidebar-toggle-btn svg:not([data-loaded]) {
+  display: none !important;
 }

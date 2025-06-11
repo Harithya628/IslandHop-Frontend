@@ -6,10 +6,23 @@
 
 .main-content {
   flex: 1;
-  margin-left: 280px; /* Account for sidebar width + margin */
+  margin-left: 280px; /* Default for expanded sidebar */
   display: flex;
   flex-direction: column;
   background-color: #E6F0FA; /* Ensure blue background matches */
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* When sidebar is collapsed, adjust main content */
+.dashboard-layout:has(.sidebar.collapsed) .main-content {
+  margin-left: 112px; /* Collapsed sidebar width (72px) + margin (40px) */
+}
+
+/* Fallback for browsers that don't support :has() */
+@supports not (selector(:has(*))) {
+  .dashboard-layout.sidebar-collapsed .main-content {
+    margin-left: 112px;
+  }
 }
 
 .role-switcher {

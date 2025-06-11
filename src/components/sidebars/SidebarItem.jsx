@@ -1,11 +1,12 @@
 import React from 'react';
 import './SidebarItem.css';
 
-const SidebarItem = ({ icon, label, isActive, onClick, iconColor }) => {
+const SidebarItem = ({ icon, label, isActive, onClick, iconColor, collapsed = false, title }) => {
   return (
     <div
-      className={`sidebar-item ${isActive ? 'active' : ''}`}
+      className={`sidebar-item ${isActive ? 'active' : ''} ${collapsed ? 'collapsed' : ''}`}
       onClick={onClick}
+      title={collapsed ? title || label : ''}
     >
       <span 
         className="sidebar-item-icon" 
@@ -13,9 +14,11 @@ const SidebarItem = ({ icon, label, isActive, onClick, iconColor }) => {
       >
         {icon}
       </span>
-      <span className="sidebar-item-label">
-        {label}
-      </span>
+      {!collapsed && (
+        <span className="sidebar-item-label">
+          {label}
+        </span>
+      )}
     </div>
   );
 };
