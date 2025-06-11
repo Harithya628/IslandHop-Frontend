@@ -1,0 +1,392 @@
+/* APIs Page Styles - Bento Grid Layout */
+.apis-container {
+  padding: 0 20px;
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.apis-header {
+  margin-bottom: 32px;
+}
+
+.apis-header h1 {
+  font-size: 28px;
+  font-weight: 900;
+  color: #1a202c;
+  margin: 0 0 8px 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.apis-header p {
+  font-size: 16px;
+  font-weight: 400;
+  color: #64748b;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* API Overview Stats - Bento Grid Layout */
+.api-overview {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.overview-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+  grid-column: span 2;
+}
+
+.overview-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.overview-card h3 {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #64748b;
+  margin: 0 0 0.75rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.overview-value {
+  display: block;
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.overview-change {
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.overview-change.positive {
+  color: #10b981;
+}
+
+.overview-change.negative {
+  color: #ef4444;
+}
+
+.overview-change.neutral {
+  color: #64748b;
+}
+
+/* API Cards Grid - Bento Layout */
+.apis-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto;
+  gap: 20px;
+}
+
+.api-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+  grid-column: span 2;
+}
+
+.api-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* API Header */
+.api-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.api-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.api-title h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.api-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.api-description {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* API Metrics */
+.api-metrics {
+  margin-bottom: 1.5rem;
+}
+
+.metric-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.metric-row:last-child {
+  margin-bottom: 0;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.metric-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.metric-value {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.metric-value.cost {
+  color: #059669;
+}
+
+.metric-value.latency {
+  color: #dc2626;
+}
+
+.metric-value.uptime {
+  color: #10b981;
+}
+
+/* API Details */
+.api-details {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.detail-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.detail-value {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.detail-value.key-valid {
+  color: #10b981;
+}
+
+/* API Actions */
+.api-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn-primary {
+  flex: 1;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-primary:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  flex: 1;
+  background: #f8fafc;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-secondary:hover {
+  background: #e2e8f0;
+  color: #334155;
+  transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .api-overview {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .overview-card {
+    grid-column: span 2;
+  }
+  
+  .apis-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .api-card {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .apis-container {
+    padding: 0 16px;
+  }
+  
+  .apis-header h1 {
+    font-size: 24px;
+  }
+  
+  .api-overview {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  
+  .overview-card {
+    grid-column: span 1;
+  }
+  
+  .apis-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  
+  .api-card {
+    grid-column: span 2;
+    padding: 20px;
+  }
+  
+  .api-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .api-actions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .apis-container {
+    padding: 0 12px;
+  }
+  
+  .apis-header {
+    margin-bottom: 24px;
+  }
+  
+  .apis-header h1 {
+    font-size: 22px;
+  }
+  
+  .api-overview {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .overview-card {
+    grid-column: span 1;
+  }
+  
+  .apis-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .api-card {
+    grid-column: span 1;
+    padding: 16px;
+  }
+  
+  .metric-row {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .overview-value {
+    font-size: 1.5rem;
+  }
+  
+  .metric-value {
+    font-size: 1rem;
+  }
+}
