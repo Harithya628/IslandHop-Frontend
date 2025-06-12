@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700;800&display=swap');
+
+.rectangleParent {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 120px;
+  text-align: left;
+  font-size: 20px;
+  color: #000;
+  font-family: 'Roboto', sans-serif;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 40px;
+}
+
+.navbarContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: none;
+  height: 80px;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0 50px;
+  position: relative;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.logoIcon {
+  height: 32px;
+  width: auto;
+  transition: all 0.3s ease;
+}
+
+.logoText {
+  height: 24px;
+  width: auto;
+  transition: all 0.3s ease;
+}
+
+.navItems {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navItem {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+}
+
+.navItem:hover {
+  color: #666;
+  transform: translateY(-2px);
+}
+
+.signIn {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: #000;
+  color: white;
+  font-weight: 600;
+  font-family: 'Roboto', sans-serif;
+}
+
+.signIn:hover {
+  background-color: #333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.authButtons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.loginBtn {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+  color: #000;
+}
+
+.loginBtn:hover {
+  color: #666;
+  transform: translateY(-2px);
+}
+
+.signUpBtn {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: #000;
+  color: white;
+  font-weight: 600;
+  font-family: 'Roboto', sans-serif;
+}
+
+.signUpBtn:hover {
+  background-color: #333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Active state styling */
+.active {
+  font-weight: 700 !important;
+  color: #000 !important;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .rectangleParent {
+    height: 100px;
+    padding: 15px 20px;
+  }
+  
+  .navbarContainer {
+    height: 70px;
+    padding: 0 30px;
+    width: 100%;
+  }
+  
+  .logo {
+    gap: 8px;
+    padding: 6px 12px;
+  }
+  
+  .logoIcon {
+    height: 24px;
+  }
+  
+  .logoText {
+    height: 18px;
+  }
+  
+  .navItems {
+    gap: 20px;
+    font-size: 14px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .navItem {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+  
+  .signIn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  
+  .authButtons {
+    gap: 8px;
+  }
+  
+  .loginBtn {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+  
+  .signUpBtn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navItems {
+    gap: 15px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .navItem {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+  
+  .signIn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  .loginBtn {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+  
+  .signUpBtn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  .logoText {
+    height: 16px;
+  }
+}

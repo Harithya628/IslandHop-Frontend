@@ -1,3 +1,9 @@
+/* Landing page wrapper */
+.landing-page {
+  position: relative;
+  min-height: 100vh;
+}
+
 .landing-container {
   display: flex;
   flex-direction: column;
@@ -5,10 +11,34 @@
   justify-content: center;
   min-height: 100vh;
   padding: 2rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding-top: 150px; /* Add space for the navbar */
+  background-image: url('../assets/sri-lanka-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
   color: white;
   text-align: center;
   font-family: 'Roboto', sans-serif;
+}
+
+/* Add overlay for better text readability */
+.landing-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+/* Ensure content appears above overlay */
+.landing-container > * {
+  position: relative;
+  z-index: 2;
 }
 
 .landing-container h1 {
@@ -17,15 +47,16 @@
   color: white;
   font-weight: 900; /* Extra bold for main landing title */
   font-family: 'Roboto', sans-serif;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
 }
 
 .landing-container p {
   font-size: 1.25rem;
   margin-bottom: 2rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.95);
   font-weight: 400; /* Regular for landing subtitle */
   font-family: 'Roboto', sans-serif;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .button-container {
@@ -70,6 +101,11 @@
 }
 
 @media (max-width: 768px) {
+  .landing-container {
+    background-attachment: scroll; /* Better performance on mobile */
+    padding-top: 120px; /* Adjust for smaller navbar on mobile */
+  }
+  
   .landing-container h1 {
     font-size: 2.5rem;
   }
