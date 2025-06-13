@@ -3,9 +3,6 @@
   position: relative;
   min-height: 100vh;
   scroll-behavior: smooth;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  perspective: 1000px;
 }
 
 .landing-container {

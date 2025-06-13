@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import Navbar from './Navbar';
 import ReadyForYourNextAdventure from './ReadyForYourNextAdventure';
 import ExperienceText from './ExperienceText';
+import sriLankaVideo from '../assets/sri-lanka-video.mp4';
 import './LandingPage.css';
 
 function LandingPage() {
@@ -11,25 +12,78 @@ function LandingPage() {
 
   useEffect(() => {
     const video = videoRef.current;
-    if (video) {
-      // Ensure video loops
-      video.addEventListener('ended', () => {
-        video.currentTime = 0;
-        video.play();
-      });
+    if (!video) return;
 
-      // Force play if paused
-      const handleCanPlay = () => {
-        video.play().catch(console.error);
-      };
+    console.log('Setting up enhanced video looping');
+    
+    // Set essential properties
+    video.muted = true;
+    video.playsInline = true;
+    video.autoplay = true;
+    
+    // Remove the loop attribute to handle it manually
+    video.loop = false;
+    
+    let isLooping = false;
+    
+    const restartVideo = async () => {
+      if (isLooping) return;
+      isLooping = true;
       
-      video.addEventListener('canplay', handleCanPlay);
+      try {
+        console.log('Restarting video...');
+        video.currentTime = 0;
+        await video.play();
+        console.log('Video restarted successfully');
+      } catch (error) {
+        console.error('Error restarting video:', error);
+      } finally {
+        isLooping = false;
+      }
+    };
 
-      return () => {
-        video.removeEventListener('ended', () => {});
-        video.removeEventListener('canplay', handleCanPlay);
-      };
-    }
+    // Monitor video time and restart when near the end
+    const handleTimeUpdate = () => {
+      const duration = video.duration;
+      const currentTime = video.currentTime;
+      
+      // If we're within 0.5 seconds of the end, restart
+      if (duration && currentTime && (duration - currentTime < 0.5)) {
+        restartVideo();
+      }
+    };
+
+    // Handle when video actually ends
+    const handleEnded = () => {
+      console.log('Video ended event');
+      restartVideo();
+    };
+
+    // Handle when video can start playing
+    const handleCanPlay = () => {
+      console.log('Video can play');
+      if (video.paused) {
+        video.play().catch(console.error);
+      }
+    };
+
+    // Add event listeners
+    video.addEventListener('ended', handleEnded);
+    video.addEventListener('canplay', handleCanPlay);
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    
+    // Initial play attempt
+    setTimeout(() => {
+      video.play().catch(error => {
+        console.log('Initial autoplay failed:', error);
+      });
+    }, 100);
+
+    return () => {
+      video.removeEventListener('ended', handleEnded);
+      video.removeEventListener('canplay', handleCanPlay);
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+    };
   }, []);
 
   return (
@@ -41,12 +95,16 @@ function LandingPage() {
           className="hero-video" 
           autoPlay 
           muted 
-          loop 
           playsInline
-          preload="auto"
+          preload="metadata"
+          onLoadedData={() => console.log('Video loaded successfully')}
+          onPlay={() => console.log('Video started playing')}
+          onEnded={() => console.log('Video ended event fired')}
+          onError={(e) => console.error('Video error:', e)}
+          onTimeUpdate={() => {}}
         >
-          <source src="/src/assets/sri-lanka-video.mp4" type="video/mp4" />
-          {/* Fallback image if video doesn't load */}
+          <source src={sriLankaVideo} type="video/mp4" />
+          Your browser does not support the video tag.
         </video>
         <div className="hero-content">
           <ReadyForYourNextAdventure />
