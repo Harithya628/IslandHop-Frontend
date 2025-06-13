@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { auth } from '../firebase';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +12,62 @@ function SignupPage() {
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
+  const [showPopup, setShowPopup] = useState(true);
+  const [isClosing, setIsClosing] = useState(false); // Show popup on page visit
+  const [nationality, setNationality] = useState('');
+  const [showCountries, setShowCountries] = useState(false);
+  const [languages, setLanguages] = useState('');
+  const [selectedLanguages, setSelectedLanguages] = useState([]);
+  const [showLanguages, setShowLanguages] = useState(false);
+  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [calendarDate, setCalendarDate] = useState(new Date());
   const navigate = useNavigate();
+
+  const countries = [
+    'Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Australia', 'Austria',
+    'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bhutan',
+    'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Brazil', 'Brunei', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cambodia', 'Cameroon',
+    'Canada', 'Cape Verde', 'Central African Republic', 'Chad', 'Chile', 'China', 'Colombia', 'Comoros', 'Congo', 'Costa Rica',
+    'Croatia', 'Cuba', 'Cyprus', 'Czech Republic', 'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic', 'East Timor', 'Ecuador',
+    'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia', 'Ethiopia', 'Fiji', 'Finland', 'France', 'Gabon',
+    'Gambia', 'Georgia', 'Germany', 'Ghana', 'Greece', 'Grenada', 'Guatemala', 'Guinea', 'Guinea-Bissau', 'Guyana',
+    'Haiti', 'Honduras', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel',
+    'Italy', 'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya', 'Kiribati', 'North Korea', 'South Korea', 'Kuwait',
+    'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Liechtenstein', 'Lithuania', 'Luxembourg',
+    'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Marshall Islands', 'Mauritania', 'Mauritius', 'Mexico',
+    'Micronesia', 'Moldova', 'Monaco', 'Mongolia', 'Montenegro', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nauru',
+    'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'Norway', 'Oman', 'Pakistan', 'Palau',
+    'Panama', 'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Qatar', 'Romania', 'Russia',
+    'Rwanda', 'Saint Kitts and Nevis', 'Saint Lucia', 'Saint Vincent and the Grenadines', 'Samoa', 'San Marino', 'Sao Tome and Principe', 'Saudi Arabia', 'Senegal', 'Serbia',
+    'Seychelles', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'Solomon Islands', 'Somalia', 'South Africa', 'South Sudan', 'Spain',
+    'Sri Lanka', 'Sudan', 'Suriname', 'Swaziland', 'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan', 'Tanzania',
+    'Thailand', 'Togo', 'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Tuvalu', 'Uganda', 'Ukraine',
+    'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Vatican City', 'Venezuela', 'Vietnam', 'Yemen',
+    'Zambia', 'Zimbabwe'
+  ];
+
+  const languagesList = [
+    'Afrikaans', 'Albanian', 'Amharic', 'Arabic', 'Armenian', 'Azerbaijani', 'Basque', 'Belarusian', 'Bengali', 'Bosnian',
+    'Bulgarian', 'Burmese', 'Catalan', 'Chinese (Mandarin)', 'Chinese (Cantonese)', 'Croatian', 'Czech', 'Danish', 'Dutch', 'English',
+    'Estonian', 'Filipino', 'Finnish', 'French', 'Galician', 'Georgian', 'German', 'Greek', 'Gujarati', 'Hebrew',
+    'Hindi', 'Hungarian', 'Icelandic', 'Indonesian', 'Irish', 'Italian', 'Japanese', 'Javanese', 'Kannada', 'Kazakh',
+    'Khmer', 'Korean', 'Kurdish', 'Kyrgyz', 'Lao', 'Latin', 'Latvian', 'Lithuanian', 'Luxembourgish', 'Macedonian',
+    'Malay', 'Malayalam', 'Maltese', 'Marathi', 'Mongolian', 'Nepali', 'Norwegian', 'Pashto', 'Persian', 'Polish',
+    'Portuguese', 'Punjabi', 'Romanian', 'Russian', 'Serbian', 'Sinhala', 'Slovak', 'Slovenian', 'Somali', 'Spanish',
+    'Swahili', 'Swedish', 'Tamil', 'Telugu', 'Thai', 'Turkish', 'Ukrainian', 'Urdu', 'Uzbek', 'Vietnamese', 'Welsh', 'Xhosa', 'Yiddish', 'Yoruba', 'Zulu'
+  ];
+
+  const filteredCountries = nationality.trim() === '' 
+    ? countries 
+    : countries.filter(country =>
+        country.toLowerCase().includes(nationality.toLowerCase())
+      );
+
+  const filteredLanguages = languages.trim() === ''
+    ? languagesList
+    : languagesList.filter(language =>
+        language.toLowerCase().includes(languages.toLowerCase())
+      );
 
   const handleEmailSignup = async (e) => {
     e.preventDefault();
@@ -37,6 +92,99 @@ function SignupPage() {
   const handleLogoClick = () => {
     navigate('/');
   };
+
+  const closePopup = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setShowPopup(false);
+      setIsClosing(false);
+    }, 300); // Match the animation duration
+  };
+
+  const handleNationalityChange = (e) => {
+    setNationality(e.target.value);
+    setShowCountries(true);
+  };
+
+  const selectCountry = (country) => {
+    setNationality(country);
+    setShowCountries(false);
+  };
+
+  const handleLanguageChange = (e) => {
+    setLanguages(e.target.value);
+    setShowLanguages(true);
+  };
+
+  const selectLanguage = (language) => {
+    if (!selectedLanguages.includes(language)) {
+      setSelectedLanguages([...selectedLanguages, language]);
+    }
+    setLanguages('');
+    setShowLanguages(false);
+  };
+
+  const removeLanguage = (languageToRemove) => {
+    setSelectedLanguages(selectedLanguages.filter(lang => lang !== languageToRemove));
+  };
+
+  // Calendar functions
+  const formatDate = (date) => {
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
+  const getDaysInMonth = (date) => {
+    return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+  };
+
+  const getFirstDayOfMonth = (date) => {
+    return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+  };
+
+  const handleDateSelect = (day) => {
+    const selectedDate = new Date(calendarDate.getFullYear(), calendarDate.getMonth(), day);
+    setDateOfBirth(formatDate(selectedDate));
+  };
+
+  const changeMonth = (direction) => {
+    setCalendarDate(prev => {
+      const newDate = new Date(prev);
+      newDate.setMonth(prev.getMonth() + direction);
+      return newDate;
+    });
+  };
+
+  const changeYear = (direction) => {
+    setCalendarDate(prev => {
+      const newDate = new Date(prev);
+      newDate.setFullYear(prev.getFullYear() + direction);
+      return newDate;
+    });
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Check if click is outside nationality field
+      if (!event.target.closest('.nationality-field')) {
+        setShowCountries(false);
+      }
+      
+      // Check if click is outside languages field
+      if (!event.target.closest('.languages-field')) {
+        setShowLanguages(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="signup-container">
@@ -127,6 +275,176 @@ function SignupPage() {
           </p>
         </div>
       </div>
+
+      {/* Popup Form */}
+      {showPopup && (
+        <div className="popup-overlay" onClick={closePopup}>
+          <div className={`popup-container ${isClosing ? 'closing' : ''}`} onClick={(e) => e.stopPropagation()}>
+            <div className="popup-header">
+              <h3>Complete Your Profile</h3>
+              <button className="close-button" onClick={closePopup}>
+                ×
+              </button>
+            </div>
+            <div className="popup-content">
+              <p>
+                Help us personalize your travel experience! We use this information to connect you with 
+                like-minded travelers who share similar backgrounds and preferences for our ride pooling feature.
+              </p>
+              <p style={{ fontSize: '0.85rem', color: '#666', marginBottom: '1.5rem' }}>
+                <strong>Note:</strong> Skipping this step will disable ride pooling recommendations until completed. 
+                All other IslandHop features will remain fully accessible.
+              </p>
+              <div className="popup-form">
+                <div className="popup-input-group nationality-field">
+                  <label>Nationality</label>
+                  <div className="search-container">
+                    <input
+                      type="text"
+                      placeholder="Search for your country..."
+                      value={nationality}
+                      onChange={handleNationalityChange}
+                      onFocus={() => setShowCountries(true)}
+                      autoComplete="off"
+                    />
+                    {showCountries && (
+                      <div className="countries-dropdown">
+                        {filteredCountries.slice(0, 15).map((country) => (
+                          <div
+                            key={country}
+                            className="country-option"
+                            onClick={() => selectCountry(country)}
+                          >
+                            {country}
+                          </div>
+                        ))}
+                        {filteredCountries.length === 0 && (
+                          <div className="country-option no-results">
+                            No countries found
+                          </div>
+                        )}
+                        {filteredCountries.length > 15 && (
+                          <div className="country-option show-more">
+                            {filteredCountries.length - 15} more countries... (keep typing to filter)
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="popup-input-group languages-field">
+                  <label>Languages Spoken</label>
+                  {selectedLanguages.length > 0 && (
+                    <div className="selected-languages">
+                      {selectedLanguages.map((language) => (
+                        <span key={language} className="language-tag">
+                          {language}
+                          <button
+                            type="button"
+                            className="remove-language"
+                            onClick={() => removeLanguage(language)}
+                          >
+                            ×
+                          </button>
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  <div className="search-container">
+                    <input
+                      type="text"
+                      placeholder="Search and add languages..."
+                      value={languages}
+                      onChange={handleLanguageChange}
+                      onFocus={() => setShowLanguages(true)}
+                      autoComplete="off"
+                    />
+                    {showLanguages && (
+                      <div className="countries-dropdown">
+                        {filteredLanguages
+                          .filter(lang => !selectedLanguages.includes(lang))
+                          .slice(0, 15)
+                          .map((language) => (
+                          <div
+                            key={language}
+                            className="country-option"
+                            onClick={() => selectLanguage(language)}
+                          >
+                            {language}
+                          </div>
+                        ))}
+                        {filteredLanguages.filter(lang => !selectedLanguages.includes(lang)).length === 0 && (
+                          <div className="country-option no-results">
+                            {selectedLanguages.length > 0 ? 'All matching languages already selected' : 'No languages found'}
+                          </div>
+                        )}
+                        {filteredLanguages.filter(lang => !selectedLanguages.includes(lang)).length > 15 && (
+                          <div className="country-option show-more">
+                            {filteredLanguages.filter(lang => !selectedLanguages.includes(lang)).length - 15} more languages... (keep typing to filter)
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="popup-input-group date-field">
+                  <label>Date of Birth</label>
+                  {dateOfBirth && (
+                    <div className="selected-date">
+                      Selected: {dateOfBirth}
+                    </div>
+                  )}
+                  <div className="calendar-container">
+                    <div className="calendar-header">
+                      <div className="year-controls">
+                        <button type="button" onClick={() => changeYear(-1)}>‹‹</button>
+                        <span className="year-display">{calendarDate.getFullYear()}</span>
+                        <button type="button" onClick={() => changeYear(1)}>››</button>
+                      </div>
+                      <div className="month-controls">
+                        <button type="button" onClick={() => changeMonth(-1)}>‹</button>
+                        <span className="month-display">
+                          {calendarDate.toLocaleDateString('en-US', { month: 'long' })}
+                        </span>
+                        <button type="button" onClick={() => changeMonth(1)}>›</button>
+                      </div>
+                    </div>
+                    <div className="calendar-grid">
+                      <div className="weekdays">
+                        {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                          <div key={day} className="weekday">{day}</div>
+                        ))}
+                      </div>
+                      <div className="days-grid">
+                        {Array.from({ length: getFirstDayOfMonth(calendarDate) }, (_, i) => (
+                          <div key={`empty-${i}`} className="day empty"></div>
+                        ))}
+                        {Array.from({ length: getDaysInMonth(calendarDate) }, (_, i) => {
+                          const day = i + 1;
+                          const isSelected = dateOfBirth === formatDate(new Date(calendarDate.getFullYear(), calendarDate.getMonth(), day));
+                          return (
+                            <div
+                              key={day}
+                              className={`day ${isSelected ? 'selected' : ''}`}
+                              onClick={() => handleDateSelect(day)}
+                            >
+                              {day}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="popup-buttons">
+                  <button className="popup-submit-btn">Complete Setup</button>
+                  <button className="popup-skip-btn" onClick={closePopup}>Skip for Now</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
