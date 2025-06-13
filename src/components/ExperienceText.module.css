@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.experienceContainer {
+  width: 70%;
+  position: relative;
+  margin-left: 5%;
+  margin-top: 1rem;
+  align-self: flex-start;
+  animation: fadeInUp 1.4s ease-out;
+}
+
+.experienceText {
+  font-size: 2rem;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  line-height: 1.4;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  text-align: left;
+}
+
+.islandhop {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+}

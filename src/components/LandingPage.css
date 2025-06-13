@@ -2,6 +2,10 @@
 .landing-page {
   position: relative;
   min-height: 100vh;
+  scroll-behavior: smooth;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 .landing-container {
@@ -9,18 +13,41 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  height: 70vh;
   padding: 2rem;
   padding-top: 150px; /* Add space for the navbar */
-  background-image: url('../assets/sri-lanka-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
   position: relative;
   color: white;
   text-align: center;
   font-family: 'Roboto', sans-serif;
+  will-change: transform;
+  overflow: hidden;
+  /* Fallback background image */
+  background-image: url('../assets/sri-lanka-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 /* Add overlay for better text readability */
@@ -35,10 +62,11 @@
   z-index: 1;
 }
 
-/* Ensure content appears above overlay */
-.landing-container > * {
+/* Ensure content appears above overlay and video */
+.hero-content > * {
   position: relative;
   z-index: 2;
+  transform: translateZ(0);
 }
 
 .landing-container h1 {
@@ -63,23 +91,26 @@
   display: flex;
   gap: 1rem;
   margin-top: 2rem;
+  align-self: flex-start;
+  margin-left: 5%;
 }
 
 .primary-button, .secondary-button {
-  padding: 1rem 2rem;
+  padding: 1.4rem 2.5rem;
   border: none;
-  border-radius: 50px;
-  font-size: 1.1rem;
+  border-radius: 12px;
+  font-size: 1.3rem;
   font-weight: 600; /* Semi-bold for buttons */
   font-family: 'Roboto', sans-serif;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-width: 140px;
+  min-width: 160px;
+  line-height: 1.2;
 }
 
 .primary-button {
   background-color: white;
-  color: #4285f4;
+  color: black;
   box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
 }
 
@@ -102,7 +133,6 @@
 
 @media (max-width: 768px) {
   .landing-container {
-    background-attachment: scroll; /* Better performance on mobile */
     padding-top: 120px; /* Adjust for smaller navbar on mobile */
   }
   
@@ -118,5 +148,314 @@
   .primary-button, .secondary-button {
     width: 100%;
     max-width: 280px;
+  }
+}
+
+/* Container for content sections */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Features Section */
+.features-section {
+  padding: 80px 0;
+  background-color: #f8f9fa;
+}
+
+.features-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.feature-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+}
+
+.feature-card p {
+  color: #666;
+  line-height: 1.6;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Destinations Section */
+.destinations-section {
+  padding: 80px 0;
+  background-color: white;
+}
+
+.destinations-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+}
+
+.destinations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.destination-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.destination-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.destination-image {
+  height: 200px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholder-image {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: 'Roboto', sans-serif;
+}
+
+.destination-card h3 {
+  padding: 1rem 1.5rem 0.5rem;
+  font-size: 1.5rem;
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+}
+
+.destination-card p {
+  padding: 0 1.5rem 1.5rem;
+  color: #666;
+  line-height: 1.6;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Experience Section */
+.experience-section {
+  padding: 80px 0;
+  background-color: #f8f9fa;
+}
+
+.experience-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+}
+
+.experience-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.experience-text h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+}
+
+.experience-text h3:first-child {
+  margin-top: 0;
+}
+
+.experience-text p {
+  color: #666;
+  line-height: 1.6;
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 1.5rem;
+}
+
+.experience-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #667eea;
+  font-family: 'Roboto', sans-serif;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.5rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* CTA Section */
+.cta-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-align: center;
+}
+
+.cta-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+}
+
+.cta-section p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+  font-family: 'Roboto', sans-serif;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.cta-primary, .cta-secondary {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 160px;
+}
+
+.cta-primary {
+  background-color: white;
+  color: #667eea;
+}
+
+.cta-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+}
+
+.cta-secondary {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.cta-secondary:hover {
+  background-color: white;
+  color: #667eea;
+  transform: translateY(-3px);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .features-section, .destinations-section, .experience-section, .cta-section {
+    padding: 60px 0;
+  }
+  
+  .features-section h2, .destinations-section h2, .experience-section h2, .cta-section h2 {
+    font-size: 2rem;
+  }
+  
+  .features-grid, .destinations-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .experience-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .experience-stats {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  
+  .stat-item {
+    flex: 1;
+    margin: 0 0.5rem;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cta-primary, .cta-secondary {
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  .container {
+    padding: 0 1rem;
   }
 }

@@ -1,0 +1,22 @@
+.rectangleDiv {
+  width: 200px;
+  position: relative;
+  border-radius: 9px;
+  background-color: #fff;
+  height: 60px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #4285f4;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.rectangleDiv:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+}
