@@ -12,9 +12,9 @@
   font-family: 'Roboto', sans-serif;
   z-index: 9999;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  padding: 0 40px;
+  padding: 0;
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(10px);
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
@@ -25,13 +25,12 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 1200px;
   height: 100%;
   background: transparent;
   border: none;
   box-shadow: none;
   border-radius: 0;
-  padding: 0;
+  padding: 0 20px;
   position: relative;
 }
 
@@ -44,6 +43,7 @@
   padding: 8px 0;
   border-radius: 8px;
   flex-shrink: 0;
+  margin-left: 0;
 }
 
 .logo:hover {
@@ -65,8 +65,10 @@
 .centerSection {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   flex: 1;
   margin-left: 40px;
+  margin-right: 60px;
 }
 
 .navItems {
@@ -92,11 +94,28 @@
   font-family: 'Roboto', sans-serif;
   color: #000;
   font-size: 14px;
+  position: relative;
 }
 
 .navItem:hover {
   color: #666;
   transform: translateY(-2px);
+}
+
+.navItem::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background-color: #000;
+  transition: width 0.3s ease;
+}
+
+.navItem.active::after {
+  width: 60%;
 }
 
 .signIn {
@@ -121,6 +140,35 @@
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+.utilityButtons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-right: 20px;
+}
+
+.languageBtn, .currencyBtn {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  color: #000;
+  font-size: 13px;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.languageBtn:hover, .currencyBtn:hover {
+  color: #666;
+  background: rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
 }
 
 .loginBtn {
@@ -161,23 +209,23 @@
 .searchContainer {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .searchBox {
   position: relative;
   display: flex;
   align-items: center;
-  background-color: transparent;
-  border-radius: 16px;
-  padding: 6px 12px;
+  background: transparent;
+  border-radius: 25px;
+  padding: 8px 16px;
   transition: all 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: 1px solid #000;
 }
 
 .searchBox:focus-within {
-  background-color: rgba(0, 0, 0, 0.02);
-  border-color: rgba(0, 0, 0, 0.25);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: transparent;
+  border-color: #000;
 }
 
 .searchInput {
@@ -185,40 +233,144 @@
   background: transparent;
   outline: none;
   padding: 6px 8px;
-  font-size: 13px;
+  font-size: 14px;
   font-family: 'Roboto', sans-serif;
-  color: #333;
-  width: 250px;
+  color: #000;
+  width: 300px;
   transition: all 0.3s ease;
 }
 
 .searchInput::placeholder {
-  color: #888;
-  font-size: 13px;
+  color: #666;
+  font-size: 14px;
 }
 
 .searchButton {
   border: none;
   background: transparent;
   cursor: pointer;
-  padding: 2px;
+  padding: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #666;
+  color: #000;
   transition: all 0.3s ease;
   border-radius: 50%;
 }
 
 .searchButton:hover {
-  color: #333;
-  background-color: rgba(0, 0, 0, 0.05);
+  color: #000;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 /* Active state styling */
 .active {
   font-weight: 700 !important;
   color: #000 !important;
+}
+
+/* Profile dropdown styles */
+.profileContainer {
+  position: relative;
+}
+
+.profileBtn {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 4px;
+  border-radius: 50%;
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  color: #000;
+  font-size: 13px;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profileBtn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.profilePicture {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.profilePicture:hover {
+  border-color: rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+}
+
+.profileAvatar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+}
+
+.profileImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.dropdownIcon {
+  transition: transform 0.3s ease;
+}
+
+.profileBtn:hover .dropdownIcon {
+  transform: rotate(180deg);
+}
+
+.profileDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 150px;
+  z-index: 10000;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.dropdownItem {
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dropdownItem:last-child {
+  border-bottom: none;
+  color: #dc3545;
+}
+
+.dropdownItem:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.dropdownItem:last-child:hover {
+  background: rgba(220, 53, 69, 0.1);
 }
 
 /* Mobile responsive styles */
