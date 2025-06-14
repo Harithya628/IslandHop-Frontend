@@ -1,25 +1,33 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { auth } from '../firebase';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import sriLankaVideo from '../assets/sri-lanka-video.mp4';
 import islandHopLogo from '../assets/IslandHopWhite.png';
 import islandHopIcon from '../assets/islandHopIcon.png';
-import ProfileCompletionPopup from '../components/ProfileCompletionPopup';
-import './SignupPage.css';
+import './ProfessionalSignupPage.css';
 
-function SignupPage() {
+function ProfessionalSignupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
-  const [showPopup, setShowPopup] = useState(true);
   const navigate = useNavigate();
 
   const handleEmailSignup = async (e) => {
     e.preventDefault();
+    
+    if (!role) {
+      setError('Please select your professional role');
+      return;
+    }
+
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      // You can store the role in the user's profile or database here
+      console.log('Professional role:', role);
+      console.log('User created:', userCredential.user);
       navigate('/dashboard');
     } catch (error) {
       setError(error.message);
@@ -27,9 +35,17 @@ function SignupPage() {
   };
 
   const handleGoogleSignup = async () => {
+    if (!role) {
+      setError('Please select your professional role before continuing with Google');
+      return;
+    }
+
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
+      const userCredential = await signInWithPopup(auth, provider);
+      // You can store the role in the user's profile or database here
+      console.log('Professional role:', role);
+      console.log('User created:', userCredential.user);
       navigate('/dashboard');
     } catch (error) {
       setError(error.message);
@@ -40,12 +56,8 @@ function SignupPage() {
     navigate('/');
   };
 
-  const handleClosePopup = () => {
-    setShowPopup(false);
-  };
-
   return (
-    <div className="signup-container">
+    <div className="professional-signup-container">
       {/* Left side - Video area */}
       <div className="video-section">
         <div className="video-container">
@@ -65,8 +77,8 @@ function SignupPage() {
           </div>
           <div className="video-overlay">
             <div className="video-content">
-              <h3>Welcome to IslandHop</h3>
-              <p>Discover the beauty of Sri Lanka with our curated travel experiences</p>
+              <h3>Join Our Professional Network</h3>
+              <p>Become a part of Sri Lanka's premier travel service community</p>
             </div>
           </div>
         </div>
@@ -75,8 +87,49 @@ function SignupPage() {
       {/* Right side - Signup form */}
       <div className="form-section">
         <div className="signup-box">
-          <h2>Create Account</h2>
+          <h2>Professional Account</h2>
+          <p className="subtitle">Join as a driver or guide and start earning with IslandHop</p>
+          
           {error && <p className="error-message">{error}</p>}
+          
+          {/* Role Selection */}
+          <div className="role-selection">
+            <h3>Select Your Role</h3>
+            <div className="role-options">
+              <label className={`role-option ${role === 'driver' ? 'selected' : ''}`}>
+                <input
+                  type="radio"
+                  value="driver"
+                  checked={role === 'driver'}
+                  onChange={(e) => setRole(e.target.value)}
+                />
+                <div className="role-content">
+                  <div className="role-icon">🚗</div>
+                  <div className="role-info">
+                    <h4>Driver</h4>
+                    <p>Provide transportation services to travelers</p>
+                  </div>
+                </div>
+              </label>
+              
+              <label className={`role-option ${role === 'guide' ? 'selected' : ''}`}>
+                <input
+                  type="radio"
+                  value="guide"
+                  checked={role === 'guide'}
+                  onChange={(e) => setRole(e.target.value)}
+                />
+                <div className="role-content">
+                  <div className="role-icon">🗺️</div>
+                  <div className="role-info">
+                    <h4>Tour Guide</h4>
+                    <p>Share your local knowledge and expertise</p>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+
           <form onSubmit={handleEmailSignup}>
             <div className="input-group">
               <input
@@ -114,10 +167,12 @@ function SignupPage() {
               </span>
             </div>
             <button type="submit" className="signup-button">
-              Sign Up
+              Create Professional Account
             </button>
           </form>
+          
           <div className="divider"><span>or</span></div>
+          
           <button onClick={handleGoogleSignup} className="google-button">
             <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -127,28 +182,20 @@ function SignupPage() {
             </svg>
             Continue with Google
           </button>
+          
           <p className="login-link">
             Already have an account?{' '}
             <span onClick={() => navigate('/login')}>Login</span>
           </p>
           
-          <div className="professional-signup">
-            <span 
-              className="professional-link" 
-              onClick={() => navigate('/signup/professional')}
-            >
-              Join as a Professional
-            </span>
-          </div>
+          <p className="back-link">
+            Looking for regular account?{' '}
+            <span onClick={() => navigate('/signup')}>Sign up as Traveler</span>
+          </p>
         </div>
       </div>
-
-      <ProfileCompletionPopup 
-        showPopup={showPopup} 
-        onClose={handleClosePopup} 
-      />
     </div>
   );
 }
 
-export default SignupPage;
+export default ProfessionalSignupPage;

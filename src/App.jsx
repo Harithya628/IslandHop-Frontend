@@ -5,6 +5,7 @@ import { auth } from './firebase';
 import LandingPage from './pages/LandingPage'
 import LoginPage from './components/LoginPage'
 import SignupPage from './pages/SignupPage'
+import ProfessionalSignupPage from './pages/ProfessionalSignupPage'
 import DashboardLayout from './components/DashboardLayout'
 import './App.css'
 
@@ -60,6 +61,11 @@ function App() {
       <Route path="/signup" element={
         <PublicRoute>
           <SignupPage />
+        </PublicRoute>
+      } />
+      <Route path="/signup/professional" element={
+        <PublicRoute>
+          <ProfessionalSignupPage />
         </PublicRoute>
       } />
       <Route path="/dashboard/*" element={
