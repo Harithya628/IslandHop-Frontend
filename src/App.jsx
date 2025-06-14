@@ -2,9 +2,9 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
-import LandingPage from './components/LandingPage'
+import LandingPage from './pages/LandingPage'
 import LoginPage from './components/LoginPage'
-import SignupPage from './components/SignupPage'
+import SignupPage from './pages/SignupPage'
 import DashboardLayout from './components/DashboardLayout'
 import './App.css'
 

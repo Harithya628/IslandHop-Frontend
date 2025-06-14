@@ -1,0 +1,359 @@
+.plan-trip-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+.plan-trip-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.plan-trip-header h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+.plan-trip-header p {
+  font-size: 1.1rem;
+  color: #666666;
+  margin: 0;
+}
+
+.trip-planning-form {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.form-section {
+  margin-bottom: 3rem;
+}
+
+.form-section:last-child {
+  margin-bottom: 0;
+}
+
+.form-section h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #000000;
+  margin-bottom: 1.5rem;
+}
+
+/* Trip Type Cards */
+.trip-type-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.trip-type-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.trip-type-card:hover {
+  border-color: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.trip-type-card.selected {
+  border-color: #000000;
+  background: #f8f8f8;
+}
+
+.trip-type-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.trip-type-label {
+  font-weight: 500;
+  text-align: center;
+  color: #000000;
+}
+
+/* Destination and Dates Row */
+.destination-dates-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: #000000;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.form-select,
+.form-input {
+  padding: 0.75rem;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: 'Roboto', sans-serif;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.form-select:focus,
+.form-input:focus {
+  outline: none;
+  border-color: #333333;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Budget Cards */
+.budget-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.budget-card {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.budget-card:hover {
+  border-color: #000000;
+  transform: translateY(-1px);
+}
+
+.budget-card.selected {
+  border-color: #000000;
+  background: #f8f8f8;
+}
+
+.budget-icon {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}
+
+.budget-label {
+  font-weight: 500;
+  color: #000000;
+}
+
+/* Interests Tags */
+.interests-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.interest-tag {
+  padding: 0.5rem 1rem;
+  border: 1px solid #000000;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 400;
+  background: white;
+  color: #000000;
+}
+
+.interest-tag:hover {
+  background: #f0f0f0;
+}
+
+.interest-tag.selected {
+  background: #000000;
+  color: white;
+}
+
+/* Accommodation Cards */
+.accommodation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.accommodation-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.accommodation-card:hover {
+  border-color: #000000;
+  transform: translateY(-1px);
+}
+
+.accommodation-card.selected {
+  border-color: #000000;
+  background: #f8f8f8;
+}
+
+.accommodation-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.accommodation-label {
+  font-weight: 500;
+  text-align: center;
+  color: #000000;
+  font-size: 0.9rem;
+}
+
+/* Transportation Cards */
+.transportation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.transportation-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.transportation-card:hover {
+  border-color: #000000;
+  transform: translateY(-1px);
+}
+
+.transportation-card.selected {
+  border-color: #000000;
+  background: #f8f8f8;
+}
+
+.transportation-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.transportation-label {
+  font-weight: 500;
+  text-align: center;
+  color: #000000;
+  font-size: 0.9rem;
+}
+
+/* Submit Button */
+.plan-trip-btn {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: #000000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.plan-trip-btn:hover:not(:disabled) {
+  background: #333333;
+  transform: translateY(-1px);
+}
+
+.plan-trip-btn:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.form-note {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #666666;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .plan-trip-container {
+    padding: 1rem;
+  }
+  
+  .plan-trip-header h1 {
+    font-size: 2rem;
+  }
+  
+  .trip-planning-form {
+    padding: 1.5rem;
+  }
+  
+  .destination-dates-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .trip-type-grid,
+  .budget-grid,
+  .accommodation-grid,
+  .transportation-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .interests-grid {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .plan-trip-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .trip-planning-form {
+    padding: 1rem;
+  }
+  
+  .form-section {
+    margin-bottom: 2rem;
+  }
+  
+  .accommodation-grid,
+  .transportation-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

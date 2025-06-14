@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
-import Navbar from './Navbar';
-import ReadyForYourNextAdventure from './ReadyForYourNextAdventure';
-import ExperienceText from './ExperienceText';
+import Navbar from '../components/Navbar';
+import ReadyForYourNextAdventure from '../components/ReadyForYourNextAdventure';
+import ExperienceText from '../components/ExperienceText';
 import sriLankaVideo from '../assets/sri-lanka-video.mp4';
 import './LandingPage.css';
 
