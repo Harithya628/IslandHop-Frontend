@@ -6,6 +6,7 @@ import sriLankaVideo from '../assets/sri-lanka-video.mp4';
 import islandHopLogo from '../assets/IslandHopWhite.png';
 import islandHopIcon from '../assets/islandHopIcon.png';
 import './ProfessionalSignupPage.css';
+import api from '../api/axios';
 
 function ProfessionalSignupPage() {
   const [email, setEmail] = useState('');
@@ -25,12 +26,21 @@ function ProfessionalSignupPage() {
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      // You can store the role in the user's profile or database here
+      const idToken = await userCredential.user.getIdToken();console.log('Professional role:', role);
+      
+      const res = await api.post('/session-register', {
+        idToken,
+        role: role,
+      });
       console.log('Professional role:', role);
       console.log('User created:', userCredential.user);
-      navigate('/dashboard');
-    } catch (error) {
-      setError(error.message);
+      if (res.status === 200) {
+        navigate('/dashboard');
+      } else {
+        setError('Registration failed on server');
+      }
+    } catch (err) {
+      setError(err.message || 'Registration error');
     }
   };
 
@@ -43,12 +53,22 @@ function ProfessionalSignupPage() {
     const provider = new GoogleAuthProvider();
     try {
       const userCredential = await signInWithPopup(auth, provider);
+      const idToken = await result.user.getIdToken();
+
+      const res = await api.post('/session-register', {
+        idToken,
+        role: role,
+      });
       // You can store the role in the user's profile or database here
       console.log('Professional role:', role);
       console.log('User created:', userCredential.user);
-      navigate('/dashboard');
-    } catch (error) {
-      setError(error.message);
+      if (res.status === 200) {
+        navigate('/dashboard');
+      } else {
+        setError('Google registration failed on server');
+      }
+    } catch (err) {
+      setError(err.message || 'Google sign-up error');
     }
   };
 

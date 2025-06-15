@@ -7,6 +7,7 @@ import islandHopLogo from '../assets/IslandHopWhite.png';
 import islandHopIcon from '../assets/islandHopIcon.png';
 import ProfileCompletionPopup from '../components/ProfileCompletionPopup';
 import './SignupPage.css';
+import api from '../api/axios';
 
 function SignupPage() {
   const [email, setEmail] = useState('');
@@ -19,20 +20,42 @@ function SignupPage() {
   const handleEmailSignup = async (e) => {
     e.preventDefault();
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      navigate('/dashboard');
-    } catch (error) {
-      setError(error.message);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const idToken = await userCredential.user.getIdToken();
+
+      // Send ID token and role to backend to start session
+      const res = await api.post('/session-register', {
+        idToken,
+        role: 'tourist',
+      });
+
+      if (res.status === 200) {
+        navigate('/dashboard');
+      } else {
+        setError('Registration failed on server');
+      }
+    } catch (err) {
+      setError(err.message || 'Registration error');
     }
   };
 
   const handleGoogleSignup = async () => {
-    const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
-      navigate('/dashboard');
-    } catch (error) {
-      setError(error.message);
+      const result = await signInWithPopup(auth, provider);
+      const idToken = await result.user.getIdToken();
+
+      const res = await api.post('/session-register', {
+        idToken,
+        role: 'tourist',
+      });
+
+      if (res.status === 200) {
+        navigate('/dashboard');
+      } else {
+        setError('Google registration failed on server');
+      }
+    } catch (err) {
+      setError(err.message || 'Google sign-up error');
     }
   };
 
