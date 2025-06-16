@@ -22,6 +22,8 @@ function SignupPage() {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const idToken = await userCredential.user.getIdToken();
+      console.log('User created:', userCredential.user);
+      console.log('ID Token:', idToken);
 
       // Send ID token and role to backend to start session
       const res = await api.post('/session-register', {
@@ -43,6 +45,7 @@ function SignupPage() {
     try {
       const result = await signInWithPopup(auth, provider);
       const idToken = await result.user.getIdToken();
+
 
       const res = await api.post('/session-register', {
         idToken,
