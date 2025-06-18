@@ -373,11 +373,229 @@
   background: rgba(220, 53, 69, 0.1);
 }
 
+/* Mobile hamburger menu styles */
+.mobileMenuToggle {
+  display: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.mobileMenuToggle:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.hamburger {
+  width: 24px;
+  height: 18px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hamburger span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: #000;
+  border-radius: 1px;
+  transition: all 0.3s ease;
+}
+
+.hamburger.open span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Mobile menu overlay */
+.mobileMenuOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  display: none;
+  backdrop-filter: blur(5px);
+}
+
+.mobileMenu {
+  position: absolute;
+  top: 70px;
+  right: 0;
+  width: 100%;
+  max-width: 320px;
+  background: white;
+  border-radius: 0 0 0 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  padding: 0;
+  overflow-y: auto;
+  max-height: calc(100vh - 70px);
+}
+
+.mobileMenuHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: #f8f9fa;
+}
+
+.mobileMenuHeader h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  color: #666;
+}
+
+.closeButton:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: #000;
+}
+
+.mobileNavItems {
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mobileNavItem {
+  padding: 16px 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.mobileNavItem:last-child {
+  border-bottom: none;
+}
+
+.mobileNavItem:hover {
+  color: #666;
+  padding-left: 8px;
+}
+
+.mobileNavItem.active {
+  color: #000;
+  font-weight: 600;
+}
+
+.mobileUtilityButtons {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mobileAuthButtons {
+  padding: 20px 24px;
+}
+
+.mobileLoginBtn {
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  border: 1px solid #000;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.mobileLoginBtn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.mobileSignUpBtn {
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  background: #000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.mobileSignUpBtn:hover {
+  background: #333;
+}
+
+.mobileProfileSection {
+  padding: 0;
+}
+
+.mobileProfileInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+.mobileProfileInfo .profileAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+}
+
+.mobileProfileActions {
+  padding: 0;
+}
+
+.mobileProfileActions .mobileNavItem.logoutBtn {
+  color: #dc3545;
+}
+
+.mobileProfileActions .mobileNavItem.logoutBtn:hover {
+  background: rgba(220, 53, 69, 0.1);
+  padding-left: 8px;
+}
+
+/* Prevent body scroll when mobile menu is open */
+body.mobile-menu-open {
+  overflow: hidden;
+}
+
 /* Mobile responsive styles */
 @media (max-width: 768px) {
   .rectangleParent {
     height: 60px;
-    padding: 0 20px;
+    padding: 0 16px;
   }
   
   .navbarContainer {
@@ -387,7 +605,7 @@
   
   .logo {
     gap: 8px;
-    padding: 6px 12px;
+    padding: 6px 0;
   }
   
   .logoIcon {
@@ -403,63 +621,92 @@
   }
   
   .rightSection {
-    gap: 12px;
+    gap: 8px;
+  }
+
+  /* Show mobile menu toggle */
+  .mobileMenuToggle {
+    display: block;
+    order: 3;
+  }
+
+  /* Show mobile menu overlay */
+  .mobileMenuOverlay {
+    display: block;
+  }
+
+  /* Hide desktop search on very small screens */
+  .searchContainer {
+    display: none;
   }
   
-  .searchInput {
-    width: 100px;
-    font-size: 12px;
-  }
-  
-  .searchBox {
-    padding: 5px 10px;
+  .utilityButtons {
+    display: none;
   }
   
   .authButtons {
-    gap: 8px;
+    display: none;
+  }
+}
+
+@media (max-width: 992px) and (min-width: 769px) {
+  /* Tablet styles */
+  .centerSection {
+    margin-left: 20px;
+    margin-right: 20px;
   }
   
-  .loginBtn {
-    padding: 6px 12px;
+  .navItems {
+    gap: 16px;
+  }
+  
+  .navItem {
     font-size: 13px;
   }
   
-  .signUpBtn {
-    padding: 6px 12px;
-    font-size: 13px;
+  .searchInput {
+    width: 200px;
+  }
+  
+  .utilityButtons {
+    gap: 12px;
+    margin-right: 16px;
   }
 }
 
 @media (max-width: 480px) {
-  .navItems {
-    display: none;
+  .rectangleParent {
+    padding: 0 12px;
   }
   
-  .searchInput {
-    width: 120px;
-    font-size: 12px;
+  .logo {
+    gap: 6px;
   }
   
-  .searchBox {
-    padding: 5px 10px;
-  }
-  
-  .signIn {
-    padding: 6px 12px;
-    font-size: 12px;
-  }
-  
-  .loginBtn {
-    padding: 4px 8px;
-    font-size: 12px;
-  }
-  
-  .signUpBtn {
-    padding: 6px 12px;
-    font-size: 12px;
+  .logoIcon {
+    height: 20px;
   }
   
   .logoText {
     height: 16px;
+  }
+
+  .mobileMenu {
+    width: 100%;
+    border-radius: 0;
+    top: 60px;
+  }
+  
+  .mobileNavItems,
+  .mobileUtilityButtons,
+  .mobileAuthButtons {
+    padding: 0 20px;
+  }
+}
+
+/* Additional mobile menu enhancements */
+@media (max-width: 1024px) {
+  .searchInput {
+    width: 180px;
   }
 }
