@@ -17,6 +17,9 @@ function SignupPage() {
   const [showPopup, setShowPopup] = useState(true);
   const navigate = useNavigate();
 
+  // Add GoogleAuthProvider instance
+  const provider = new GoogleAuthProvider();
+
   const handleEmailSignup = async (e) => {
     e.preventDefault();
     try {
@@ -31,6 +34,9 @@ function SignupPage() {
         role: 'tourist',
       });
 
+      // Log backend response
+      console.log('Backend response (email signup):', res);
+
       if (res.status === 200) {
         navigate('/dashboard');
       } else {
@@ -38,6 +44,7 @@ function SignupPage() {
       }
     } catch (err) {
       setError(err.message || 'Registration error');
+      console.log('Error during email signup:', err);
     }
   };
 
@@ -45,12 +52,16 @@ function SignupPage() {
     try {
       const result = await signInWithPopup(auth, provider);
       const idToken = await result.user.getIdToken();
-
+      console.log('Google user:', result.user);
+      console.log('Google ID Token:', idToken);
 
       const res = await api.post('/session-register', {
         idToken,
         role: 'tourist',
       });
+
+      // Log backend response
+      console.log('Backend response (Google signup):', res);
 
       if (res.status === 200) {
         navigate('/dashboard');
@@ -59,6 +70,7 @@ function SignupPage() {
       }
     } catch (err) {
       setError(err.message || 'Google sign-up error');
+      console.log('Error during Google signup:', err);
     }
   };
 
