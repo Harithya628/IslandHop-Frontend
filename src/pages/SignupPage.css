@@ -159,7 +159,7 @@
   font-weight: 600; /* Semi-bold for buttons */
   font-family: 'Roboto', sans-serif;
   cursor: pointer;
-  margin-bottom: 1rem;
+  margin-bottom: 0.25rem;
   transition: all 0.3s ease;
   box-sizing: border-box;
 }
@@ -198,30 +198,17 @@
 }
 
 .divider {
-  text-align: center;
-  margin: 1.5rem 0;
-  color: #000000;
-  position: relative;
-  font-size: 0.9rem;
-  font-weight: 300;
+  display: none;
 }
 
 .divider::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background-color: #000000;
-  z-index: 1;
+  display: none;
 }
 
 .divider span {
-  background-color: white;
-  padding: 0 1rem;
-  position: relative;
-  z-index: 2;
+  background-color: transparent;
+  padding: 0;
+  color: #666666;
 }
 
 .error-message {
@@ -1067,4 +1054,22 @@
     align-self: flex-end;
     font-size: 0.85rem;
   }
+}
+
+/* Keep 'or' text but hide horizontal lines in regular signup */
+.divider::before {
+  display: none !important;
+}
+
+.divider span {
+  background-color: transparent !important;
+  padding: 0 !important;
+  color: #666666 !important;
+  display: inline !important;
+}
+
+.divider {
+  display: block !important;
+  text-align: center !important;
+  color: #666666 !important;
 }

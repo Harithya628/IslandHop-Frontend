@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import sriLankaVideo from '../assets/sri-lanka-video.mp4';
 import islandHopLogo from '../assets/IslandHopWhite.png';
 import islandHopIcon from '../assets/islandHopIcon.png';
+import steeringWheelIcon from '../assets/steering-wheel-black.svg';
+import steeringWheelBlueIcon from '../assets/steering-wheel-blue.svg';
 import './ProfessionalSignupPage.css';
 
 function ProfessionalSignupPage() {
@@ -104,7 +106,10 @@ function ProfessionalSignupPage() {
                   onChange={(e) => setRole(e.target.value)}
                 />
                 <div className="role-content">
-                  <div className="role-icon">🚗</div>
+                  <div className="role-icon">
+                    <img src={steeringWheelIcon} alt="Steering Wheel" className="role-icon-image role-icon-black" />
+                    <img src={steeringWheelBlueIcon} alt="Steering Wheel" className="role-icon-image role-icon-blue" />
+                  </div>
                   <div className="role-info">
                     <h4>Driver</h4>
                     <p>Provide transportation services to travelers</p>
@@ -120,7 +125,12 @@ function ProfessionalSignupPage() {
                   onChange={(e) => setRole(e.target.value)}
                 />
                 <div className="role-content">
-                  <div className="role-icon">🗺️</div>
+                  <div className="role-icon">
+                    <div className="compass">
+                      <div className="compass-body"></div>
+                      <div className="compass-needle"></div>
+                    </div>
+                  </div>
                   <div className="role-info">
                     <h4>Tour Guide</h4>
                     <p>Share your local knowledge and expertise</p>

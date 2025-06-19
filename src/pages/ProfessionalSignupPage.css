@@ -15,9 +15,9 @@
 .professional-signup-container .signup-box {
   width: 100%;
   max-width: 100%;
-  height: auto;
-  max-height: calc(100vh - 4rem);
-  padding: 3rem;
+  height: calc(100vh - 3rem);
+  max-height: calc(100vh - 3rem);
+  padding: 2.5rem;
   border-radius: 16px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
   background: white;
@@ -41,12 +41,12 @@
 
 /* Role Selection Styles */
 .role-selection {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .role-selection h3 {
   font-size: 1.1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   color: #333333;
   font-weight: 500;
   text-align: center;
@@ -54,28 +54,38 @@
 
 .role-options {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  flex-direction: row;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 400px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .role-option {
-  display: block;
+  display: block !important;
   cursor: pointer;
-  border: 2px solid #e0e0e0;
+  border: 1px solid #000000;
   border-radius: 12px;
-  padding: 1rem;
+  padding: 1.5rem;
   transition: all 0.3s ease;
   background-color: #ffffff;
+  min-height: 100px;
+  width: 190px !important;
+  flex: none !important;
 }
 
 .role-option:hover {
-  border-color: #000000;
-  background-color: #f8f9fa;
+  border-color: #1FA9FF;
+  background-color: #f8fbff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(31, 169, 255, 0.2);
 }
 
 .role-option.selected {
-  border-color: #000000;
-  background-color: #f0f0f0;
+  border-color: #1FA9FF;
+  background-color: #f8fbff;
 }
 
 .role-option input[type="radio"] {
@@ -84,24 +94,99 @@
 
 .role-content {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
   gap: 1rem;
 }
 
 .role-icon {
-  font-size: 2rem;
-  width: 60px;
-  height: 60px;
+  font-size: 2.5rem;
+  width: 70px;
+  height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f5f5f5;
-  border-radius: 50%;
+  background-color: transparent;
+  border-radius: 0;
   flex-shrink: 0;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.role-icon-image {
+  width: 70px !important;
+  height: 70px !important;
+  object-fit: contain;
+  position: absolute;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.role-icon-black {
+  opacity: 1;
+}
+
+.role-icon-blue {
+  opacity: 0;
+}
+
+/* Steering wheel oscillation animation */
+@keyframes steer {
+  0% { transform: scale(1.1) rotate(-15deg); }
+  50% { transform: scale(1.1) rotate(15deg); }
+  100% { transform: scale(1.1) rotate(-15deg); }
+}
+
+/* Show blue icon on hover for driver role */
+.role-option:hover .role-icon-black {
+  opacity: 0;
+  animation: steer 1.2s ease-in-out infinite;
+}
+
+.role-option:hover .role-icon-blue {
+  opacity: 1;
+  animation: steer 1.2s ease-in-out infinite;
+}
+
+/* Make all text turn blue on hover with smooth transition */
+.role-option:hover .role-info h4 {
+  color: #1FA9FF;
+}
+
+.role-option:hover .role-info p {
+  color: #1FA9FF;
 }
 
 .role-option.selected .role-icon {
-  background-color: #000000;
+  background-color: #f8fbff;
+  border-radius: 50%;
+}
+
+/* Make steering wheel blue when selected */
+.role-option.selected .role-icon-black {
+  opacity: 0;
+}
+
+.role-option.selected .role-icon-blue {
+  opacity: 1;
+}
+
+/* Make compass blue when selected */
+.role-option.selected .compass-body {
+  border-color: #1FA9FF;
+}
+
+.role-option.selected .compass-needle::before {
+  border-bottom-color: #1FA9FF;
+}
+
+.role-option.selected .compass-needle::after {
+  border-top-color: #1FA9FF;
 }
 
 .role-info {
@@ -113,31 +198,45 @@
   font-size: 1.1rem;
   color: #333333;
   font-weight: 500;
+  transition: color 0.3s ease;
 }
 
 .role-info p {
   margin: 0;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #666666;
-  line-height: 1.4;
+  line-height: 1.3;
+  transition: color 0.3s ease;
+  max-width: 120px;
+  word-wrap: break-word;
 }
 
 .role-option.selected .role-info h4 {
-  color: #000000;
+  color: #1FA9FF;
 }
 
 .role-option.selected .role-info p {
-  color: #333333;
+  color: #1FA9FF;
 }
 
 /* Override button text for professional signup */
 .professional-signup-container .signup-button {
   background: #000000;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 0.25rem auto;
+  display: block;
 }
 
 .professional-signup-container .signup-button:hover {
   background: #333333;
   transform: translateY(-1px);
+}
+
+.professional-signup-container .google-button {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 0.25rem auto;
 }
 
 /* Back link styles */
@@ -179,8 +278,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 1.5rem 0;
+  margin: 1.5rem auto;
   padding: 0.5rem 0;
+  width: 100%;
+  max-width: 400px;
 }
 
 /* Enhanced remember me styling */
@@ -297,7 +398,7 @@
 .professional-signup-container .video-container {
   position: relative;
   width: 100%;
-  height: calc(100vh - 4rem);
+  height: calc(100vh - 3rem);
   border-radius: 16px;
   overflow: hidden;
 }
@@ -340,6 +441,173 @@
   max-height: 100vh;
 }
 
+/* Ensure form fields match traveler signup width */
+.professional-signup-container .input-group input {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.professional-signup-container .google-button {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 1rem auto;
+}
+
+/* Center form elements within the card */
+.professional-signup-container .input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Center form options (remember me and forgot password) */
+.professional-signup-container .form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1.5rem auto;
+  padding: 0.5rem 0;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Center role selection - match width with other form elements */
+.professional-signup-container .role-selection {
+  margin-bottom: 2rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.professional-signup-container .role-selection h3 {
+  text-align: center;
+}
+
+.professional-signup-container .role-options {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  max-width: 400px;
+  margin: 0 auto;
+  width: 100%;
+  justify-content: space-between;
+}
+
+/* Center other form elements */
+.professional-signup-container .signup-box h2,
+.professional-signup-container .subtitle,
+.professional-signup-container .back-link {
+  text-align: center;
+}
+
+/* Keep 'or' text but hide horizontal lines */
+.professional-signup-container .divider {
+  text-align: center !important;
+  margin: 1.5rem auto !important;
+  max-width: 400px !important;
+  color: #666666 !important;
+  font-size: 0.9rem !important;
+  display: block !important;
+}
+
+.professional-signup-container .divider::before {
+  display: none !important;
+}
+
+.professional-signup-container .divider span {
+  background-color: transparent !important;
+  padding: 0 !important;
+  color: #666666 !important;
+  display: inline !important;
+}
+
+/* Compass styles */
+.compass {
+  width: 75px;
+  height: 75px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.compass-body {
+  width: 65px;
+  height: 65px;
+  border: 3px solid #333333;
+  border-radius: 50%;
+  background: white;
+  position: relative;
+  transition: border-color 0.3s ease;
+}
+
+.compass-needle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform-origin: center center;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+}
+
+.compass-needle::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: -4px;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 15px solid #333333;
+  transition: border-bottom-color 0.3s ease;
+}
+
+.compass-needle::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -4px;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 15px solid #333333;
+  transition: border-top-color 0.3s ease;
+}
+
+/* Compass needle oscillation animation */
+@keyframes compassSway {
+  0% { transform: translate(-50%, -50%) rotate(-20deg); }
+  50% { transform: translate(-50%, -50%) rotate(20deg); }
+  100% { transform: translate(-50%, -50%) rotate(-20deg); }
+}
+
+/* Guide button hover effects */
+.role-option:hover .compass-body {
+  border-color: #1FA9FF;
+}
+
+.role-option:hover .compass {
+  transform: scale(1.1);
+}
+
+.role-option:hover .compass-needle {
+  animation: compassSway 1.2s ease-in-out infinite;
+}
+
+.role-option:hover .compass-needle::before {
+  border-bottom-color: #1FA9FF;
+}
+
+.role-option:hover .compass-needle::after {
+  border-top-color: #1FA9FF;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .professional-signup-container {
@@ -376,6 +644,15 @@
     width: 50px;
     height: 50px;
     font-size: 1.5rem;
+  }
+  
+  /* Stack role options vertically on mobile */
+  .role-options {
+    flex-direction: column;
+  }
+  
+  .role-option {
+    flex: none;
   }
   
   .professional-signup-container .form-options {
