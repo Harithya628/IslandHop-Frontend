@@ -3,7 +3,7 @@ import { auth } from '../firebase';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import sriLankaVideo from '../assets/sri-lanka-video.mp4';
-import islandHopLogo from '../assets/IslandHopWhite.png';
+import islandHopLogo from '../assets/IslandHop.png';
 import islandHopIcon from '../assets/islandHopIcon.png';
 import ProfileCompletionPopup from '../components/ProfileCompletionPopup';
 import './SignupPage.css';
@@ -46,6 +46,12 @@ function SignupPage() {
 
   return (
     <div className="signup-container">
+      {/* Top left logo */}
+      <div className="top-logo" onClick={handleLogoClick}>
+        <img src={islandHopIcon} alt="IslandHop Icon" className="logo-icon" />
+        <img src={islandHopLogo} alt="IslandHop" className="logo-image" />
+      </div>
+
       {/* Left side - Video area */}
       <div className="video-section">
         <div className="video-container">
@@ -59,10 +65,6 @@ function SignupPage() {
             <source src={sriLankaVideo} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-          <div className="video-logo" onClick={handleLogoClick}>
-            <img src={islandHopIcon} alt="IslandHop Icon" className="logo-icon" />
-            <img src={islandHopLogo} alt="IslandHop" className="logo-image" />
-          </div>
           <div className="video-overlay">
             <div className="video-content">
               <h3>Welcome<br />to IslandHop</h3>
@@ -133,6 +135,7 @@ function SignupPage() {
           </p>
           
           <div className="professional-signup">
+            Looking to earn with IslandHop?{' '}
             <span 
               className="professional-link" 
               onClick={() => navigate('/signup/professional')}

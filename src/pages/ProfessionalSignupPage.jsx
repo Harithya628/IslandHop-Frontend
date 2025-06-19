@@ -3,7 +3,7 @@ import { auth } from '../firebase';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import sriLankaVideo from '../assets/sri-lanka-video.mp4';
-import islandHopLogo from '../assets/IslandHopWhite.png';
+import islandHopLogo from '../assets/IslandHop.png';
 import islandHopIcon from '../assets/islandHopIcon.png';
 import steeringWheelIcon from '../assets/steering-wheel-black.svg';
 import steeringWheelBlueIcon from '../assets/steering-wheel-blue.svg';
@@ -60,6 +60,12 @@ function ProfessionalSignupPage() {
 
   return (
     <div className="professional-signup-container">
+      {/* Top left logo */}
+      <div className="top-logo" onClick={handleLogoClick}>
+        <img src={islandHopIcon} alt="IslandHop Icon" className="logo-icon" />
+        <img src={islandHopLogo} alt="IslandHop" className="logo-image" />
+      </div>
+
       {/* Left side - Video area */}
       <div className="video-section">
         <div className="video-container">
@@ -73,10 +79,6 @@ function ProfessionalSignupPage() {
             <source src={sriLankaVideo} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-          <div className="video-logo" onClick={handleLogoClick}>
-            <img src={islandHopIcon} alt="IslandHop Icon" className="logo-icon" />
-            <img src={islandHopLogo} alt="IslandHop" className="logo-image" />
-          </div>
           <div className="video-overlay">
             <div className="video-content">
               <h3>Join Our Professional Network</h3>
@@ -198,10 +200,10 @@ function ProfessionalSignupPage() {
             <span onClick={() => navigate('/login')}>Login</span>
           </p>
           
-          <p className="back-link">
+          <div className="back-link">
             Looking for regular account?{' '}
             <span onClick={() => navigate('/signup')}>Sign up as Traveler</span>
-          </p>
+          </div>
         </div>
       </div>
     </div>
