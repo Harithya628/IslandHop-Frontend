@@ -65,7 +65,7 @@ function SignupPage() {
           </div>
           <div className="video-overlay">
             <div className="video-content">
-              <h3>Welcome to IslandHop</h3>
+              <h3>Welcome<br />to IslandHop</h3>
               <p>Discover the beauty of Sri Lanka with our curated travel experiences</p>
             </div>
           </div>

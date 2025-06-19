@@ -8,12 +8,23 @@
   height: 100vh;
   overflow: hidden;
   font-family: 'Roboto';
+  background-color: #f8f9fa;
 }
 
 /* Override the signup-box styles for professional signup */
 .professional-signup-container .signup-box {
-  max-width: 450px;
-  padding: 2.5rem;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: calc(100vh - 4rem);
+  padding: 3rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: auto;
 }
 
 .professional-signup-container .signup-box h2 {
@@ -275,26 +286,20 @@
   flex: 1;
   position: relative;
   overflow: hidden;
-  padding: 1.5rem;
+  padding: 1.5rem 0.75rem 1.5rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #f8f9fa;
+  margin-right: 0;
 }
 
 .professional-signup-container .video-container {
   position: relative;
   width: 100%;
-  height: calc(100vh - 3rem);
+  height: calc(100vh - 4rem);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.professional-signup-container .video-container:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
 }
 
 .professional-signup-container .signup-video {
@@ -326,11 +331,11 @@
 /* Override form section for professional signup */
 .professional-signup-container .form-section {
   flex: 1;
-  background: #f8f9fa;
+  background-color: #f8f9fa;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 1.5rem 1.5rem 1.5rem 0.75rem;
   overflow-y: auto;
   max-height: 100vh;
 }
@@ -346,15 +351,21 @@
   }
   
   .professional-signup-container .form-section {
-    padding: 1rem;
+    padding: 1.5rem;
+    align-items: center;
+    justify-content: center;
   }
   
   .professional-signup-container .signup-box {
-    max-width: 100%;
-    padding: 1.5rem;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    max-height: none;
+    padding: 2rem;
     margin: 0;
-    box-shadow: none;
-    border-radius: 0;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+    border-radius: 12px;
+    background: white;
   }
   
   .role-content {
@@ -386,6 +397,16 @@
 }
 
 @media (max-width: 480px) {
+  .professional-signup-container .form-section {
+    padding: 1rem;
+  }
+  
+  .professional-signup-container .signup-box {
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03);
+  }
+  
   .professional-signup-container .form-options {
     gap: 0.75rem;
     margin: 1rem 0;
@@ -435,12 +456,6 @@
   .professional-signup-container .video-container {
     height: 35vh;
     border-radius: 12px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-  }
-  
-  .professional-signup-container .video-container:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   }
   
   .professional-signup-container .signup-video {
@@ -461,12 +476,6 @@
   .professional-signup-container .video-container {
     height: 30vh;
     border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  }
-  
-  .professional-signup-container .video-container:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
   }
   
   .professional-signup-container .signup-video {

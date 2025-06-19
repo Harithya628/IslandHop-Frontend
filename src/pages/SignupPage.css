@@ -4,7 +4,8 @@
   max-height: 100vh;
   height: 100vh;
   overflow: hidden;
-  font-family: 'Roboto',
+  font-family: 'Roboto';
+  background-color: #f8f9fa;
 }
 
 /* Left side - Video section */
@@ -12,26 +13,19 @@
   flex: 1;
   position: relative;
   overflow: hidden;
-  padding: 1.5rem;
+  padding: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f8f9fa;
+  background-color: #f8f9fa !important;
 }
 
 .video-container {
   position: relative;
   width: 100%;
-  height: calc(100vh - 3rem);
+  height: calc(100vh - 4rem);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.video-container:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
 }
 
 .signup-video {
@@ -55,7 +49,7 @@
   );
   display: flex;
   align-items: flex-end;
-  justify-content: center;
+  justify-content: flex-end;
   padding: 3rem;
   border-radius: 16px;
 }
@@ -82,16 +76,18 @@
 }
 
 .video-content {
-  text-align: center;
+  text-align: right;
   color: white;
   z-index: 1;
 }
 
 .video-content h3 {
-  font-size: 1.8rem;
+  font-size: 4rem;
   margin-bottom: 0.5rem;
   font-weight: 700;
+  font-family: 'Outfit', sans-serif;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  line-height: 1.1;
 }
 
 .video-content p {
@@ -104,7 +100,7 @@
 /* Right side - Form section */
 .form-section {
   flex: 1;
-  background: #f8f9fa;
+  background-color: #f8f9fa !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -482,7 +478,7 @@
 
 .popup-skip-btn:hover {
   color: #000000;
-  background: #f8f9fa;
+  background-color: #f8f9fa;
 }
 
 /* Searchable Nationality Dropdown */
@@ -858,7 +854,8 @@
 
   .video-section {
     min-height: 40vh;
-    padding: 1.25rem;
+    padding: 2rem;
+    background-color: #f8f9fa;
   }
   
   .video-container {
@@ -877,24 +874,21 @@
 
   .form-section {
     min-height: 60vh;
+    padding: 2rem;
+    background-color: #f8f9fa;
   }
 }
 
 @media (max-width: 768px) {
   .video-section {
     min-height: 35vh;
-    padding: 1rem;
+    padding: 1.5rem;
+    background-color: #f8f9fa;
   }
   
   .video-container {
     height: 35vh;
     border-radius: 12px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-  }
-  
-  .video-container:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   }
   
   .signup-video {
@@ -921,11 +915,18 @@
   }
 
   .video-content h3 {
-    font-size: 1.5rem;
+    font-size: 3rem;
+    font-family: 'Outfit', sans-serif;
+    line-height: 1.1;
   }
 
   .video-content p {
     font-size: 0.9rem;
+  }
+
+  .form-section {
+    padding: 1.5rem;
+    background-color: #f8f9fa;
   }
 
   .signup-box {
@@ -962,22 +963,18 @@
 @media (max-width: 480px) {
   .signup-container {
     padding: 0;
+    background-color: #f8f9fa;
   }
 
   .video-section {
     min-height: 30vh;
-    padding: 0.75rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
   }
   
   .video-container {
     height: 30vh;
     border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  }
-  
-  .video-container:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
   }
   
   .signup-video {
@@ -1004,12 +1001,19 @@
   }
 
   .video-content h3 {
-    font-size: 1.3rem;
+    font-size: 2.5rem;
     margin-bottom: 0.3rem;
+    font-family: 'Outfit', sans-serif;
+    line-height: 1.1;
   }
 
   .video-content p {
     font-size: 0.8rem;
+  }
+
+  .form-section {
+    padding: 1rem;
+    background-color: #f8f9fa;
   }
   
   .signup-box {
