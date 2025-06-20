@@ -21,7 +21,6 @@
   gap: 0.75rem;
   cursor: pointer;
   z-index: 20;
-  transition: opacity 0.3s ease;
 }
 
 .login-container .top-logo:hover {
@@ -58,6 +57,7 @@
   overflow-y: auto;
   max-height: 100vh;
   order: 1 !important;
+  position: relative;
 }
 
 .login-box {
@@ -389,6 +389,19 @@
   text-align: right !important;
 }
 
+/* Intermediate breakpoint to smooth logo transition */
+@media (max-width: 1200px) {
+  .login-container .top-logo {
+    left: 2rem;
+  }
+}
+
+@media (max-width: 1100px) {
+  .login-container .top-logo {
+    left: 1rem;
+  }
+}
+
 /* Hide video at tablet/small laptop sizes to prevent jumping */
 @media (max-width: 1024px) {
   .login-container .video-section {
@@ -398,11 +411,15 @@
   .login-container .form-section {
     width: 100% !important;
     flex: 1 !important;
+    padding-top: 5rem;
   }
 
   .login-container .top-logo {
     left: 50% !important;
     transform: translateX(-50%) !important;
+    transition: none !important;
+    position: fixed !important;
+    top: 8.5rem !important;
   }
 
   /* Show black logo, hide white logo */
@@ -430,7 +447,7 @@
 
   .login-container .top-logo {
     position: absolute;
-    top: 2rem;
+    top: 8.5rem;
     left: 50% !important;
     transform: translateX(-50%) !important;
     z-index: 20;
@@ -451,11 +468,7 @@
     box-shadow: none;
     border-radius: 0;
     background: transparent;
-    margin-top: 6rem;
-  }
-
-  .login-box h2 {
-    font-size: 1.6rem;
+    margin-top: 2rem;
   }
 }
 
