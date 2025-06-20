@@ -7,6 +7,7 @@ import islandHopLogo from '../assets/IslandHop.png';
 import islandHopLogoWhite from '../assets/IslandHopWhite.png';
 import islandHopIcon from '../assets/islandHopIcon.png';
 import './LoginPage.css';
+import api from '../api/axios';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -17,21 +18,43 @@ function LoginPage() {
 
   const handleEmailLogin = async (e) => {
     e.preventDefault();
+    setError('');
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate('/dashboard');
-    } catch (error) {
-      setError(error.message);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const idToken = await userCredential.user.getIdToken();
+
+      // Send ID token to backend for session login
+      const res = await api.post('/login', { idToken });
+
+      if (res.status === 200) {
+        navigate('/dashboard');
+      } else {
+        setError('Login failed on server');
+      }
+    } catch (err) {
+      setError(err.message || 'Login error');
+      console.log('Error during email login:', err);
     }
   };
 
   const handleGoogleLogin = async () => {
+    setError('');
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
-      navigate('/dashboard');
-    } catch (error) {
-      setError(error.message);
+      const result = await signInWithPopup(auth, provider);
+      const idToken = await result.user.getIdToken();
+
+      // Send ID token to backend for session login
+      const res = await api.post('/login', { idToken });
+
+      if (res.status === 200) {
+        navigate('/dashboard');
+      } else {
+        setError('Google login failed on server');
+      }
+    } catch (err) {
+      setError(err.message || 'Google login error');
+      console.log('Error during Google login:', err);
     }
   };
 
@@ -107,9 +130,13 @@ function LoginPage() {
                 />
                 <span>Remember me</span>
               </label>
-              <a href="#" className="forgot-password">
+              <span 
+                className="forgot-password"
+                onClick={() => navigate('/forgot-password')}
+                style={{ cursor: 'pointer' }}
+              >
                 Forgot password?
-              </a>
+              </span>
             </div>
             
             <button type="submit" className="login-button">
