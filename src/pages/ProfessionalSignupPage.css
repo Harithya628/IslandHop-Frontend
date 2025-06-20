@@ -711,6 +711,14 @@
   .professional-signup-container .video-section {
     display: none;
   }
+
+  .professional-signup-container .top-logo {
+    position: absolute;
+    top: 2rem;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 20;
+  }
   
   .professional-signup-container .form-section {
     padding: 1.5rem;
@@ -730,6 +738,7 @@
     box-shadow: none;
     border-radius: 0;
     background: transparent;
+    margin-top: 6rem;
   }
   
   .role-content {

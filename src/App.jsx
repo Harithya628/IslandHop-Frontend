@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 import LandingPage from './pages/LandingPage'
-import LoginPage from './components/LoginPage'
+import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import ProfessionalSignupPage from './pages/ProfessionalSignupPage'
 import DashboardLayout from './components/DashboardLayout'

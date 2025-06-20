@@ -900,15 +900,23 @@
 }
 
 @media (max-width: 768px) {
-  .video-section {
+  .signup-container .video-section {
     display: none;
   }
 
-  .form-section {
+  .signup-container .form-section {
     padding: 1.5rem;
     background-color: #ffffff;
     flex: 1;
     width: 100%;
+  }
+
+  .signup-container .top-logo {
+    position: absolute;
+    top: 2rem;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 20;
   }
 
   .signup-box {
@@ -917,6 +925,7 @@
     box-shadow: none;
     border-radius: 0;
     background: transparent;
+    margin-top: 6rem;
   }
 
   .signup-box h2 {
