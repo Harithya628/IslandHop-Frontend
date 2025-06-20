@@ -7,6 +7,7 @@ import LoginPage from './components/LoginPage'
 import SignupPage from './pages/SignupPage'
 import ProfessionalSignupPage from './pages/ProfessionalSignupPage'
 import DashboardLayout from './components/DashboardLayout'
+import Questionnaire from './pages/traveler/Trip-plan-questionnaire'
 import './App.css'
 
 // Protected route wrapper component
@@ -78,6 +79,11 @@ function App() {
           <DashboardLayout />
         </ProtectedRoute>
       } />
+      <Route path="/plan" element={
+      <PublicRoute>
+        <Questionnaire />
+      </PublicRoute>
+      }/>
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   )
