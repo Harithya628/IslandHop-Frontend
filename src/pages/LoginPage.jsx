@@ -38,6 +38,7 @@ function LoginPage() {
   };
 
   const handleGoogleLogin = async () => {
+    console.log('Google login');
     setError('');
     const provider = new GoogleAuthProvider();
     try {
@@ -48,6 +49,7 @@ function LoginPage() {
       const res = await api.post('/login', { idToken });
 
       if (res.status === 200) {
+        console.log('Google login successful:', res.data);
         navigate('/dashboard');
       } else {
         setError('Google login failed on server');
