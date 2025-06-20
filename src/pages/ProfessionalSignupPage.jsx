@@ -8,6 +8,7 @@ import islandHopIcon from '../assets/islandHopIcon.png';
 import steeringWheelIcon from '../assets/steering-wheel-black.svg';
 import steeringWheelBlueIcon from '../assets/steering-wheel-blue.svg';
 import './ProfessionalSignupPage.css';
+import api from '../api/axios'; // <-- import your axios instance
 
 function ProfessionalSignupPage() {
   const [email, setEmail] = useState('');
@@ -17,9 +18,16 @@ function ProfessionalSignupPage() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  // Helper to get endpoint based on role
+  const getEndpoint = () => {
+    if (role === 'driver') return '/driver/session-register';
+    if (role === 'guide') return '/guide/session-register';
+    return null;
+  };
+
   const handleEmailSignup = async (e) => {
     e.preventDefault();
-    
+
     if (!role) {
       setError('Please select your professional role');
       return;
@@ -27,12 +35,27 @@ function ProfessionalSignupPage() {
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      // You can store the role in the user's profile or database here
-      console.log('Professional role:', role);
-      console.log('User created:', userCredential.user);
-      navigate('/dashboard');
-    } catch (error) {
-      setError(error.message);
+      const idToken = await userCredential.user.getIdToken();
+
+      const endpoint = getEndpoint();
+      if (!endpoint) {
+        setError('Invalid role selected');
+        return;
+      }
+
+      const res = await api.post(endpoint, {
+        idToken,
+        role,
+      });
+
+      if (res.status === 200) {
+        navigate('/dashboard');
+      } else {
+        setError('Registration failed on server');
+      }
+    } catch (err) {
+      setError(err.message || 'Registration error');
+      console.log('Error during email signup:', err);
     }
   };
 
@@ -44,13 +67,28 @@ function ProfessionalSignupPage() {
 
     const provider = new GoogleAuthProvider();
     try {
-      const userCredential = await signInWithPopup(auth, provider);
-      // You can store the role in the user's profile or database here
-      console.log('Professional role:', role);
-      console.log('User created:', userCredential.user);
-      navigate('/dashboard');
-    } catch (error) {
-      setError(error.message);
+      const result = await signInWithPopup(auth, provider);
+      const idToken = await result.user.getIdToken();
+
+      const endpoint = getEndpoint();
+      if (!endpoint) {
+        setError('Invalid role selected');
+        return;
+      }
+
+      const res = await api.post(endpoint, {
+        idToken,
+        role,
+      });
+
+      if (res.status === 200) {
+        navigate('/dashboard');
+      } else {
+        setError('Google registration failed on server');
+      }
+    } catch (err) {
+      setError(err.message || 'Google sign-up error');
+      console.log('Error during Google signup:', err);
     }
   };
 
