@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import '../Page.css';
-import './UpdateUserProfile.css';
+import React, { useState, useEffect } from "react";
+import "../Page.css";
+import "./UpdateUserProfile.css";
 
 const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
   const [user, setUser] = useState(null);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    userType: '',
-    status: '',
-    phone: '',
-    address: '',
-    dateOfBirth: '',
-    emergencyContact: '',
-    licenseNumber: '',
-    vehicleInfo: '',
-    languages: '',
-    specializations: '',
-    bio: '',
-    profileComplete: false
+    name: "",
+    email: "",
+    userType: "",
+    status: "",
+    phone: "",
+    address: "",
+    dateOfBirth: "",
+    emergencyContact: "",
+    licenseNumber: "",
+    vehicleInfo: "",
+    languages: "",
+    specializations: "",
+    bio: "",
+    profileComplete: false,
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -27,25 +27,31 @@ const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
 
   useEffect(() => {
     if (userId && users.length > 0) {
-      const foundUser = users.find(u => u.id === parseInt(userId));
+      const foundUser = users.find((u) => u.id === parseInt(userId));
       if (foundUser) {
         setUser(foundUser);
         // Extend the user data with additional profile fields
         setFormData({
-          name: foundUser.name || '',
-          email: foundUser.email || '',
-          userType: foundUser.userType || '',
-          status: foundUser.status || '',
-          phone: foundUser.phone || '+94 77 123 4567',
-          address: foundUser.address || 'Colombo, Sri Lanka',
-          dateOfBirth: foundUser.dateOfBirth || '1990-01-15',
-          emergencyContact: foundUser.emergencyContact || '+94 77 987 6543',
-          licenseNumber: foundUser.licenseNumber || (foundUser.userType === 'driver' ? 'B1234567' : ''),
-          vehicleInfo: foundUser.vehicleInfo || (foundUser.userType === 'driver' ? 'Toyota Corolla 2020' : ''),
-          languages: foundUser.languages || 'English, Sinhala',
-          specializations: foundUser.specializations || (foundUser.userType === 'guide' ? 'Cultural Tours, Wildlife' : ''),
-          bio: foundUser.bio || 'Experienced and friendly service provider.',
-          profileComplete: foundUser.profileComplete || false
+          name: foundUser.name || "",
+          email: foundUser.email || "",
+          userType: foundUser.userType || "",
+          status: foundUser.status || "",
+          phone: foundUser.phone || "+94 77 123 4567",
+          address: foundUser.address || "Colombo, Sri Lanka",
+          dateOfBirth: foundUser.dateOfBirth || "1990-01-15",
+          emergencyContact: foundUser.emergencyContact || "+94 77 987 6543",
+          licenseNumber:
+            foundUser.licenseNumber ||
+            (foundUser.userType === "driver" ? "B1234567" : ""),
+          vehicleInfo:
+            foundUser.vehicleInfo ||
+            (foundUser.userType === "driver" ? "Toyota Corolla 2020" : ""),
+          languages: foundUser.languages || "English, Sinhala",
+          specializations:
+            foundUser.specializations ||
+            (foundUser.userType === "guide" ? "Cultural Tours, Wildlife" : ""),
+          bio: foundUser.bio || "Experienced and friendly service provider.",
+          profileComplete: foundUser.profileComplete || false,
         });
       }
       setLoading(false);
@@ -54,41 +60,41 @@ const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
-    
+
     // Clear error when user starts typing
     if (errors[name]) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
-        [name]: ''
+        [name]: "",
       }));
     }
   };
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+      newErrors.name = "Name is required";
     }
-    
+
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
+      newErrors.email = "Email is invalid";
     }
-    
+
     if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
+      newErrors.phone = "Phone number is required";
     }
-    
-    if (formData.userType === 'driver' && !formData.licenseNumber.trim()) {
-      newErrors.licenseNumber = 'License number is required for drivers';
+
+    if (formData.userType === "driver" && !formData.licenseNumber.trim()) {
+      newErrors.licenseNumber = "License number is required for drivers";
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -99,24 +105,24 @@ const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
     }
 
     setSaving(true);
-    
+
     // Simulate API call
     setTimeout(() => {
       // Update the user in the users array
-      const updatedUsers = users.map(u => 
-        u.id === parseInt(userId) 
-          ? { 
-              ...u, 
+      const updatedUsers = users.map((u) =>
+        u.id === parseInt(userId)
+          ? {
+              ...u,
               ...formData,
-              lastUpdated: new Date().toISOString()
-            } 
+              lastUpdated: new Date().toISOString(),
+            }
           : u
       );
-      
+
       setUsers(updatedUsers);
       setSaving(false);
       setShowConfirmation(true);
-      
+
       // Hide confirmation after 3 seconds
       setTimeout(() => {
         setShowConfirmation(false);
@@ -125,12 +131,11 @@ const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
   };
 
   const handleCancel = () => {
-    onPageChange('UserAccounts');
+    onPageChange("UserAccounts");
   };
-
   if (loading) {
     return (
-      <div className="page">
+      <div className="page update-user-profile-page">
         <div className="page-content-card">
           <div className="loading-container">
             <div className="loading-spinner"></div>
@@ -143,7 +148,7 @@ const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
 
   if (!user) {
     return (
-      <div className="page">
+      <div className="page update-user-profile-page">
         <div className="page-content-card">
           <div className="error-container">
             <h2>User Not Found</h2>
@@ -158,7 +163,7 @@ const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
   }
 
   return (
-    <div className="page">
+    <div className="page update-user-profile-page">
       <div className="page-content-card">
         <div className="page-header">
           <div className="header-content">
@@ -167,19 +172,19 @@ const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
               <p>Edit user information and account settings</p>
             </div>
             <div className="header-actions">
-              <button 
-                className="btn-secondary" 
+              <button
+                className="btn-secondary"
                 onClick={handleCancel}
                 disabled={saving}
               >
                 Cancel
               </button>
-              <button 
-                className="btn-primary" 
+              <button
+                className="btn-primary"
                 onClick={handleSave}
                 disabled={saving}
               >
-                {saving ? 'Saving...' : 'Save Changes'}
+                {saving ? "Saving..." : "Save Changes"}
               </button>
             </div>
           </div>
@@ -192,12 +197,10 @@ const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
               <span>User profile updated successfully!</span>
             </div>
           </div>
-        )}
-
-        <div className="page-content">
+        )}        <div className="page-content">
           <div className="profile-form">
             {/* Basic Information Section */}
-            <div className="form-section">
+            <div className="update-profile-form">
               <h3 className="section-title">Basic Information</h3>
               <div className="form-grid">
                 <div className="form-group">
@@ -208,9 +211,11 @@ const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    className={errors.name ? 'error' : ''}
+                    className={errors.name ? "error" : ""}
                   />
-                  {errors.name && <span className="error-message">{errors.name}</span>}
+                  {errors.name && (
+                    <span className="error-message">{errors.name}</span>
+                  )}
                 </div>
 
                 <div className="form-group">
@@ -221,9 +226,11 @@ const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className={errors.email ? 'error' : ''}
+                    className={errors.email ? "error" : ""}
                   />
-                  {errors.email && <span className="error-message">{errors.email}</span>}
+                  {errors.email && (
+                    <span className="error-message">{errors.email}</span>
+                  )}
                 </div>
 
                 <div className="form-group">
@@ -234,9 +241,11 @@ const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className={errors.phone ? 'error' : ''}
+                    className={errors.phone ? "error" : ""}
                   />
-                  {errors.phone && <span className="error-message">{errors.phone}</span>}
+                  {errors.phone && (
+                    <span className="error-message">{errors.phone}</span>
+                  )}
                 </div>
 
                 <div className="form-group">
@@ -272,10 +281,8 @@ const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
                   />
                 </div>
               </div>
-            </div>
-
-            {/* Account Settings Section */}
-            <div className="form-section">
+            </div>            {/* Account Settings Section */}
+            <div className="update-profile-form">
               <h3 className="section-title">Account Settings</h3>
               <div className="form-grid">
                 <div className="form-group">
@@ -331,14 +338,13 @@ const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
                   </div>
                 </div>
               </div>
-            </div>
-
-            {/* Professional Information Section (for drivers and guides) */}
-            {(formData.userType === 'driver' || formData.userType === 'guide') && (
-              <div className="form-section">
+            </div>            {/* Professional Information Section (for drivers and guides) */}
+            {(formData.userType === "driver" ||
+              formData.userType === "guide") && (
+              <div className="update-profile-form">
                 <h3 className="section-title">Professional Information</h3>
                 <div className="form-grid">
-                  {formData.userType === 'driver' && (
+                  {formData.userType === "driver" && (
                     <>
                       <div className="form-group">
                         <label htmlFor="licenseNumber">License Number *</label>
@@ -348,9 +354,13 @@ const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
                           name="licenseNumber"
                           value={formData.licenseNumber}
                           onChange={handleInputChange}
-                          className={errors.licenseNumber ? 'error' : ''}
+                          className={errors.licenseNumber ? "error" : ""}
                         />
-                        {errors.licenseNumber && <span className="error-message">{errors.licenseNumber}</span>}
+                        {errors.licenseNumber && (
+                          <span className="error-message">
+                            {errors.licenseNumber}
+                          </span>
+                        )}
                       </div>
 
                       <div className="form-group">
@@ -367,7 +377,7 @@ const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
                     </>
                   )}
 
-                  {formData.userType === 'guide' && (
+                  {formData.userType === "guide" && (
                     <div className="form-group">
                       <label htmlFor="specializations">Specializations</label>
                       <input
@@ -394,10 +404,8 @@ const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
                   </div>
                 </div>
               </div>
-            )}
-
-            {/* User Statistics Section */}
-            <div className="form-section">
+            )}            {/* User Statistics Section */}
+            <div className="update-profile-form">
               <h3 className="section-title">User Statistics</h3>
               <div className="stats-grid">
                 <div className="stat-item">
@@ -406,11 +414,15 @@ const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
                 </div>
                 <div className="stat-item">
                   <span className="stat-label">Joined Date</span>
-                  <span className="stat-value">{new Date(user.joinedDate).toLocaleDateString()}</span>
+                  <span className="stat-value">
+                    {new Date(user.joinedDate).toLocaleDateString()}
+                  </span>
                 </div>
                 <div className="stat-item">
                   <span className="stat-label">Last Active</span>
-                  <span className="stat-value">{new Date(user.lastActive).toLocaleDateString()}</span>
+                  <span className="stat-value">
+                    {new Date(user.lastActive).toLocaleDateString()}
+                  </span>
                 </div>
                 <div className="stat-item">
                   <span className="stat-label">User ID</span>

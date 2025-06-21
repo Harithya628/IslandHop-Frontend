@@ -65,19 +65,23 @@ const DashboardLayout = () => {
       case "Accounts":
         return <Accounts />;
       case "UserAccounts":
-        return <UserAccounts 
-          onPageChange={setCurrentPage}
-          setSelectedUserId={setSelectedUserId}
-          users={users}
-          setUsers={setUsers}
-        />;
+        return (
+          <UserAccounts
+            onPageChange={setCurrentPage}
+            setSelectedUserId={setSelectedUserId}
+            users={users}
+            setUsers={setUsers}
+          />
+        );
       case "UpdateUserProfile":
-        return <UpdateUserProfile 
-          userId={selectedUserId}
-          onPageChange={setCurrentPage}
-          users={users}
-          setUsers={setUsers}
-        />;
+        return (
+          <UpdateUserProfile
+            userId={selectedUserId}
+            onPageChange={setCurrentPage}
+            users={users}
+            setUsers={setUsers}
+          />
+        );
       case "Reviews":
         return <Reviews />;
       case "Notifications":

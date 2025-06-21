@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import "../Page.css";
 import "./UserAccounts.css";
 
-const UserAccounts = ({ 
-  onPageChange = null, 
-  setSelectedUserId = null, 
-  users: propUsers = null, 
-  setUsers: propSetUsers = null 
+const UserAccounts = ({
+  onPageChange = null,
+  setSelectedUserId = null,
+  users: propUsers = null,
+  setUsers: propSetUsers = null,
 }) => {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
@@ -40,7 +40,7 @@ const UserAccounts = ({
       dateOfBirth: "1990-03-15",
       emergencyContact: "+94 77 987 6543",
       languages: "English, Sinhala",
-      bio: "Travel enthusiast exploring Sri Lanka's beautiful destinations."
+      bio: "Travel enthusiast exploring Sri Lanka's beautiful destinations.",
     },
     {
       id: 2,
@@ -59,8 +59,9 @@ const UserAccounts = ({
       licenseNumber: "B1234567",
       vehicleInfo: "Toyota Corolla 2020 - Blue",
       languages: "English, Sinhala, Tamil",
-      bio: "Professional driver with 8 years of experience providing safe and comfortable rides."
-    },    {
+      bio: "Professional driver with 8 years of experience providing safe and comfortable rides.",
+    },
+    {
       id: 3,
       name: "Mike Chen",
       email: "mike.chen@email.com",
@@ -76,7 +77,7 @@ const UserAccounts = ({
       emergencyContact: "+94 76 333 4444",
       languages: "English, Mandarin, Sinhala",
       specializations: "Cultural Tours, Wildlife Photography, Historical Sites",
-      bio: "Experienced tour guide specializing in cultural heritage and wildlife tours across Sri Lanka."
+      bio: "Experienced tour guide specializing in cultural heritage and wildlife tours across Sri Lanka.",
     },
     {
       id: 4,
@@ -303,17 +304,19 @@ const UserAccounts = ({
   const handleUpdateUser = (userId) => {
     if (setSelectedUserId && onPageChange) {
       setSelectedUserId(userId);
-      onPageChange('UpdateUserProfile');
+      onPageChange("UpdateUserProfile");
     }
   };
   const handleRestrictUser = (userId) => {
     const user = users.find((u) => u.id === userId);
     const newStatus = user.status === "restricted" ? "active" : "restricted";
 
-    const updatedUsers = users.map((u) => (u.id === userId ? { ...u, status: newStatus } : u));
-    
+    const updatedUsers = users.map((u) =>
+      u.id === userId ? { ...u, status: newStatus } : u
+    );
+
     setUsers(updatedUsers);
-    
+
     // Also update the shared users state
     if (propSetUsers) {
       propSetUsers(updatedUsers);
