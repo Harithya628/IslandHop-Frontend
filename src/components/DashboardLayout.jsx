@@ -13,6 +13,7 @@ import APIs from "../pages/admin/APIs";
 import SystemHistory from "../pages/admin/SystemHistory";
 import Accounts from "../pages/admin/Accounts";
 import UserAccounts from "../pages/admin/UserAccounts";
+import UpdateUserProfile from "../pages/admin/UpdateUserProfile";
 import Reviews from "../pages/admin/Reviews";
 import Notifications from "../pages/admin/Notifications";
 
@@ -22,6 +23,8 @@ const DashboardLayout = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState("AdminDashboard");
+  const [users, setUsers] = useState([]);
+  const [selectedUserId, setSelectedUserId] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -41,7 +44,6 @@ const DashboardLayout = () => {
 
   if (loading) return <div className="loading">Loading...</div>;
   if (!user) return <Navigate to="/login" />;
-
   const renderCurrentPage = () => {
     switch (currentPage) {
       case "AdminDashboard":
@@ -63,7 +65,19 @@ const DashboardLayout = () => {
       case "Accounts":
         return <Accounts />;
       case "UserAccounts":
-        return <UserAccounts />;
+        return <UserAccounts 
+          onPageChange={setCurrentPage}
+          setSelectedUserId={setSelectedUserId}
+          users={users}
+          setUsers={setUsers}
+        />;
+      case "UpdateUserProfile":
+        return <UpdateUserProfile 
+          userId={selectedUserId}
+          onPageChange={setCurrentPage}
+          users={users}
+          setUsers={setUsers}
+        />;
       case "Reviews":
         return <Reviews />;
       case "Notifications":

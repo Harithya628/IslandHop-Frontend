@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import "../Page.css";
 import "./UserAccounts.css";
 
-const UserAccounts = () => {
+const UserAccounts = ({ 
+  onPageChange = null, 
+  setSelectedUserId = null, 
+  users: propUsers = null, 
+  setUsers: propSetUsers = null 
+}) => {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,7 +23,6 @@ const UserAccounts = () => {
     key: "name",
     direction: "asc",
   });
-
   // Mock data - In a real app, this would come from your backend/Firebase
   const mockUsers = [
     {
@@ -31,6 +35,12 @@ const UserAccounts = () => {
       lastActive: "2024-06-20",
       totalTrips: 5,
       profileComplete: true,
+      phone: "+94 77 123 4567",
+      address: "123 Galle Road, Colombo 03, Sri Lanka",
+      dateOfBirth: "1990-03-15",
+      emergencyContact: "+94 77 987 6543",
+      languages: "English, Sinhala",
+      bio: "Travel enthusiast exploring Sri Lanka's beautiful destinations."
     },
     {
       id: 2,
@@ -42,8 +52,15 @@ const UserAccounts = () => {
       lastActive: "2024-06-19",
       totalTrips: 23,
       profileComplete: true,
-    },
-    {
+      phone: "+94 71 456 7890",
+      address: "45 Kandy Road, Peradeniya, Sri Lanka",
+      dateOfBirth: "1985-07-22",
+      emergencyContact: "+94 71 111 2222",
+      licenseNumber: "B1234567",
+      vehicleInfo: "Toyota Corolla 2020 - Blue",
+      languages: "English, Sinhala, Tamil",
+      bio: "Professional driver with 8 years of experience providing safe and comfortable rides."
+    },    {
       id: 3,
       name: "Mike Chen",
       email: "mike.chen@email.com",
@@ -53,6 +70,13 @@ const UserAccounts = () => {
       lastActive: "2024-06-15",
       totalTrips: 8,
       profileComplete: false,
+      phone: "+94 76 789 0123",
+      address: "78 Temple Road, Kandy, Sri Lanka",
+      dateOfBirth: "1988-11-05",
+      emergencyContact: "+94 76 333 4444",
+      languages: "English, Mandarin, Sinhala",
+      specializations: "Cultural Tours, Wildlife Photography, Historical Sites",
+      bio: "Experienced tour guide specializing in cultural heritage and wildlife tours across Sri Lanka."
     },
     {
       id: 4,
@@ -155,15 +179,32 @@ const UserAccounts = () => {
       profileComplete: true,
     },
   ];
-
   useEffect(() => {
-    // Simulate API call
-    setTimeout(() => {
-      setUsers(mockUsers);
-      setFilteredUsers(mockUsers);
+    // If we have users from props, use them, otherwise load mock data
+    if (propUsers && propUsers.length > 0) {
+      setUsers(propUsers);
+      setFilteredUsers(propUsers);
       setLoading(false);
-    }, 1000);
-  }, []);
+    } else {
+      // Simulate API call
+      setTimeout(() => {
+        setUsers(mockUsers);
+        setFilteredUsers(mockUsers);
+        // Also set the shared users state
+        if (propSetUsers) {
+          propSetUsers(mockUsers);
+        }
+        setLoading(false);
+      }, 1000);
+    }
+  }, [propUsers]);
+
+  // Sync local users state with prop users state
+  useEffect(() => {
+    if (propUsers && propUsers.length > 0) {
+      setUsers(propUsers);
+    }
+  }, [propUsers]);
 
   useEffect(() => {
     applyFilters();
@@ -259,19 +300,24 @@ const UserAccounts = () => {
       [filterType]: value,
     }));
   };
-
   const handleUpdateUser = (userId) => {
-    console.log("Update user:", userId);
-    // Implement update user logic
+    if (setSelectedUserId && onPageChange) {
+      setSelectedUserId(userId);
+      onPageChange('UpdateUserProfile');
+    }
   };
-
   const handleRestrictUser = (userId) => {
     const user = users.find((u) => u.id === userId);
     const newStatus = user.status === "restricted" ? "active" : "restricted";
 
-    setUsers((prevUsers) =>
-      prevUsers.map((u) => (u.id === userId ? { ...u, status: newStatus } : u))
-    );
+    const updatedUsers = users.map((u) => (u.id === userId ? { ...u, status: newStatus } : u));
+    
+    setUsers(updatedUsers);
+    
+    // Also update the shared users state
+    if (propSetUsers) {
+      propSetUsers(updatedUsers);
+    }
   };
 
   const formatDate = (dateString) => {
