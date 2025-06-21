@@ -446,10 +446,14 @@
   }
 
   .login-container .top-logo {
-    position: absolute;
-    top: 8.5rem;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
+    position: static;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 2rem 0;
+    left: unset !important;
+    top: unset !important;
+    transform: none !important;
     z-index: 20;
   }
 
@@ -468,7 +472,7 @@
     box-shadow: none;
     border-radius: 0;
     background: transparent;
-    margin-top: 2rem;
+    margin-top: 0;
   }
 }
 

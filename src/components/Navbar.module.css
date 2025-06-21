@@ -6,7 +6,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 70px;
+  height: 90px;
   text-align: left;
   font-size: 20px;
   color: #000;
@@ -689,7 +689,7 @@ body.mobile-menu-open {
 /* Mobile responsive styles */
 @media screen and (max-width: 768px) {
   .rectangleParent {
-    height: 60px;
+    height: 80px;
     padding: 0;
     width: 100vw;
     overflow-x: hidden;
