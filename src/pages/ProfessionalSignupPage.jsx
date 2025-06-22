@@ -3,9 +3,12 @@ import { auth } from '../firebase';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import sriLankaVideo from '../assets/sri-lanka-video.mp4';
-import islandHopLogo from '../assets/IslandHopWhite.png';
+import islandHopLogo from '../assets/IslandHop.png';
 import islandHopIcon from '../assets/islandHopIcon.png';
+import steeringWheelIcon from '../assets/steering-wheel-black.svg';
+import steeringWheelBlueIcon from '../assets/steering-wheel-blue.svg';
 import './ProfessionalSignupPage.css';
+import api from '../api/axios'; // <-- import your axios instance
 
 function ProfessionalSignupPage() {
   const [email, setEmail] = useState('');
@@ -15,9 +18,16 @@ function ProfessionalSignupPage() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  // Helper to get endpoint based on role
+  const getEndpoint = () => {
+    if (role === 'driver') return '/driver/session-register';
+    if (role === 'guide') return '/guide/session-register';
+    return null;
+  };
+
   const handleEmailSignup = async (e) => {
     e.preventDefault();
-    
+
     if (!role) {
       setError('Please select your professional role');
       return;
@@ -25,12 +35,27 @@ function ProfessionalSignupPage() {
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      // You can store the role in the user's profile or database here
-      console.log('Professional role:', role);
-      console.log('User created:', userCredential.user);
-      navigate('/dashboard');
-    } catch (error) {
-      setError(error.message);
+      const idToken = await userCredential.user.getIdToken();
+
+      const endpoint = getEndpoint();
+      if (!endpoint) {
+        setError('Invalid role selected');
+        return;
+      }
+
+      const res = await api.post(endpoint, {
+        idToken,
+        role,
+      });
+
+      if (res.status === 200) {
+        navigate('/dashboard');
+      } else {
+        setError('Registration failed on server');
+      }
+    } catch (err) {
+      setError(err.message || 'Registration error');
+      console.log('Error during email signup:', err);
     }
   };
 
@@ -42,13 +67,28 @@ function ProfessionalSignupPage() {
 
     const provider = new GoogleAuthProvider();
     try {
-      const userCredential = await signInWithPopup(auth, provider);
-      // You can store the role in the user's profile or database here
-      console.log('Professional role:', role);
-      console.log('User created:', userCredential.user);
-      navigate('/dashboard');
-    } catch (error) {
-      setError(error.message);
+      const result = await signInWithPopup(auth, provider);
+      const idToken = await result.user.getIdToken();
+
+      const endpoint = getEndpoint();
+      if (!endpoint) {
+        setError('Invalid role selected');
+        return;
+      }
+
+      const res = await api.post(endpoint, {
+        idToken,
+        role,
+      });
+
+      if (res.status === 200) {
+        navigate('/dashboard');
+      } else {
+        setError('Google registration failed on server');
+      }
+    } catch (err) {
+      setError(err.message || 'Google sign-up error');
+      console.log('Error during Google signup:', err);
     }
   };
 
@@ -58,6 +98,12 @@ function ProfessionalSignupPage() {
 
   return (
     <div className="professional-signup-container">
+      {/* Top left logo */}
+      <div className="top-logo" onClick={handleLogoClick}>
+        <img src={islandHopIcon} alt="IslandHop Icon" className="logo-icon" />
+        <img src={islandHopLogo} alt="IslandHop" className="logo-image" />
+      </div>
+
       {/* Left side - Video area */}
       <div className="video-section">
         <div className="video-container">
@@ -71,10 +117,6 @@ function ProfessionalSignupPage() {
             <source src={sriLankaVideo} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-          <div className="video-logo" onClick={handleLogoClick}>
-            <img src={islandHopIcon} alt="IslandHop Icon" className="logo-icon" />
-            <img src={islandHopLogo} alt="IslandHop" className="logo-image" />
-          </div>
           <div className="video-overlay">
             <div className="video-content">
               <h3>Join Our Professional Network</h3>
@@ -104,7 +146,10 @@ function ProfessionalSignupPage() {
                   onChange={(e) => setRole(e.target.value)}
                 />
                 <div className="role-content">
-                  <div className="role-icon">🚗</div>
+                  <div className="role-icon">
+                    <img src={steeringWheelIcon} alt="Steering Wheel" className="role-icon-image role-icon-black" />
+                    <img src={steeringWheelBlueIcon} alt="Steering Wheel" className="role-icon-image role-icon-blue" />
+                  </div>
                   <div className="role-info">
                     <h4>Driver</h4>
                     <p>Provide transportation services to travelers</p>
@@ -120,7 +165,12 @@ function ProfessionalSignupPage() {
                   onChange={(e) => setRole(e.target.value)}
                 />
                 <div className="role-content">
-                  <div className="role-icon">🗺️</div>
+                  <div className="role-icon">
+                    <div className="compass">
+                      <div className="compass-body"></div>
+                      <div className="compass-needle"></div>
+                    </div>
+                  </div>
                   <div className="role-info">
                     <h4>Tour Guide</h4>
                     <p>Share your local knowledge and expertise</p>
@@ -188,10 +238,10 @@ function ProfessionalSignupPage() {
             <span onClick={() => navigate('/login')}>Login</span>
           </p>
           
-          <p className="back-link">
+          <div className="back-link">
             Looking for regular account?{' '}
             <span onClick={() => navigate('/signup')}>Sign up as Traveler</span>
-          </p>
+          </div>
         </div>
       </div>
     </div>

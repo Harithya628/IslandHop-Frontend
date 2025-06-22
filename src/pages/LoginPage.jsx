@@ -1,76 +1,62 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { auth } from '../firebase';
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import sriLankaVideo from '../assets/sri-lanka-video.mp4';
 import islandHopLogo from '../assets/IslandHop.png';
+import islandHopLogoWhite from '../assets/IslandHopWhite.png';
 import islandHopIcon from '../assets/islandHopIcon.png';
-import ProfileCompletionPopup from '../components/ProfileCompletionPopup';
-import './SignupPage.css';
+import './LoginPage.css';
 import api from '../api/axios';
 
-function SignupPage() {
+function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
-  const [showPopup, setShowPopup] = useState(true);
   const navigate = useNavigate();
 
-  // Add GoogleAuthProvider instance
-  const provider = new GoogleAuthProvider();
-
-  const handleEmailSignup = async (e) => {
+  const handleEmailLogin = async (e) => {
     e.preventDefault();
+    setError('');
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const idToken = await userCredential.user.getIdToken();
-      console.log('User created:', userCredential.user);
-      console.log('ID Token:', idToken);
 
-      // Send ID token and role to backend to start session
-      const res = await api.post('/tourist/session-register', {
-        idToken,
-        role: 'tourist',
-      });
-
-      // Log backend response
-      console.log('Backend response (email signup):', res);
+      // Send ID token to backend for session login
+      const res = await api.post('/login', { idToken });
 
       if (res.status === 200) {
         navigate('/dashboard');
       } else {
-        setError('Registration failed on server');
+        setError('Login failed on server');
       }
     } catch (err) {
-      setError(err.message || 'Registration error');
-      console.log('Error during email signup:', err);
+      setError(err.message || 'Login error');
+      console.log('Error during email login:', err);
     }
   };
 
-  const handleGoogleSignup = async () => {
+  const handleGoogleLogin = async () => {
+    console.log('Google login');
+    setError('');
+    const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
       const idToken = await result.user.getIdToken();
-      console.log('Google user:', result.user);
-      console.log('Google ID Token:', idToken);
 
-      const res = await api.post('/tourist/session-register', {
-        idToken,
-        role: 'tourist',
-      });
-
-      // Log backend response
-      console.log('Backend response (Google signup):', res);
+      // Send ID token to backend for session login
+      const res = await api.post('/login', { idToken });
 
       if (res.status === 200) {
+        console.log('Google login successful:', res.data);
         navigate('/dashboard');
       } else {
-        setError('Google registration failed on server');
+        setError('Google login failed on server');
       }
     } catch (err) {
-      setError(err.message || 'Google sign-up error');
-      console.log('Error during Google signup:', err);
+      setError(err.message || 'Google login error');
+      console.log('Error during Google login:', err);
     }
   };
 
@@ -78,23 +64,20 @@ function SignupPage() {
     navigate('/');
   };
 
-  const handleClosePopup = () => {
-    setShowPopup(false);
-  };
-
   return (
-    <div className="signup-container">
+    <div className="login-container">
       {/* Top left logo */}
       <div className="top-logo" onClick={handleLogoClick}>
         <img src={islandHopIcon} alt="IslandHop Icon" className="logo-icon" />
-        <img src={islandHopLogo} alt="IslandHop" className="logo-image" />
+        <img src={islandHopLogoWhite} alt="IslandHop" className="logo-image logo-white" />
+        <img src={islandHopLogo} alt="IslandHop" className="logo-image logo-black" />
       </div>
 
       {/* Left side - Video area */}
       <div className="video-section">
         <div className="video-container">
           <video 
-            className="signup-video"
+            className="login-video"
             autoPlay 
             muted 
             loop 
@@ -105,19 +88,22 @@ function SignupPage() {
           </video>
           <div className="video-overlay">
             <div className="video-content">
-              <h3>Welcome<br />to IslandHop</h3>
-              <p>Discover the beauty of Sri Lanka with our curated travel experiences</p>
+              <h3>Welcome Back<br />to IslandHop</h3>
+              <p>Continue your journey through the beauty of Sri Lanka</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Right side - Signup form */}
+      {/* Right side - Login form */}
       <div className="form-section">
-        <div className="signup-box">
-          <h2>Create Account</h2>
+        <div className="login-box">
+          <h2>Welcome Back</h2>
+          <p className="subtitle">Sign in to your IslandHop account</p>
+          
           {error && <p className="error-message">{error}</p>}
-          <form onSubmit={handleEmailSignup}>
+          
+          <form onSubmit={handleEmailLogin}>
             <div className="input-group">
               <input
                 type="email"
@@ -136,30 +122,34 @@ function SignupPage() {
                 required
               />
             </div>
+            
             <div className="form-options">
-              <div className="remember-me">
+              <label className="remember-me">
                 <input
                   type="checkbox"
-                  id="rememberMe"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
                 />
-                <label htmlFor="rememberMe">Remember me</label>
-              </div>
+                <span>Remember me</span>
+              </label>
               <span 
-                className="forgot-password" 
+                className="forgot-password"
                 onClick={() => navigate('/forgot-password')}
+                style={{ cursor: 'pointer' }}
               >
-                Forgot Password?
+                Forgot password?
               </span>
             </div>
-            <button type="submit" className="signup-button">
-              Sign Up
+            
+            <button type="submit" className="login-button">
+              Sign In
             </button>
           </form>
+          
           <div className="divider"><span>or</span></div>
-          <button onClick={handleGoogleSignup} className="google-button">
-            <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          
+          <button onClick={handleGoogleLogin} className="google-button">
+            <svg width="18" height="18" viewBox="0 0 24 24" style={{ marginRight: '8px' }}>
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
               <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
               <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
@@ -167,29 +157,14 @@ function SignupPage() {
             </svg>
             Continue with Google
           </button>
-          <p className="login-link">
-            Already have an account?{' '}
-            <span onClick={() => navigate('/login')}>Login</span>
-          </p>
           
-          <div className="professional-signup">
-            Looking to earn with IslandHop?{' '}
-            <span 
-              className="professional-link" 
-              onClick={() => navigate('/signup/professional')}
-            >
-              Join as a Professional
-            </span>
+          <div className="signup-link">
+            Don't have an account? <span onClick={() => navigate('/signup')}>Sign up</span>
           </div>
         </div>
       </div>
-
-      <ProfileCompletionPopup 
-        showPopup={showPopup} 
-        onClose={handleClosePopup} 
-      />
     </div>
   );
 }
 
-export default SignupPage;
+export default LoginPage;

@@ -1,26 +1,67 @@
 .signup-container {
   display: flex;
   min-height: 100vh;
-  font-family: 'Roboto',
+  max-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Roboto';
+  background-color: #ffffff;
+  position: relative;
 }
 
-/* Left side - Video section */
+/* Top left logo */
+.signup-container .top-logo {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: opacity 0.3s ease;
+}
+
+.signup-container .top-logo:hover {
+  opacity: 0.8;
+}
+
+.signup-container .top-logo .logo-icon {
+  height: 48px;
+  width: auto;
+}
+
+.signup-container .top-logo .logo-image {
+  height: 60px;
+  width: auto;
+}
+
+/* Right side - Video section */
 .video-section {
   flex: 1;
   position: relative;
   overflow: hidden;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff !important;
+  order: 2;
 }
 
 .video-container {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 3rem);
+  border-radius: 16px;
+  overflow: hidden;
 }
 
 .signup-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 16px;
 }
 
 .video-overlay {
@@ -37,21 +78,45 @@
   );
   display: flex;
   align-items: flex-end;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 3rem;
+  border-radius: 16px;
+}
+
+.video-logo {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.logo-icon {
+  height: 48px;
+  width: auto;
+}
+
+.logo-image {
+  height: 60px;
+  width: auto;
 }
 
 .video-content {
-  text-align: center;
+  text-align: left;
   color: white;
   z-index: 1;
 }
 
 .video-content h3 {
-  font-size: 1.8rem;
+  font-size: 4rem;
   margin-bottom: 0.5rem;
   font-weight: 700;
+  font-family: 'Outfit', sans-serif;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  line-height: 1.1;
 }
 
 .video-content p {
@@ -61,24 +126,27 @@
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-/* Right side - Form section */
+/* Left side - Form section */
 .form-section {
   flex: 1;
-  background: #f8f9fa;
+  background-color: #ffffff !important;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  overflow-y: auto;
+  max-height: 100vh;
+  order: 1;
 }
 
 .signup-box {
-  background-color: white;
+  background-color: transparent;
   padding: 3rem;
-  border-radius: 16px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border-radius: 0;
+  box-shadow: none;
   width: 100%;
   max-width: 450px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: none;
 }
 
 .signup-box h2 {
@@ -121,7 +189,7 @@
   font-weight: 600; /* Semi-bold for buttons */
   font-family: 'Roboto', sans-serif;
   cursor: pointer;
-  margin-bottom: 1rem;
+  margin-bottom: 0.25rem;
   transition: all 0.3s ease;
   box-sizing: border-box;
 }
@@ -160,30 +228,17 @@
 }
 
 .divider {
-  text-align: center;
-  margin: 1.5rem 0;
-  color: #000000;
-  position: relative;
-  font-size: 0.9rem;
-  font-weight: 300;
+  display: none;
 }
 
 .divider::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background-color: #000000;
-  z-index: 1;
+  display: none;
 }
 
 .divider span {
-  background-color: white;
-  padding: 0 1rem;
-  position: relative;
-  z-index: 2;
+  background-color: transparent;
+  padding: 0;
+  color: #666666;
 }
 
 .error-message {
@@ -224,10 +279,13 @@
   margin-top: 1rem;
   padding-top: 1rem;
   border-top: 1px solid #e0e0e0;
+  color: #666666;
+  font-size: 0.9rem;
+  font-weight: 400;
 }
 
 .professional-link {
-  color: #2E7D32;
+  color: #1FA9FF;
   cursor: pointer;
   font-size: 0.9rem;
   font-weight: 400;
@@ -239,8 +297,8 @@
 }
 
 .professional-link:hover {
-  color: #1B5E20;
-  background-color: #E8F5E8;
+  color: #0D7BAF;
+  background-color: rgba(31, 169, 255, 0.1);
   text-decoration: underline;
 }
 
@@ -440,7 +498,7 @@
 
 .popup-skip-btn:hover {
   color: #000000;
-  background: #f8f9fa;
+  background-color: #f8f9fa;
 }
 
 /* Searchable Nationality Dropdown */
@@ -685,6 +743,113 @@
   cursor: default;
 }
 
+/* Enhanced form options styling */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1.5rem 0;
+  padding: 0.5rem 0;
+}
+
+/* Enhanced remember me styling */
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s ease;
+}
+
+.remember-me:hover {
+  opacity: 0.8;
+}
+
+.remember-me input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #d1d5db;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  margin: 0;
+}
+
+.remember-me input[type="checkbox"]:hover {
+  border-color: #000000;
+  background-color: #f8f9fa;
+}
+
+.remember-me input[type="checkbox"]:checked {
+  background: linear-gradient(135deg, #000000 0%, #333333 100%);
+  border-color: #000000;
+}
+
+.remember-me input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.remember-me label {
+  font-size: 0.9rem;
+  color: #374151;
+  font-weight: 400;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.remember-me:hover label {
+  color: #000000;
+}
+
+/* Enhanced forgot password styling */
+.forgot-password {
+  font-size: 0.9rem;
+  color: #6b7280;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 400;
+  position: relative;
+  transition: all 0.3s ease;
+  padding: 0.25rem 0;
+}
+
+.forgot-password::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, #000000, #333333);
+  transition: width 0.3s ease;
+}
+
+.forgot-password:hover {
+  color: #000000;
+  transform: translateY(-1px);
+}
+
+.forgot-password:hover::after {
+  width: 100%;
+}
+
+.forgot-password:active {
+  transform: translateY(0);
+}
+
 /* Responsive calendar */
 @media (max-width: 480px) {
   .calendar-container {
@@ -709,51 +874,58 @@
 
   .video-section {
     min-height: 40vh;
+    padding: 2rem;
+    background-color: #f8f9fa;
+  }
+  
+  .video-container {
+    height: 40vh;
+    border-radius: 14px;
+  }
+  
+  .signup-video {
+    border-radius: 14px;
   }
 
   .video-overlay {
     padding: 2rem;
+    border-radius: 14px;
   }
 
   .form-section {
     min-height: 60vh;
+    padding: 2rem;
+    background-color: #f8f9fa;
   }
 }
 
 @media (max-width: 768px) {
-  .video-section {
-    min-height: 35vh;
+  .signup-container .video-section {
+    display: none;
   }
 
-  .video-overlay {
+  .signup-container .form-section {
     padding: 1.5rem;
+    background-color: #ffffff;
+    flex: 1;
+    width: 100%;
   }
 
-  .video-logo {
-    top: 1.5rem;
-    left: 1.5rem;
-    gap: 0.5rem;
-  }
-
-  .logo-icon {
-    height: 40px;
-  }
-
-  .logo-image {
-    height: 50px;
-  }
-
-  .video-content h3 {
-    font-size: 1.5rem;
-  }
-
-  .video-content p {
-    font-size: 0.9rem;
+  .signup-container .top-logo {
+    position: absolute;
+    top: 2rem;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 20;
   }
 
   .signup-box {
     padding: 2rem;
-    margin: 1rem;
+    margin: 0;
+    box-shadow: none;
+    border-radius: 0;
+    background: transparent;
+    margin-top: 6rem;
   }
 
   .signup-box h2 {
@@ -785,14 +957,27 @@
 @media (max-width: 480px) {
   .signup-container {
     padding: 0;
+    background-color: #f8f9fa;
   }
 
   .video-section {
     min-height: 30vh;
+    padding: 1rem;
+    background-color: #f8f9fa;
+  }
+  
+  .video-container {
+    height: 30vh;
+    border-radius: 10px;
+  }
+  
+  .signup-video {
+    border-radius: 10px;
   }
 
   .video-overlay {
     padding: 1rem;
+    border-radius: 10px;
   }
 
   .video-logo {
@@ -810,12 +995,19 @@
   }
 
   .video-content h3 {
-    font-size: 1.3rem;
+    font-size: 2.5rem;
     margin-bottom: 0.3rem;
+    font-family: 'Outfit', sans-serif;
+    line-height: 1.1;
   }
 
   .video-content p {
     font-size: 0.8rem;
+  }
+
+  .form-section {
+    padding: 1rem;
+    background-color: #f8f9fa;
   }
   
   .signup-box {
@@ -846,15 +1038,45 @@
   .form-options {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
+    gap: 1rem;
+    margin: 1.25rem 0;
   }
-
+  
   .remember-me {
+    order: 1;
+    gap: 0.5rem;
+  }
+  
+  .remember-me input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .remember-me label {
     font-size: 0.85rem;
   }
-
+  
   .forgot-password {
+    order: 2;
+    align-self: flex-end;
     font-size: 0.85rem;
   }
+}
+
+/* Keep 'or' text but hide horizontal lines in regular signup */
+.divider::before {
+  display: none !important;
+}
+
+.divider span {
+  background-color: transparent !important;
+  padding: 0 !important;
+  color: #666666 !important;
+  display: inline !important;
+}
+
+.divider {
+  display: block !important;
+  text-align: center !important;
+  color: #666666 !important;
 }
