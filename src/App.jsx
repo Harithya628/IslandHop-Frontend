@@ -8,7 +8,9 @@ import SignupPage from './pages/SignupPage'
 import ProfessionalSignupPage from './pages/ProfessionalSignupPage'
 import DashboardLayout from './components/DashboardLayout'
 import Questionnaire from './pages/traveler/Trip-plan-questionnaire'
+
 import './App.css'
+import TripDashboard from './pages/traveler/TripDashboard';
 
 // Protected route wrapper component
 const ProtectedRoute = ({ children }) => {
@@ -79,11 +81,22 @@ function App() {
           <DashboardLayout />
         </ProtectedRoute>
       } />
-      <Route path="/plan" element={
+      <Route path="/explore" element={
+      <PublicRoute>
+        <Questionnaire 
+        />
+      </PublicRoute>
+      }/>     
+       <Route path="/trip-dashboard" element={
+      <PublicRoute>
+        <TripDashboard />
+      </PublicRoute>
+      }/>
+      {/* <Route path="/traveler/trip-plan-questionnaire" element={
       <PublicRoute>
         <Questionnaire />
       </PublicRoute>
-      }/>
+      }/> */}
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   )

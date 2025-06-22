@@ -136,7 +136,7 @@ const Navbar = () => {
               </div>
               <div 
                 className={`${styles.navItem} ${isActive('/plan-trip') ? styles.active : ''}`}
-                onClick={() => handleNavigation('/plan-trip')}
+                onClick={() => handleNavigation('/trip-dashboard')}
               >
                 Trips
               </div>

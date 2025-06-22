@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../Page.css';
-import './PlanTrip.css';
+import './PlanTripPage.css';
 
 const PlanTrip = ({ onPageChange }) => {
   const [tripType, setTripType] = useState('');
