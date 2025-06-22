@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import ProfessionalSignupPage from './pages/ProfessionalSignupPage'
 import DashboardLayout from './components/DashboardLayout'
+import SupportRoutes from './routes/SupportRoutes'
 import './App.css'
 
 // Protected route wrapper component
@@ -78,6 +79,9 @@ function App() {
           <DashboardLayout />
         </ProtectedRoute>
       } />
+      {/* --- Support Agent Routes --- */}
+      <Route path="/support/*" element={<SupportRoutes />} />
+      {/* --------------------------- */}
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   )

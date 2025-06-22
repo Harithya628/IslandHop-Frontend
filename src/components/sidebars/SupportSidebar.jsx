@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
+  HomeIcon,
   TicketIcon,
   CheckCircleIcon,
   ArrowTrendingUpIcon,
@@ -15,7 +17,26 @@ import './Sidebar.css';
 import islandHopLogo from '../../assets/IslandHop.png';
 import islandHopIcon from '../../assets/islandHopIcon.png';
 
+// Map page keys to their routes
+const pageToRoute = {
+  SupportDashboard: '/support',
+  ViewTickets: '/support/view-tickets',
+  ResolveComplaint: '/support/resolve-complaint',
+  EscalateIssue: '/support/escalate-issue',
+  RefundCompensation: '/support/refund-compensation',
+  ComplaintReports: '/support/complaint-reports',
+  LostItemTracker: '/support/lost-item-tracker',
+  PanicAlerts: '/support/panic-alerts',
+  ChatEmailSupport: '/support/chat-email-support',
+};
+
 const navLinks = [
+  {
+    label: 'Dashboard',
+    icon: <HomeIcon className="w-4.5 h-4.5" />,
+    page: 'SupportDashboard',
+    iconColor: '#1E90FF',
+  },
   {
     label: 'View Tickets',
     icon: <TicketIcon className="w-4.5 h-4.5" />,
@@ -71,8 +92,14 @@ const navLinks = [
   },
 ];
 
-const SupportSidebar = ({ currentPage, onPageChange }) => {
+const SupportSidebar = ({ currentPage }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const navigate = useNavigate();
+
+  const handleNav = (page) => {
+    const route = pageToRoute[page] || '/support';
+    navigate(route);
+  };
 
   const toggleSidebar = () => setIsCollapsed((c) => !c);
 
@@ -110,7 +137,7 @@ const SupportSidebar = ({ currentPage, onPageChange }) => {
                   icon={item.icon}
                   label={item.label}
                   isActive={currentPage === item.page}
-                  onClick={() => onPageChange(item.page)}
+                  onClick={() => handleNav(item.page)}
                   iconColor={item.iconColor}
                 />
               </div>
@@ -124,7 +151,7 @@ const SupportSidebar = ({ currentPage, onPageChange }) => {
               key={item.page}
               icon={item.icon}
               isActive={currentPage === item.page}
-              onClick={() => onPageChange(item.page)}
+              onClick={() => handleNav(item.page)}
               iconColor={item.iconColor}
               collapsed={true}
               title={item.label}
