@@ -1,51 +1,35 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
   HomeIcon,
-  TicketIcon,
-  CheckCircleIcon,
+  ClipboardDocumentListIcon,
+  ExclamationCircleIcon,
   ArrowTrendingUpIcon,
   CurrencyDollarIcon,
-  DocumentChartBarIcon,
   MagnifyingGlassIcon,
   ExclamationTriangleIcon,
   ChatBubbleLeftRightIcon,
-  EnvelopeIcon,
 } from '@heroicons/react/24/solid';
 import SidebarItem from './SidebarItem';
 import './Sidebar.css';
 import islandHopLogo from '../../assets/IslandHop.png';
 import islandHopIcon from '../../assets/islandHopIcon.png';
 
-// Map page keys to their routes
-const pageToRoute = {
-  SupportDashboard: '/support',
-  ViewTickets: '/support/view-tickets',
-  ResolveComplaint: '/support/resolve-complaint',
-  EscalateIssue: '/support/escalate-issue',
-  RefundCompensation: '/support/refund-compensation',
-  ComplaintReports: '/support/complaint-reports',
-  LostItemTracker: '/support/lost-item-tracker',
-  PanicAlerts: '/support/panic-alerts',
-  ChatEmailSupport: '/support/chat-email-support',
-};
-
 const navLinks = [
   {
-    label: 'Dashboard',
+    label: 'Home',
     icon: <HomeIcon className="w-4.5 h-4.5" />,
     page: 'SupportDashboard',
     iconColor: '#1E90FF',
   },
   {
-    label: 'View Tickets',
-    icon: <TicketIcon className="w-4.5 h-4.5" />,
+    label: 'Tasks',
+    icon: <ClipboardDocumentListIcon className="w-4.5 h-4.5" />,
     page: 'ViewTickets',
     iconColor: '#3B82F6',
   },
   {
-    label: 'Resolve Complaint',
-    icon: <CheckCircleIcon className="w-4.5 h-4.5" />,
+    label: 'Complains',
+    icon: <ExclamationCircleIcon className="w-4.5 h-4.5" />,
     page: 'ResolveComplaint',
     iconColor: '#10B981',
   },
@@ -62,43 +46,30 @@ const navLinks = [
     iconColor: '#06B6D4',
   },
   {
-    label: 'Complaint Reports',
-    icon: <DocumentChartBarIcon className="w-4.5 h-4.5" />,
-    page: 'ComplaintReports',
-    iconColor: '#8B5CF6',
-  },
-  {
-    label: 'Lost Item Tracker',
+    label: 'Lost Items',
     icon: <MagnifyingGlassIcon className="w-4.5 h-4.5" />,
     page: 'LostItemTracker',
     iconColor: '#6366F1',
   },
   {
-    label: 'Panic Alerts',
+    label: 'Alerts',
     icon: <ExclamationTriangleIcon className="w-4.5 h-4.5" />,
     page: 'PanicAlerts',
     iconColor: '#EF4444',
   },
   {
-    label: 'Chat/Email Support',
-    icon: (
-      <span style={{ display: 'flex', gap: 2 }}>
-        <ChatBubbleLeftRightIcon className="w-4 h-4" />
-        <EnvelopeIcon className="w-4 h-4" />
-      </span>
-    ),
+    label: 'Chats',
+    icon: <ChatBubbleLeftRightIcon className="w-4.5 h-4.5" />,
     page: 'ChatEmailSupport',
     iconColor: '#1976D2',
   },
 ];
 
-const SupportSidebar = ({ currentPage }) => {
+const SupportSidebar = ({ currentPage, onPageChange }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const navigate = useNavigate();
 
   const handleNav = (page) => {
-    const route = pageToRoute[page] || '/support';
-    navigate(route);
+    onPageChange(page);
   };
 
   const toggleSidebar = () => setIsCollapsed((c) => !c);
@@ -146,7 +117,7 @@ const SupportSidebar = ({ currentPage }) => {
         </>
       ) : (
         <div className="collapsed-nav">
-          {navLinks.map((item, idx) => (
+          {navLinks.slice(0, -1).map((item, idx) => (
             <SidebarItem
               key={item.page}
               icon={item.icon}

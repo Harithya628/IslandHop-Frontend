@@ -1,176 +1,175 @@
 import React from 'react';
-import {
-  TicketIcon,
-  ArrowPathIcon,
-  ArrowTrendingUpIcon,
-  CurrencyDollarIcon,
-  MagnifyingGlassIcon,
-  ExclamationTriangleIcon,
-} from '@heroicons/react/24/solid';
 import './SupportDashboard.css';
 
-// Dummy data for summary cards
+// Summary data for stat cards
 const summaryData = [
   {
     label: 'New Tickets',
     count: 8,
-    icon: <TicketIcon className="dashboard-icon" />,
-    color: 'blue',
-    link: '/support/view-tickets',
+    color: '#1e90ff',
+    bgColor: '#eff6ff'
   },
   {
-    label: 'Tickets In Progress',
+    label: 'In Progress',
     count: 5,
-    icon: <ArrowPathIcon className="dashboard-icon" />,
-    color: 'indigo',
-    link: '/support/resolve-complaint',
+    color: '#f59e0b',
+    bgColor: '#fef3c7'
   },
   {
-    label: 'Escalated Issues',
+    label: 'Escalated',
     count: 2,
-    icon: <ArrowTrendingUpIcon className="dashboard-icon" />,
-    color: 'orange',
-    link: '/support/escalate-issue',
+    color: '#ef4444',
+    bgColor: '#fee2e2'
   },
   {
-    label: 'Refund Requests',
+    label: 'Refunds',
     count: 3,
-    icon: <CurrencyDollarIcon className="dashboard-icon" />,
-    color: 'teal',
-    link: '/support/refund-compensation',
+    color: '#10b981',
+    bgColor: '#d1fae5'
   },
   {
-    label: 'Lost Item Reports',
+    label: 'Lost Items',
     count: 4,
-    icon: <MagnifyingGlassIcon className="dashboard-icon" />,
-    color: 'purple',
-    link: '/support/lost-item-tracker',
-  },
-  {
-    label: 'Panic Alerts Today',
-    count: 1,
-    icon: <ExclamationTriangleIcon className="dashboard-icon" />,
-    color: 'red',
-    link: '/support/panic-alerts',
-  },
-];
-
-// Quick links (could be same as summaryData or more detailed)
-const quickLinks = [
-  {
-    label: 'View Tickets',
-    icon: <TicketIcon className="quicklink-icon" />,
-    link: '/support/view-tickets',
-    color: 'blue',
-  },
-  {
-    label: 'Resolve Complaint',
-    icon: <ArrowPathIcon className="quicklink-icon" />,
-    link: '/support/resolve-complaint',
-    color: 'indigo',
-  },
-  {
-    label: 'Escalate Issue',
-    icon: <ArrowTrendingUpIcon className="quicklink-icon" />,
-    link: '/support/escalate-issue',
-    color: 'orange',
-  },
-  {
-    label: 'Refund/Compensation',
-    icon: <CurrencyDollarIcon className="quicklink-icon" />,
-    link: '/support/refund-compensation',
-    color: 'teal',
-  },
-  {
-    label: 'Lost Item Tracker',
-    icon: <MagnifyingGlassIcon className="quicklink-icon" />,
-    link: '/support/lost-item-tracker',
-    color: 'purple',
+    color: '#8b5cf6',
+    bgColor: '#f3e8ff'
   },
   {
     label: 'Panic Alerts',
-    icon: <ExclamationTriangleIcon className="quicklink-icon" />,
-    link: '/support/panic-alerts',
-    color: 'red',
-  },
-  {
-    label: 'Complaint Reports',
-    icon: (
-      <svg className="quicklink-icon" fill="none" stroke="#8B5CF6" strokeWidth="2" viewBox="0 0 24 24">
-        <rect x="3" y="4" width="18" height="16" rx="2" stroke="#8B5CF6" />
-        <path d="M8 10h8M8 14h6" stroke="#8B5CF6" />
-      </svg>
-    ),
-    link: '/support/complaint-reports',
-    color: 'violet',
-  },
-  {
-    label: 'Chat/Email Support',
-    icon: (
-      <svg className="quicklink-icon" fill="none" stroke="#1976D2" strokeWidth="2" viewBox="0 0 24 24">
-        <rect x="2" y="4" width="20" height="16" rx="2" stroke="#1976D2" />
-        <polyline points="22,6 12,13 2,6" stroke="#1976D2" />
-      </svg>
-    ),
-    link: '/support/chat-email-support',
-    color: 'blue',
+    count: 1,
+    color: '#f97316',
+    bgColor: '#fed7aa'
   },
 ];
 
-const agentName = 'Samantha'; // Placeholder, replace with prop/context if needed
+const recentActivities = [
+  { id: 1, action: 'New ticket created', user: 'John Doe', time: '5 min ago' },
+  { id: 2, action: 'Ticket resolved', user: 'Sarah Wilson', time: '12 min ago' },
+  { id: 3, action: 'Escalated to manager', user: 'Mike Johnson', time: '20 min ago' },
+  { id: 4, action: 'Refund processed', user: 'Emma Davis', time: '35 min ago' },
+];
+
+const quickActions = [
+  { title: 'View All Tickets', action: 'ViewTickets' },
+  { title: 'Handle Complaints', action: 'ResolveComplaint' },
+  { title: 'Process Refunds', action: 'RefundCompensation' },
+  { title: 'Check Lost Items', action: 'LostItemTracker' },
+];
 
 const SupportDashboard = () => {
-  // For navigation, use react-router-dom's useNavigate if available
-  const handleCardClick = (link) => {
-    window.location.href = link;
-  };
-
   return (
-    <div className="page">
-      <div className="support-dashboard-container">
-        <div className="support-dashboard-header">
-          <h1>Welcome, {agentName}!</h1>
-          <p>
-            Here’s your support dashboard. Quickly access tickets, alerts, and key actions.
-          </p>
+    <div className="support-dashboard">
+      <div className="dashboard-header">
+        <div className="header-text">
+          <h1>Support Dashboard</h1>
+          <p>Monitor support activities and manage customer requests</p>
         </div>
+        <div className="header-stats">
+          <div className="quick-stat">
+            <span className="stat-value">24</span>
+            <span className="stat-label">Active Today</span>
+          </div>
+          <div className="quick-stat">
+            <span className="stat-value">96%</span>
+            <span className="stat-label">Resolution Rate</span>
+          </div>
+        </div>
+      </div>
 
-        {/* Summary Cards */}
-        <div className="dashboard-summary-grid">
+      <div className="dashboard-grid">
+        {/* Stats Cards - Top row */}
+        <div className="stats-section">
           {summaryData.map((card) => (
-            <div
-              className={`dashboard-summary-card color-${card.color}`}
-              key={card.label}
-              onClick={() => handleCardClick(card.link)}
-              tabIndex={0}
-              role="button"
-              title={card.label}
-            >
-              <div className="dashboard-summary-icon">{card.icon}</div>
-              <div className="dashboard-summary-info">
-                <div className="dashboard-summary-label">{card.label}</div>
-                <div className="dashboard-summary-count">{card.count}</div>
+            <div className="stat-card" key={card.label} style={{ 
+              '--card-color': card.color,
+              '--card-bg': card.bgColor 
+            }}>
+              <div className="stat-content">
+                <h3 className="stat-number">{card.count}</h3>
+                <p className="stat-label">{card.label}</p>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Quick Links */}
-        <div className="dashboard-quicklinks-title">Quick Links</div>
-        <div className="dashboard-quicklinks-grid">
-          {quickLinks.map((link) => (
-            <div
-              className={`dashboard-quicklink-card color-${link.color}`}
-              key={link.label}
-              onClick={() => handleCardClick(link.link)}
-              tabIndex={0}
-              role="button"
-              title={link.label}
-            >
-              <div className="dashboard-quicklink-icon">{link.icon}</div>
-              <div className="dashboard-quicklink-label">{link.label}</div>
+        {/* Quick Actions - Left side */}
+        <div className="quick-actions-card">
+          <h3 className="card-title">Quick Actions</h3>
+          <div className="quick-actions-grid">
+            {quickActions.map((action) => (
+              <button key={action.title} className="quick-action-btn">
+                <span className="action-title">{action.title}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Recent Activity - Right side */}
+        <div className="activity-card">
+          <h3 className="card-title">Recent Activity</h3>
+          <div className="activity-list">
+            {recentActivities.map((activity) => (
+              <div key={activity.id} className="activity-item">
+                <div className="activity-content">
+                  <p className="activity-action">{activity.action}</p>
+                  <p className="activity-user">by {activity.user}</p>
+                </div>
+                <span className="activity-time">{activity.time}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Performance Chart - Bottom left */}
+        <div className="chart-card">
+          <h3 className="card-title">Daily Performance</h3>
+          <div className="chart-placeholder">
+            <div className="chart-bars">
+              <div className="chart-bar" style={{ height: '60%' }}></div>
+              <div className="chart-bar" style={{ height: '80%' }}></div>
+              <div className="chart-bar" style={{ height: '45%' }}></div>
+              <div className="chart-bar" style={{ height: '90%' }}></div>
+              <div className="chart-bar" style={{ height: '70%' }}></div>
+              <div className="chart-bar" style={{ height: '85%' }}></div>
+              <div className="chart-bar" style={{ height: '95%' }}></div>
             </div>
-          ))}
+            <div className="chart-labels">
+              <span>Mon</span>
+              <span>Tue</span>
+              <span>Wed</span>
+              <span>Thu</span>
+              <span>Fri</span>
+              <span>Sat</span>
+              <span>Sun</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Team Status - Bottom right */}
+        <div className="team-card">
+          <h3 className="card-title">Team Status</h3>
+          <div className="team-members">
+            <div className="team-member">
+              <div className="member-avatar online"></div>
+              <div className="member-info">
+                <p className="member-name">Alice Cooper</p>
+                <p className="member-status">Available</p>
+              </div>
+            </div>
+            <div className="team-member">
+              <div className="member-avatar busy"></div>
+              <div className="member-info">
+                <p className="member-name">Bob Smith</p>
+                <p className="member-status">On Call</p>
+              </div>
+            </div>
+            <div className="team-member">
+              <div className="member-avatar away"></div>
+              <div className="member-info">
+                <p className="member-name">Carol Johnson</p>
+                <p className="member-status">Break</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

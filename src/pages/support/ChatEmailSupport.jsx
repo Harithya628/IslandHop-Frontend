@@ -125,23 +125,25 @@ const ChatEmailSupport = () => {
       <div className="support-chat-container">
         <div className="support-thread-list">
           <div className="thread-list-title">Support Threads</div>
-          {threads.map((thread) => (
-            <div
-              key={thread.id}
-              className={`thread-list-item${thread.id === selectedId ? ' active' : ''}${thread.resolved ? ' resolved' : ''}`}
-              onClick={() => setSelectedId(thread.id)}
-            >
-              <img src={thread.user.avatar} alt={thread.user.name} className="thread-avatar" />
-              <div className="thread-info">
-                <div className="thread-user">{thread.user.name}</div>
-                <div className="thread-subject">{thread.subject}</div>
-                <div className="thread-type">{thread.type}</div>
+          <div className="thread-list-scrollable">
+            {threads.map((thread) => (
+              <div
+                key={thread.id}
+                className={`thread-list-item${thread.id === selectedId ? ' active' : ''}${thread.resolved ? ' resolved' : ''}`}
+                onClick={() => setSelectedId(thread.id)}
+              >
+                <img src={thread.user.avatar} alt={thread.user.name} className="thread-avatar" />
+                <div className="thread-info">
+                  <div className="thread-user">{thread.user.name}</div>
+                  <div className="thread-subject">{thread.subject}</div>
+                  <div className="thread-type">{thread.type}</div>
+                </div>
+                {thread.resolved && (
+                  <span className="thread-resolved-badge">Resolved</span>
+                )}
               </div>
-              {thread.resolved && (
-                <span className="thread-resolved-badge">Resolved</span>
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         <div className="support-chat-main">
@@ -178,19 +180,29 @@ const ChatEmailSupport = () => {
               </div>
               {!selectedThread.resolved && (
                 <div className="chat-input-section">
-                  <input
-                    type="text"
+                  <textarea
                     className="chat-input"
                     placeholder={`Type your ${selectedThread.type === 'Email' ? 'email' : 'message'}...`}
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={e => e.key === 'Enter' && handleSend()}
+                    onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())}
+                    rows={1}
+                    style={{
+                      height: 'auto',
+                      minHeight: '50px',
+                      resize: 'none',
+                      overflow: 'hidden'
+                    }}
+                    onInput={(e) => {
+                      e.target.style.height = 'auto';
+                      e.target.style.height = e.target.scrollHeight + 'px';
+                    }}
                   />
                   <button className="btn-send" onClick={handleSend} disabled={!input.trim()}>
                     Send
                   </button>
                   <button className="btn-resolve" onClick={handleMarkResolved}>
-                    Mark as Resolved
+                    Resolve
                   </button>
                 </div>
               )}
