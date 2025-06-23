@@ -16,16 +16,16 @@ body {
 .app {
   display: flex;
   height: 100vh;
-  background-color: #E6F0FA; /* Blue background for the entire app */
+  background-color: #E6F0FA; 
   font-family: 'Roboto', sans-serif;
 }
 
 .main-content {
   flex: 1;
-  margin-left: 270px; /* Adjust for wider sidebar */
+  margin-left: 270px; 
   overflow-y: auto;
-  padding: 0; /* Remove any default padding */
-  background-color: #E6F0FA; /* Ensure blue background */
+  padding: 0; 
+  background-color: #E6F0FA; 
 }
 
 .loading {
@@ -34,7 +34,7 @@ body {
   align-items: center;
   min-height: 100vh;
   font-size: 1.2rem;
-  font-weight: 500; /* Medium for loading text */
+  font-weight: 500; 
   color: #4285f4;
   font-family: 'Roboto', sans-serif;
 }
