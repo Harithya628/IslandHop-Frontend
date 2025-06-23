@@ -1,0 +1,175 @@
+.support-dashboard-container {
+  padding: 0 20px;
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
+}
+
+.support-dashboard-header {
+  margin-bottom: 32px;
+}
+
+.support-dashboard-header h1 {
+  font-size: 28px;
+  font-weight: 900;
+  color: #1a202c;
+  margin: 0 0 8px 0;
+}
+
+.support-dashboard-header p {
+  font-size: 16px;
+  color: #64748b;
+  margin: 0;
+}
+
+.dashboard-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 28px;
+  margin-bottom: 38px;
+}
+
+.dashboard-summary-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 26px;
+  cursor: pointer;
+  transition: box-shadow 0.2s, border 0.2s, transform 0.12s;
+  outline: none;
+}
+.dashboard-summary-card:focus,
+.dashboard-summary-card:hover {
+  box-shadow: 0 4px 16px rgba(30,144,255,0.10);
+  border: 1.5px solid #1e90ff;
+  transform: translateY(-2px) scale(1.02);
+}
+
+.dashboard-summary-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  font-size: 28px;
+  background: #f1f5f9;
+}
+.dashboard-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.dashboard-summary-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dashboard-summary-label {
+  font-size: 15px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.dashboard-summary-count {
+  font-size: 24px;
+  font-weight: 900;
+  color: #1e293b;
+}
+
+.color-blue .dashboard-summary-icon { background: #e0e8f5; color: #1e90ff; }
+.color-indigo .dashboard-summary-icon { background: #ede9fe; color: #6366f1; }
+.color-orange .dashboard-summary-icon { background: #fef9c3; color: #f59e0b; }
+.color-teal .dashboard-summary-icon { background: #ccfbf1; color: #10b981; }
+.color-purple .dashboard-summary-icon { background: #ede9fe; color: #8b5cf6; }
+.color-red .dashboard-summary-icon { background: #fee2e2; color: #ef4444; }
+
+.dashboard-quicklinks-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 16px;
+  margin-top: 12px;
+}
+
+.dashboard-quicklinks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 18px;
+  margin-bottom: 32px;
+}
+
+.dashboard-quicklink-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 22px 0 16px 0;
+  cursor: pointer;
+  transition: box-shadow 0.2s, border 0.2s, transform 0.12s;
+  outline: none;
+}
+.dashboard-quicklink-card:focus,
+.dashboard-quicklink-card:hover {
+  box-shadow: 0 4px 16px rgba(30,144,255,0.10);
+  border: 1.5px solid #1e90ff;
+  transform: translateY(-2px) scale(1.03);
+}
+
+.dashboard-quicklink-icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2px;
+}
+.quicklink-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.dashboard-quicklink-label {
+  font-size: 15px;
+  color: #374151;
+  font-weight: 600;
+  text-align: center;
+}
+
+.color-blue .dashboard-quicklink-icon { color: #1e90ff; }
+.color-indigo .dashboard-quicklink-icon { color: #6366f1; }
+.color-orange .dashboard-quicklink-icon { color: #f59e0b; }
+.color-teal .dashboard-quicklink-icon { color: #10b981; }
+.color-purple .dashboard-quicklink-icon { color: #8b5cf6; }
+.color-red .dashboard-quicklink-icon { color: #ef4444; }
+.color-violet .dashboard-quicklink-icon { color: #8b5cf6; }
+
+@media (max-width: 900px) {
+  .dashboard-summary-grid,
+  .dashboard-quicklinks-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .support-dashboard-header h1 {
+    font-size: 22px;
+  }
+}
+@media (max-width: 600px) {
+  .dashboard-summary-grid,
+  .dashboard-quicklinks-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .dashboard-summary-card,
+  .dashboard-quicklink-card {
+    padding: 16px 0 10px 0;
+  }
+}

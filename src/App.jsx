@@ -7,7 +7,9 @@ import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import ProfessionalSignupPage from './pages/ProfessionalSignupPage'
 import DashboardLayout from './components/DashboardLayout'
+
 import Questionnaire from './pages/traveler/Trip-plan-questionnaire'
+import SupportRoutes from './routes/SupportRoutes'
 
 import './App.css'
 import TripDashboard from './pages/traveler/TripDashboard';
@@ -97,6 +99,9 @@ function App() {
         <Questionnaire />
       </PublicRoute>
       }/> */}
+      {/* --- Support Agent Routes --- */}
+      <Route path="/support/*" element={<SupportRoutes />} />
+      {/* --------------------------- */}
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   )
