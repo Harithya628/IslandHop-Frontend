@@ -13,6 +13,7 @@ import ViewTickets from '../pages/support/ViewTickets';
 
 import SupportSidebar from '../components/sidebars/SupportSidebar';
 
+// Dummy auth for support agent (replace with real logic)
 const isSupportAgent = () => true;
 
 const ProtectedRoute = ({ children }) => {
@@ -30,7 +31,7 @@ const SupportLayout = ({ children }) => {
   else if (path.includes('panic-alerts')) currentPage = 'PanicAlerts';
   else if (path.includes('chat-email-support')) currentPage = 'ChatEmailSupport';
   else if (path.includes('dashboard')) currentPage = 'SupportDashboard';
-    else if (path.includes('view-tickets')) currentPage = 'ViewTickets';
+  else if (path.includes('view-tickets')) currentPage = 'ViewTickets';
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
