@@ -9,6 +9,7 @@ import ComplaintReports from '../pages/support/ComplaintReports';
 import LostItemTracker from '../pages/support/LostItemTracker';
 import PanicAlerts from '../pages/support/PanicAlerts';
 import ChatEmailSupport from '../pages/support/ChatEmailSupport';
+import ViewTickets from '../pages/support/ViewTickets';
 
 import SupportSidebar from '../components/sidebars/SupportSidebar';
 
@@ -29,6 +30,7 @@ const SupportLayout = ({ children }) => {
   else if (path.includes('panic-alerts')) currentPage = 'PanicAlerts';
   else if (path.includes('chat-email-support')) currentPage = 'ChatEmailSupport';
   else if (path.includes('dashboard')) currentPage = 'SupportDashboard';
+    else if (path.includes('view-tickets')) currentPage = 'ViewTickets';
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
@@ -56,6 +58,14 @@ const SupportRoutes = () => (
         element={
           <ProtectedRoute>
             <SupportDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="view-tickets"
+        element={
+          <ProtectedRoute>
+            <ViewTickets />
           </ProtectedRoute>
         }
       />
