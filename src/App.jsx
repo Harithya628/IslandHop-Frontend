@@ -88,11 +88,12 @@ function App() {
         />
       </PublicRoute>
       }/>     
-       <Route path="/trip-dashboard" element={
+       {/* <Route path="/trip-dashboard" element={
       <PublicRoute>
         <TripDashboard />
       </PublicRoute>
-      }/>      <Route path="/traveler/trip-plan-questionnaire" element={
+      }/>      */}
+       <Route path="/traveler/trip-plan-questionnaire" element={
         <PublicRoute>
           <Questionnaire />
         </PublicRoute>
