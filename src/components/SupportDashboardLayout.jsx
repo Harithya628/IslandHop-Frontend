@@ -9,6 +9,7 @@ import RefundCompensation from '../pages/support/RefundCompensation';
 import LostItemTracker from '../pages/support/LostItemTracker';
 import PanicAlerts from '../pages/support/PanicAlerts';
 import ChatEmailSupport from '../pages/support/ChatEmailSupport';
+import ProfileDetails from '../pages/support/ProfileDetails';
 
 import './DashboardLayout.css';
 
@@ -18,7 +19,7 @@ const SupportDashboardLayout = () => {
   const renderCurrentPage = () => {
     switch (currentPage) {
       case 'SupportDashboard': 
-        return <SupportDashboard />;
+        return <SupportDashboard onProfileClick={() => setCurrentPage('ProfileDetails')} />;
       
       case 'ViewTickets': 
         return <ViewTickets />;
@@ -41,8 +42,11 @@ const SupportDashboardLayout = () => {
       case 'ChatEmailSupport': 
         return <ChatEmailSupport />;
       
+      case 'ProfileDetails':
+        return <ProfileDetails />;
+      
       default: 
-        return <SupportDashboard />;
+        return <SupportDashboard onProfileClick={() => setCurrentPage('ProfileDetails')} />;
     }
   };
 

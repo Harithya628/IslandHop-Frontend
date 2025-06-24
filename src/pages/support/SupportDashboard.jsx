@@ -1,5 +1,6 @@
 import React from 'react';
 import './SupportDashboard.css';
+import profilePic from '../../assets/islandHopIcon.png';
 
 // Summary data for stat cards
 const summaryData = [
@@ -55,7 +56,7 @@ const quickActions = [
   { title: 'Check Lost Items', action: 'LostItemTracker' },
 ];
 
-const SupportDashboard = () => {
+const SupportDashboard = ({ onProfileClick }) => {
   return (
     <div className="support-dashboard">
       <div className="dashboard-header">
@@ -63,14 +64,20 @@ const SupportDashboard = () => {
           <h1>Support Dashboard</h1>
           <p>Monitor support activities and manage customer requests</p>
         </div>
-        <div className="header-stats">
-          <div className="quick-stat">
-            <span className="stat-value">24</span>
-            <span className="stat-label">Active Today</span>
+        <div className="header-stats-and-profile">
+          <div className="header-stats">
+            <div className="quick-stat">
+              <span className="stat-value">24</span>
+              <span className="stat-label">Active Today</span>
+            </div>
+            <div className="quick-stat">
+              <span className="stat-value">96%</span>
+              <span className="stat-label">Resolution Rate</span>
+            </div>
           </div>
-          <div className="quick-stat">
-            <span className="stat-value">96%</span>
-            <span className="stat-label">Resolution Rate</span>
+          <div className="profile-info" onClick={onProfileClick} style={{ cursor: 'pointer' }}>
+            <img src={profilePic} alt="Profile" className="profile-avatar" />
+            <span className="profile-name">Alex Support</span>
           </div>
         </div>
       </div>
