@@ -65,9 +65,8 @@ const TripDashboard = () => {
   const toggleSettings = (tripId) => {
     setOpenSettingsId(openSettingsId === tripId ? null : tripId);
   };
-  
-  const handlePlanNewTrip = () => {
-    navigate('/explore');
+    const handlePlanNewTrip = () => {
+    navigate('/traveler/trip-plan-questionnaire');
   };
 
   const TripCard = ({ trip, isPast = false }) => (

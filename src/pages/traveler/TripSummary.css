@@ -1,0 +1,293 @@
+.trip-dashboard-page {
+  min-height: 100vh;
+  background-color: white;
+}
+
+.trip-dashboard-container {
+  padding-top: 120px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 50px;
+}
+
+.trip-dashboard-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.trip-dashboard-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1FA9FF;
+  margin-bottom: 12px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.trip-dashboard-header p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+/* Map Section Styles */
+.map-section {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.map-container {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.map-container.integrated {
+  display: block;
+  width: 100%;
+}
+
+.sri-lanka-map {
+  position: relative;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 600px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.map-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.map-instructions {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 14px;
+  color: #666;
+}
+
+.overlay-panel {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: white;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  width: 280px;
+  max-height: calc(100% - 40px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.overlay-panel h3 {
+  font-size: 1.1rem;
+  margin: 0;
+  padding: 15px;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.empty-selection {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+}
+
+.location-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.location-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  background-color: white;
+  transition: background-color 0.2s ease;
+}
+
+.location-item:hover {
+  background-color: #f8f8f8;
+}
+
+.location-name {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.map-pin {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  transform-origin: bottom center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+.map-pin .pin-icon {
+  color: #ff3e3e;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
+}
+
+.map-pin .check {
+  color: white;
+  background-color: #1FA9FF;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+.map-pin.beach .pin-icon {
+  color: #1FA9FF;
+}
+
+.map-pin.historical .pin-icon {
+  color: #FF9900;
+}
+
+.map-pin.mountain .pin-icon {
+  color: #7C4700;
+}
+
+.map-pin.city .pin-icon {
+  color: #FF3E3E;
+}
+
+.map-pin.park .pin-icon {
+  color: #33CC66;
+}
+
+.map-pin.selected .pin-icon {
+  color: #1FA9FF;
+  transform: scale(1.2);
+}
+
+.location-tooltip {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #000;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  white-space: nowrap;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.map-pin:hover .location-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-12px);
+}
+
+.no-locations {
+  color: #999;
+  font-style: italic;
+  text-align: center;
+  font-size: 14px;
+}
+
+.remove-location {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.remove-location:hover {
+  color: #ff3e3e;
+}
+
+.save-locations-btn {
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 0 0 8px 8px;
+  padding: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: auto;
+}
+
+.save-locations-btn:hover {
+  background-color: #333;
+}
+
+@media (max-width: 992px) {
+  .sri-lanka-map {
+    height: 500px;
+  }
+  
+  .overlay-panel {
+    width: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .trip-dashboard-container {
+    padding-top: 100px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  .trip-dashboard-header h1 {
+    font-size: 1.75rem;
+  }
+  
+  .sri-lanka-map {
+    height: 450px;
+  }
+  
+  .overlay-panel {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    margin-top: -80px;
+    z-index: 20;
+    max-height: none;
+  }
+  
+  .location-list {
+    max-height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sri-lanka-map {
+    height: 350px;
+  }
+  
+  .map-pin {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .overlay-panel {
+    margin-top: -60px;
+  }
+}

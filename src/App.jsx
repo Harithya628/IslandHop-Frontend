@@ -8,6 +8,7 @@ import SignupPage from './pages/SignupPage'
 import ProfessionalSignupPage from './pages/ProfessionalSignupPage'
 import DashboardLayout from './components/DashboardLayout'
 import Questionnaire from './pages/traveler/Trip-plan-questionnaire'
+import TripSummary from './pages/traveler/TripSummary'
 
 import './App.css'
 import TripDashboard from './pages/traveler/TripDashboard';
@@ -91,12 +92,16 @@ function App() {
       <PublicRoute>
         <TripDashboard />
       </PublicRoute>
+      }/>      <Route path="/traveler/trip-plan-questionnaire" element={
+        <PublicRoute>
+          <Questionnaire />
+        </PublicRoute>
       }/>
-      {/* <Route path="/traveler/trip-plan-questionnaire" element={
-      <PublicRoute>
-        <Questionnaire />
-      </PublicRoute>
-      }/> */}
+      <Route path="/traveler/trip-summary" element={
+        <PublicRoute>
+          <TripSummary />
+        </PublicRoute>
+      }/>
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   )

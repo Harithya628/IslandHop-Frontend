@@ -1,29 +1,44 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, ArrowRight, Mountain, Waves, Camera, MapPin, Utensils, Music, Gamepad2, Book } from 'lucide-react';
-import './Trip-plan-questionnaire.css' ; 
+import { useNavigate } from 'react-router-dom';
+import { ChevronLeft, ChevronRight, ArrowRight, Mountain, Waves, Camera, MapPin, Utensils, Music, Gamepad2, Book, Building } from 'lucide-react';
+import Navbar from '../../components/Navbar';
+import './Trip-plan-questionnaire.css' ;
 
 const Questionnaire = () => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(5); // June (0-indexed)
   const [currentYear, setCurrentYear] = useState(2025);
-  const [selectedPreferences, setSelectedPreferences] = useState([]);
+  const [selectedTerrainPreferences, setSelectedTerrainPreferences] = useState([]);
+  const [selectedActivityPreferences, setSelectedActivityPreferences] = useState([]);
 
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
-  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-  const preferences = [
+  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];  const terrainPreferences = [
+    { id: 'beaches', name: 'Beach', icon: Waves },
+    { id: 'mountains', name: 'Mountain', icon: Mountain },
+    { id: 'forests', name: 'Forest', icon: Mountain },
+    { id: 'historical', name: 'Historical', icon: Book },
+    { id: 'city', name: 'City', icon: Building },
+    { id: 'parks', name: 'Park', icon: MapPin },
+    { id: 'islands', name: 'Island', icon: Waves },
+    { id: 'wetland', name: 'Wetland', icon: Camera },
+    { id: 'countryside', name: 'Countryside', icon: MapPin }
+  ];
+  
+  const activityPreferences = [
     { id: 'surfing', name: 'Surfing', icon: Waves },
     { id: 'hiking', name: 'Hiking', icon: Mountain },
     { id: 'photography', name: 'Photography', icon: Camera },
     { id: 'sightseeing', name: 'Sightseeing', icon: MapPin },
     { id: 'dining', name: 'Fine Dining', icon: Utensils },
     { id: 'nightlife', name: 'Nightlife', icon: Music },
+    { id: 'snorkeling', name: 'Snorkeling', icon: Waves },
     { id: 'adventure', name: 'Adventure Sports', icon: Gamepad2 },
     { id: 'culture', name: 'Cultural Tours', icon: Book }
   ];
@@ -69,7 +84,6 @@ const Questionnaire = () => {
       }
     }
   };
-
   const handleDateClick = (day, month, year) => {
     if (!day) return;
     
@@ -80,16 +94,34 @@ const Questionnaire = () => {
       setEndDate(null);
     } else if (startDate && !endDate) {
       if (clickedDate >= startDate) {
-        setEndDate(clickedDate);
+        // Calculate the difference in days
+        const diffTime = Math.abs(clickedDate - startDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        
+        // Check if the date range is within 14 days
+        if (diffDays <= 14) {
+          setEndDate(clickedDate);        } else {
+          // If more than 14 days, set the end date to start date + 14 days
+          const maxEndDate = new Date(startDate);
+          maxEndDate.setDate(startDate.getDate() + 14);
+          setEndDate(maxEndDate);
+        }
       } else {
         setStartDate(clickedDate);
         setEndDate(null);
       }
     }
   };
+  const handleTerrainToggle = (preferenceId) => {
+    setSelectedTerrainPreferences(prev => 
+      prev.includes(preferenceId)
+        ? prev.filter(id => id !== preferenceId)
+        : [...prev, preferenceId]
+    );
+  };
 
-  const handlePreferenceToggle = (preferenceId) => {
-    setSelectedPreferences(prev => 
+  const handleActivityToggle = (preferenceId) => {
+    setSelectedActivityPreferences(prev => 
       prev.includes(preferenceId)
         ? prev.filter(id => id !== preferenceId)
         : [...prev, preferenceId]
@@ -108,6 +140,18 @@ const Questionnaire = () => {
     const date = new Date(year, month, day);
     return date > startDate && date < endDate;
   };
+  const isDateDisabled = (day, month, year) => {
+    if (!day) return true; // Empty days are disabled
+    if (!startDate) return false; // If no start date selected, nothing is disabled
+    
+    const date = new Date(year, month, day);
+    if (date < startDate) return false; // Previous dates from start date should be selectable for re-selection
+    
+    // Check if the date is more than 14 days after the start date
+    const diffTime = Math.abs(date - startDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays > 14;
+  };
 
   const getNextMonth = () => {
     if (currentMonth === 11) {
@@ -117,37 +161,30 @@ const Questionnaire = () => {
   };
 
   const nextMonth = getNextMonth();
-
   const Calendar = ({ month, year, isSecond = false }) => {
     const days = generateCalendarDays(month, year);
 
     return (
       <div className="calendar">
         <div className="calendar-header">
-          {!isSecond && (
-            <button 
-              onClick={() => navigateMonth('prev')}
-              className="nav-button"
-            >
-              <ChevronLeft size={20} />
-            </button>
-          )}
-          {isSecond && <div className="nav-spacer"></div>}
+          <button 
+            onClick={() => navigateMonth('prev')}
+            className="nav-button"
+          >
+            <ChevronLeft size={20} />
+          </button>
           
           <div className="month-year">
             <span className="month">{months[month]}</span>
             <span className="year">{year}</span>
           </div>
           
-          {!isSecond && (
-            <button 
-              onClick={() => navigateMonth('next')}
-              className="nav-button"
-            >
-              <ChevronRight size={20} />
-            </button>
-          )}
-          {isSecond && <div className="nav-spacer"></div>}
+          <button 
+            onClick={() => navigateMonth('next')}
+            className="nav-button"
+          >
+            <ChevronRight size={20} />
+          </button>
         </div>
 
         <div className="calendar-days-header">
@@ -158,17 +195,17 @@ const Questionnaire = () => {
           ))}
         </div>
 
-        <div className="calendar-days">
-          {days.map((day, index) => (
+        <div className="calendar-days">          {days.map((day, index) => (
             <button
               key={index}
               onClick={() => handleDateClick(day, month, year)}
-              disabled={!day}
+              disabled={!day || isDateDisabled(day, month, year)}
               className={`
                 day-button
                 ${!day ? 'day-empty' : ''}
                 ${isDateSelected(day, month, year) ? 'day-selected' : ''}
                 ${isDateInRange(day, month, year) ? 'day-in-range' : ''}
+                ${isDateDisabled(day, month, year) && day ? 'day-disabled' : ''}
               `}
             >
               {day}
@@ -177,9 +214,7 @@ const Questionnaire = () => {
         </div>
       </div>
     );
-  };
-
-  const DateSelection = () => (
+  };  const DateSelection = () => (
     <div className="step-content">
       <div className="step-header">
         <h2>When are you going?</h2>
@@ -212,22 +247,21 @@ const Questionnaire = () => {
       </div>
     </div>
   );
-
   const PreferencesSelection = () => (
     <div className="step-content">
       <div className="step-header">
-        <h2>What are your interests?</h2>
-        <p>Select activities and experiences you'd like to enjoy</p>
+        <h2>What terrains do you prefer?</h2>
+        <p>Select the types of landscapes you'd like to visit</p>
       </div>
 
       <div className="preferences-grid">
-        {preferences.map(preference => {
+        {terrainPreferences.map(preference => {
           const IconComponent = preference.icon;
           return (
             <button
               key={preference.id}
-              onClick={() => handlePreferenceToggle(preference.id)}
-              className={`preference-card ${selectedPreferences.includes(preference.id) ? 'selected' : ''}`}
+              onClick={() => handleTerrainToggle(preference.id)}
+              className={`preference-card ${selectedTerrainPreferences.includes(preference.id) ? 'selected' : ''}`}
             >
               <IconComponent size={32} className="preference-icon" />
               <span className="preference-name">{preference.name}</span>
@@ -238,30 +272,50 @@ const Questionnaire = () => {
     </div>
   );
 
-  const StepThree = () => (
+  const ActivitiesSelection = () => (
     <div className="step-content">
       <div className="step-header">
-        <h2>Coming Soon</h2>
-        <p>This step is still being developed</p>
+        <h2>What activities interest you?</h2>
+        <p>Select the activities you'd like to enjoy during your trip</p>
       </div>
-      <div className="coming-soon">
-        <div className="coming-soon-content">
-          <h3>Step 3 will be available soon!</h3>
-          <p>We're working on adding more features to make your trip planning even better.</p>
-        </div>
+
+      <div className="preferences-grid">
+        {activityPreferences.map(activity => {
+          const IconComponent = activity.icon;
+          return (
+            <button
+              key={activity.id}
+              onClick={() => handleActivityToggle(activity.id)}
+              className={`preference-card ${selectedActivityPreferences.includes(activity.id) ? 'selected' : ''}`}
+            >
+              <IconComponent size={32} className="preference-icon" />
+              <span className="preference-name">{activity.name}</span>
+            </button>
+          );
+        })}
       </div>
     </div>
   );
-
   const canProceed = () => {
     if (currentStep === 1) return startDate && endDate;
-    if (currentStep === 2) return selectedPreferences.length > 0;
+    if (currentStep === 2) return selectedTerrainPreferences.length > 0;
+    if (currentStep === 3) return selectedActivityPreferences.length > 0;
     return false;
-  };
-
-  const handleNext = () => {
-    if (canProceed() && currentStep < 3) {
-      setCurrentStep(currentStep + 1);
+  };  const handleNext = () => {
+    if (canProceed()) {
+      if (currentStep < 3) {
+        setCurrentStep(currentStep + 1);
+      } else {
+        // Handle form completion - navigate to summary page & log data
+        console.log("Trip planning completed!", {
+          dates: { start: startDate, end: endDate },
+          terrainPreferences: selectedTerrainPreferences,
+          activityPreferences: selectedActivityPreferences
+        });
+        
+        // Navigate to the trip summary page
+        navigate("/traveler/trip-summary");
+      }
     }
   };
 
@@ -269,51 +323,44 @@ const Questionnaire = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
     }
-  };
-
-  return (
-    <>
-      
-      
-      <div className="trip-planning-container">
-        <div className="form-container">
-          <div className="progress-section">
-            <p className="progress-indicator">{currentStep} of 3</p>
-            <h1 className="main-title">Planning your trip</h1>
-            
-            <div className="progress-bar">
-              <div className={`progress-step ${currentStep >= 1 ? 'active' : ''}`}></div>
-              <div className={`progress-step ${currentStep >= 2 ? 'active' : ''}`}></div>
-              <div className={`progress-step ${currentStep >= 3 ? 'active' : ''}`}></div>
-            </div>
+  };  return (
+    <div className="questionnaire-page">
+      <Navbar />
+        <div className="trip-planning-container">        <div className="progress-section">
+          <p className="progress-indicator">Step {currentStep} of 3</p>
+          <h1 className="main-title">Plan Your Perfect Trip</h1>
+            <div className="questionnaire-progress-bar">
+            <div className={`questionnaire-progress-step ${currentStep >= 1 ? 'active' : ''}`}></div>
+            <div className={`questionnaire-progress-step ${currentStep >= 2 ? 'active' : ''}`}></div>
+            <div className={`questionnaire-progress-step ${currentStep >= 3 ? 'active' : ''}`}></div>
           </div>
-
+        </div>
+          <div className="step-container">
           {currentStep === 1 && <DateSelection />}
           {currentStep === 2 && <PreferencesSelection />}
-          {currentStep === 3 && <StepThree />}
-
-          <div className="navigation">
-            <button 
+          {currentStep === 3 && <ActivitiesSelection />}
+          
+          <div className="navigation">            <button 
               onClick={handleBack}
               className="nav-button-secondary"
               disabled={currentStep === 1}
             >
-              <ChevronLeft size={18} />
-              Back
+              <ChevronLeft size={20} />
+              <span className="button-text">Back</span>
             </button>
             
             <button 
               onClick={handleNext}
-              className="next-button"
+              className={`next-button ${currentStep === 3 ? 'final-step' : ''}`}
               disabled={!canProceed()}
             >
-              Next
-              <ArrowRight size={18} />
+              <span className="button-text">{currentStep === 3 ? 'Finish' : 'Next'}</span>
+              <ArrowRight size={20} />
             </button>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
