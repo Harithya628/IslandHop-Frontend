@@ -1,4 +1,4 @@
-/* Page Layout */
+
 .page {
   margin: 20px; /* Reduced from 40px to bring cards closer */
   min-height: calc(100vh - 40px);
