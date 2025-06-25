@@ -9,6 +9,7 @@ import ProfessionalSignupPage from './pages/ProfessionalSignupPage'
 import DashboardLayout from './components/DashboardLayout'
 import Questionnaire from './pages/traveler/Trip-plan-questionnaire'
 import TripDashboard from './pages/traveler/TripDashboard';
+import GuideDashboard from './pages/guide/GuideDashboard';
 
 // --- Support Agent Imports ---
 import SupportRoutes from './routes/SupportRoutes';
@@ -102,6 +103,10 @@ function App() {
       {/* --- Support Agent Routes (all under /support/*) --- */}
       <Route path="/support/*" element={<SupportRoutes />} />
       {/* --------------------------------------------------- */}
+
+      {/* --- Guide Routes --- */}
+      <Route path="/guide" element={<GuideDashboard />} />
+      {/* ------------------- */}
 
       {/* Catch-all */}
       <Route path="*" element={<Navigate to="/" />} />

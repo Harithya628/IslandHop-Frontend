@@ -1,0 +1,973 @@
+/* Guide Dashboard Styles - Website Layout */
+.guide-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+  font-family: 'Roboto', sans-serif;
+  background: #ffffff;
+  min-height: 100vh;
+  padding-top: 120px; /* Account for fixed navbar */
+}
+
+/* Navigation Tabs */
+.guide-tabs {
+  display: flex;
+  background: #fff;
+  border-radius: 15px;
+  padding: 8px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  gap: 5px;
+}
+
+.tab {
+  flex: 1;
+  padding: 15px 20px;
+  border: none;
+  background: transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #64748b;
+  transition: all 0.3s ease;
+  font-size: 16px;
+}
+
+.tab:hover {
+  background: #f1f5f9;
+  color: #3b82f6;
+}
+
+.tab.active {
+  background: #3b82f6;
+  color: white;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+/* Content Area */
+.guide-content {
+  background: #fff;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.guide-content h2 {
+  margin: 0 0 25px 0;
+  color: #1e293b;
+  font-size: 28px;
+  font-weight: 700;
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Tours Section */
+.tours-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 25px;
+}
+
+.tour-card {
+  background: #f8fafc;
+  border-radius: 15px;
+  padding: 25px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.tour-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.tour-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.tour-header h3 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+  font-family: 'Outfit', sans-serif;
+}
+
+.tour-status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.tour-status.active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.tour-status.fully-booked {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.tour-details p {
+  margin: 8px 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.tour-description {
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 15px 0;
+}
+
+.tour-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-edit, .btn-view {
+  flex: 1;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-edit {
+  background: #3b82f6;
+  color: white;
+}
+
+.btn-edit:hover {
+  background: #2563eb;
+}
+
+.btn-view {
+  background: #f1f5f9;
+  color: #3b82f6;
+  border: 1px solid #e2e8f0;
+}
+
+.btn-view:hover {
+  background: #e2e8f0;
+}
+
+/* Requests Section */
+.requests-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.request-card {
+  background: #f8fafc;
+  border-radius: 15px;
+  padding: 25px;
+  border: 1px solid #e2e8f0;
+}
+
+.request-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.tourist-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.tourist-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.tourist-info h3 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 18px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.request-tour-title {
+  color: #3b82f6;
+  font-weight: 600;
+  margin: 5px 0 0 0;
+}
+
+.request-status.pending {
+  background: #fef3c7;
+  color: #92400e;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.request-details p {
+  margin: 8px 0;
+  color: #64748b;
+}
+
+.request-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-accept, .btn-decline, .btn-negotiate {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-accept {
+  background: #10b981;
+  color: white;
+}
+
+.btn-accept:hover {
+  background: #059669;
+}
+
+.btn-decline {
+  background: #ef4444;
+  color: white;
+}
+
+.btn-decline:hover {
+  background: #dc2626;
+}
+
+.btn-negotiate {
+  background: #f59e0b;
+  color: white;
+}
+
+.btn-negotiate:hover {
+  background: #d97706;
+}
+
+/* Chats Section */
+.chats-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.chat-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.chat-card:hover {
+  background: #f1f5f9;
+  transform: translateY(-2px);
+}
+
+.chat-avatar {
+  position: relative;
+}
+
+.chat-avatar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.unread-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #ef4444;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.chat-info {
+  flex: 1;
+}
+
+.chat-info h3 {
+  margin: 0 0 5px 0;
+  color: #1e293b;
+  font-size: 16px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.chat-tour {
+  color: #3b82f6;
+  font-size: 14px;
+  margin: 0 0 5px 0;
+  font-weight: 600;
+}
+
+.chat-last-message {
+  color: #64748b;
+  margin: 0;
+  font-size: 14px;
+}
+
+.chat-meta {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+/* Reviews Section */
+.reviews-summary {
+  background: #f8fafc;
+  padding: 25px;
+  border-radius: 15px;
+  margin-bottom: 25px;
+  border: 1px solid #e2e8f0;
+}
+
+.rating-overview {
+  text-align: center;
+}
+
+.average-rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.rating-number {
+  font-size: 48px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.rating-stars {
+  display: flex;
+  gap: 5px;
+}
+
+.star {
+  font-size: 24px;
+  color: #d1d5db;
+}
+
+.star.filled {
+  color: #fbbf24;
+}
+
+.total-reviews {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.review-card {
+  background: #f8fafc;
+  border-radius: 15px;
+  padding: 25px;
+  border: 1px solid #e2e8f0;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.reviewer-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.reviewer-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.reviewer-info h3 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 16px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.review-tour {
+  color: #3b82f6;
+  font-weight: 600;
+  margin: 5px 0 0 0;
+  font-size: 14px;
+}
+
+.review-date {
+  color: #64748b;
+  margin: 5px 0 0 0;
+  font-size: 12px;
+}
+
+.review-rating {
+  display: flex;
+  gap: 3px;
+}
+
+.review-rating .star {
+  font-size: 18px;
+}
+
+.review-text {
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal {
+  background: white;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 30px 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 20px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #64748b;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn:hover {
+  color: #1e293b;
+}
+
+.modal-content {
+  padding: 20px 30px 30px;
+}
+
+.negotiate-form {
+  margin-top: 20px;
+}
+
+.negotiate-form label {
+  display: block;
+  margin-bottom: 10px;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.negotiate-form textarea {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  resize: vertical;
+  font-family: inherit;
+  margin-bottom: 20px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-send, .btn-cancel {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-send {
+  background: #3b82f6;
+  color: white;
+  flex: 1;
+}
+
+.btn-send:hover {
+  background: #2563eb;
+}
+
+.btn-cancel {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+}
+
+.btn-cancel:hover {
+  background: #e2e8f0;
+}
+
+/* Chat Modal */
+.chat-modal {
+  max-width: 700px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-window {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 20px 30px;
+  overflow-y: auto;
+  background: #f8fafc;
+}
+
+.message {
+  margin-bottom: 15px;
+  max-width: 70%;
+}
+
+.tourist-message {
+  align-self: flex-start;
+}
+
+.guide-message {
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+.message p {
+  background: white;
+  padding: 12px 16px;
+  border-radius: 15px;
+  margin: 0 0 5px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.guide-message p {
+  background: #3b82f6;
+  color: white;
+}
+
+.message-time {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.chat-input-area {
+  display: flex;
+  gap: 15px;
+  padding: 20px 30px;
+  border-top: 1px solid #e2e8f0;
+  background: white;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 25px;
+  outline: none;
+}
+
+.chat-input:focus {
+  border-color: #3b82f6;
+}
+
+.send-btn {
+  padding: 12px 20px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.send-btn:hover {
+  background: #2563eb;
+}
+
+/* Icon Styles - CSS-based icons without emojis */
+.icon-location::before {
+  content: '●';
+  color: #dc2626;
+  font-size: 12px;
+  margin-right: 6px;
+}
+
+.icon-star::before {
+  content: '★';
+  color: #fbbf24;
+  font-size: 14px;
+  margin-right: 6px;
+}
+
+.icon-target::before {
+  content: '◯';
+  color: #3b82f6;
+  font-size: 14px;
+  margin-right: 6px;
+  font-weight: bold;
+}
+
+.icon-badge::before {
+  content: '♦';
+  color: #f59e0b;
+  font-size: 14px;
+  margin-right: 6px;
+}
+
+.icon-status {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.icon-status.available {
+  background-color: #22c55e;
+}
+
+.icon-status.unavailable {
+  background-color: #ef4444;
+}
+
+.icon-clipboard::before {
+  content: '▢';
+  color: #6b7280;
+  font-size: 14px;
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+.icon-chat::before {
+  content: '◗';
+  color: #10b981;
+  font-size: 14px;
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+.icon-calendar::before {
+  content: '▣';
+  color: #8b5cf6;
+  font-size: 14px;
+  margin-right: 6px;
+}
+
+.icon-clock::before {
+  content: '◷';
+  color: #06b6d4;
+  font-size: 14px;
+  margin-right: 6px;
+}
+
+.icon-money::before {
+  content: '$';
+  color: #059669;
+  font-size: 14px;
+  margin-right: 6px;
+  font-weight: bold;
+}
+
+.icon-users::before {
+  content: '⚮';
+  color: #7c3aed;
+  font-size: 14px;
+  margin-right: 6px;
+}
+
+/* Tour Categories */
+.tour-category {
+  margin-bottom: 40px;
+}
+
+.category-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+/* Category Icons */
+.icon-upcoming::before {
+  content: '▲';
+  color: #3b82f6;
+  font-size: 16px;
+}
+
+.icon-ongoing::before {
+  content: '●';
+  color: #10b981;
+  font-size: 16px;
+  animation: pulse 2s infinite;
+}
+
+.icon-past::before {
+  content: '✓';
+  color: #6b7280;
+  font-size: 16px;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Tour Card Variations */
+.tour-card.ongoing {
+  border: 2px solid #10b981;
+  background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.1);
+}
+
+.tour-card.ongoing .tour-status {
+  background: #10b981;
+  color: white;
+  animation: pulse 2s infinite;
+}
+
+.tour-card.completed {
+  opacity: 0.8;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+}
+
+.tour-card.completed .tour-status {
+  background: #6b7280;
+  color: white;
+}
+
+/* Status-specific styling */
+.tour-status.upcoming {
+  background: #3b82f6;
+  color: white;
+}
+
+.tour-status.ongoing {
+  background: #10b981;
+  color: white;
+}
+
+.tour-status.completed {
+  background: #6b7280;
+  color: white;
+}
+
+/* Action Button Variations */
+.btn-cancel {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+.btn-live {
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-live:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.btn-contact {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-contact:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+}
+
+.btn-review {
+  background: #f59e0b;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-review:hover {
+  background: #d97706;
+  transform: translateY(-1px);
+}
+
+.btn-report {
+  background: #6b7280;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-report:hover {
+  background: #4b5563;
+  transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {  .guide-dashboard {
+    padding: 10px;
+  }
+
+  .guide-tabs {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .tours-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .request-header,
+  .review-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .request-actions,
+  .tour-actions {
+    flex-direction: column;
+  }
+
+  .modal {
+    margin: 10px;
+    max-width: none;
+  }
+
+  .modal-content {
+    padding: 15px 20px 20px;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+  }
+
+  .chat-modal {
+    height: 80vh;
+  }
+}
