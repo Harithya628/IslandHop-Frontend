@@ -31,6 +31,7 @@ const ProfileDetails = () => {
   const [showDeactivate, setShowDeactivate] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [avatarPreview, setAvatarPreview] = useState(user.avatar);
 
   const notify = (msg, type = 'success') => {
     toast[type](msg, {
@@ -64,6 +65,17 @@ const ProfileDetails = () => {
     }));
   };
 
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAvatarPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleUpdate = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -74,6 +86,7 @@ const ProfileDetails = () => {
         lastName: form.lastName,
         phone: form.phone,
         address: form.address,
+        avatar: avatarPreview,
       }));
       setEditMode(false);
       setLoading(false);
@@ -100,13 +113,27 @@ const ProfileDetails = () => {
   };
 
   return (
-    <div className="profile-details-page full-width-profile">
+    <div className="full-width-profile">
       <ToastContainer />
-      <div className="profile-details-card wide">
+      <div className="profile-details-card">
         <div className="profile-details-header">
-          <img src={user.avatar} alt="Profile" className="profile-details-avatar large" />
+          <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <img src={editMode ? avatarPreview : user.avatar} alt="Profile" className="profile-details-avatar" />
+            {editMode && (
+              <label className="profile-avatar-upload" style={{ marginTop: 8, cursor: 'pointer', fontSize: 13, color: '#38bdf8', fontWeight: 600 }}>
+                Change Photo
+                <input
+                  type="file"
+                  accept="image/*"
+                  style={{ display: 'none' }}
+                  onChange={handleAvatarChange}
+                  disabled={loading}
+                />
+              </label>
+            )}
+          </div>
           <div className="profile-details-header-info">
-            <h2 className="profile-details-name large">
+            <h2 className="profile-details-name">
               {editMode ? (
                 <>
                   <input
@@ -132,7 +159,7 @@ const ProfileDetails = () => {
                 `${user.firstName} ${user.lastName}`
               )}
             </h2>
-            <p className="profile-details-role large">{user.role}</p>
+            <p className="profile-details-role">{user.role}</p>
             <div className="profile-details-contact-row">
               <span className="profile-details-email">{user.email}</span>
               <span className="profile-details-divider">|</span>
@@ -181,14 +208,14 @@ const ProfileDetails = () => {
                 onClick={handleUpdate}
                 disabled={loading}
               >
-                <span role="img" aria-label="save">💾</span> Save
+                Save
               </button>
               <button
                 className="profile-btn profile-btn-cancel"
                 onClick={handleCancelEdit}
                 disabled={loading}
               >
-                <span role="img" aria-label="cancel">✖️</span> Cancel
+                Cancel
               </button>
             </>
           ) : (
@@ -197,19 +224,19 @@ const ProfileDetails = () => {
                 className="profile-btn profile-btn-edit"
                 onClick={handleEdit}
               >
-                <span role="img" aria-label="edit">✏️</span> Edit Profile
+                Edit Profile
               </button>
               <button
                 className="profile-btn profile-btn-deactivate"
                 onClick={() => setShowDeactivate(true)}
               >
-                <span role="img" aria-label="deactivate">⏸️</span> Deactivate
+                Deactivate
               </button>
               <button
                 className="profile-btn profile-btn-delete"
                 onClick={() => setShowDelete(true)}
               >
-                <span role="img" aria-label="delete">🗑️</span> Delete
+                Delete
               </button>
             </>
           )}
