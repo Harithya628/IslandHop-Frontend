@@ -8,6 +8,7 @@ import {
   MagnifyingGlassIcon,
   ExclamationTriangleIcon,
   ChatBubbleLeftRightIcon,
+  UserCircleIcon,
 } from '@heroicons/react/24/solid';
 import SidebarItem from './SidebarItem';
 import './Sidebar.css';
@@ -63,6 +64,12 @@ const navLinks = [
     page: 'ChatEmailSupport',
     iconColor: '#1976D2',
   },
+  {
+    label: 'Profile',
+    icon: <UserCircleIcon className="w-4.5 h-4.5" />,
+    page: 'ProfileDetails',
+    iconColor: '#8B5CF6',
+  },
 ];
 
 const SupportSidebar = ({ currentPage, onPageChange }) => {
@@ -117,7 +124,7 @@ const SupportSidebar = ({ currentPage, onPageChange }) => {
         </>
       ) : (
         <div className="collapsed-nav">
-          {navLinks.slice(0, -1).map((item, idx) => (
+          {navLinks.map((item, idx) => (
             <SidebarItem
               key={item.page}
               icon={item.icon}

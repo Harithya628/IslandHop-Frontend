@@ -59,6 +59,9 @@
   margin-bottom: 2px;
   margin-top: 0;
   letter-spacing: -0.5px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .profile-details-role {
@@ -143,6 +146,146 @@
   box-shadow: 0 1px 2px rgba(56, 189, 248, 0.08);
 }
 
+/* Editable Inputs */
+.profile-input {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e293b;
+  border: 1.5px solid #bae6fd;
+  border-radius: 8px;
+  padding: 6px 12px;
+  margin-right: 8px;
+  margin-bottom: 4px;
+  background: #f8fafc;
+  transition: border 0.2s, box-shadow 0.2s;
+  outline: none;
+  min-width: 110px;
+}
+.profile-input:focus {
+  border: 1.5px solid #38bdf8;
+  box-shadow: 0 0 0 2px #bae6fd44;
+}
+
+/* Action Buttons */
+.profile-actions-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 18px;
+  margin-top: -10px;
+  flex-wrap: wrap;
+}
+
+.profile-btn {
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 8px 22px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+  box-shadow: 0 1px 2px rgba(30, 144, 255, 0.07);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-btn-edit {
+  background: #bae6fd;
+  color: #0369a1;
+}
+.profile-btn-edit:hover {
+  background: #38bdf8;
+  color: #fff;
+}
+
+.profile-btn-save {
+  background: #10b981;
+  color: #fff;
+}
+.profile-btn-save:hover {
+  background: #059669;
+}
+
+.profile-btn-cancel {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1.5px solid #bae6fd;
+}
+.profile-btn-cancel:hover {
+  background: #bae6fd;
+  color: #0369a1;
+}
+
+.profile-btn-deactivate {
+  background: #fbbf24;
+  color: #fff;
+}
+.profile-btn-deactivate:hover {
+  background: #f59e0b;
+}
+
+.profile-btn-delete {
+  background: #ef4444;
+  color: #fff;
+}
+.profile-btn-delete:hover {
+  background: #b91c1c;
+}
+
+/* Modal Styles */
+.profile-modal-overlay {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  background: rgba(30, 41, 59, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInModal 0.22s;
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.profile-modal {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 40px rgba(30, 41, 59, 0.18);
+  padding: 36px 32px 24px 32px;
+  min-width: 320px;
+  max-width: 94vw;
+  animation: popInModal 0.22s;
+}
+
+@keyframes popInModal {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.profile-modal h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 12px;
+}
+
+.profile-modal-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+/* Toast Animations */
+.profile-toast {
+  animation: toastPopIn 0.25s;
+}
+@keyframes toastPopIn {
+  from { transform: translateY(-30px) scale(0.95); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
 @media (max-width: 900px) {
   .profile-details-header {
     flex-direction: column;
@@ -171,5 +314,9 @@
   .profile-details-avatar {
     width: 90px;
     height: 90px;
+  }
+  .profile-modal {
+    padding: 18px 8px 12px 8px;
+    min-width: 0;
   }
 }

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import './ChatEmailSupport.css';
+import './ChatEmailSupport_new.css';
+
+console.log('ChatEmailSupport component loaded');
 
 const mockThreads = [
   {

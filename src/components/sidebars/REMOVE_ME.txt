@@ -1,1 +1,0 @@
-Sidebar.jsx and SidebarItem.jsx are deprecated. Only AdminSidebar is used now.
