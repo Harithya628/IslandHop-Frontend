@@ -111,7 +111,7 @@
 }
 
 .section-content.expanded {
-  max-height: 400px; /* Enough for up to 6-7 sidebar items */
+  max-height: 1000px; /* Enough for up to 6-7 sidebar items */
   opacity: 1;
   pointer-events: auto;
   margin-bottom: 0;

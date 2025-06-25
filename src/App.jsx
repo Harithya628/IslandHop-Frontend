@@ -8,10 +8,18 @@ import SignupPage from './pages/SignupPage'
 import ProfessionalSignupPage from './pages/ProfessionalSignupPage'
 import DashboardLayout from './components/DashboardLayout'
 import Questionnaire from './pages/traveler/Trip-plan-questionnaire'
+
 import TripSummary from './pages/traveler/TripSummary'
 
-import './App.css'
 import TripDashboard from './pages/traveler/TripDashboard';
+import GuideDashboard from './pages/guide/GuideDashboard';
+
+// --- Support Agent Imports ---
+import SupportRoutes from './routes/SupportRoutes';
+// ----------------------------
+
+
+import './App.css'
 
 // Protected route wrapper component
 const ProtectedRoute = ({ children }) => {
@@ -52,6 +60,7 @@ const PublicRoute = ({ children }) => {
 function App() {
   return (
     <Routes>
+      {/* Public Routes */}
       <Route path="/" element={
         <PublicRoute>
           <LandingPage />
@@ -72,6 +81,18 @@ function App() {
           <ProfessionalSignupPage />
         </PublicRoute>
       } />
+      <Route path="/explore" element={
+        <PublicRoute>
+          <Questionnaire />
+        </PublicRoute>
+      } />
+      <Route path="/trip-dashboard" element={
+        <PublicRoute>
+          <TripDashboard />
+        </PublicRoute>
+      } />
+
+      {/* Traveler/General User Dashboard */}
       <Route path="/dashboard/*" element={
         <ProtectedRoute>
           <DashboardLayout />
@@ -82,6 +103,7 @@ function App() {
           <DashboardLayout />
         </ProtectedRoute>
       } />
+
       <Route path="/explore" element={
       <PublicRoute>
         <Questionnaire 
@@ -103,6 +125,17 @@ function App() {
           <TripSummary />
         </PublicRoute>
       }/>
+
+      {/* --- Support Agent Routes (all under /support/*) --- */}
+      <Route path="/support/*" element={<SupportRoutes />} />
+      {/* --------------------------------------------------- */}
+
+      {/* --- Guide Routes --- */}
+      <Route path="/guide" element={<GuideDashboard />} />
+      {/* ------------------- */}
+
+      {/* Catch-all */}
+
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   )
