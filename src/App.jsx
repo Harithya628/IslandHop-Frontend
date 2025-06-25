@@ -8,16 +8,12 @@ import SignupPage from './pages/SignupPage'
 import ProfessionalSignupPage from './pages/ProfessionalSignupPage'
 import DashboardLayout from './components/DashboardLayout'
 import Questionnaire from './pages/traveler/Trip-plan-questionnaire'
-
-import TripSummary from './pages/traveler/TripSummary'
-
 import TripDashboard from './pages/traveler/TripDashboard';
 import GuideDashboard from './pages/guide/GuideDashboard';
 
 // --- Support Agent Imports ---
 import SupportRoutes from './routes/SupportRoutes';
 // ----------------------------
-
 
 import './App.css'
 
@@ -104,28 +100,6 @@ function App() {
         </ProtectedRoute>
       } />
 
-      <Route path="/explore" element={
-      <PublicRoute>
-        <Questionnaire 
-        />
-      </PublicRoute>
-      }/>     
-       {/* <Route path="/trip-dashboard" element={
-      <PublicRoute>
-        <TripDashboard />
-      </PublicRoute>
-      }/>      */}
-       <Route path="/traveler/trip-plan-questionnaire" element={
-        <PublicRoute>
-          <Questionnaire />
-        </PublicRoute>
-      }/>
-      <Route path="/traveler/trip-summary" element={
-        <PublicRoute>
-          <TripSummary />
-        </PublicRoute>
-      }/>
-
       {/* --- Support Agent Routes (all under /support/*) --- */}
       <Route path="/support/*" element={<SupportRoutes />} />
       {/* --------------------------------------------------- */}
@@ -135,7 +109,6 @@ function App() {
       {/* ------------------- */}
 
       {/* Catch-all */}
-
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   )
