@@ -119,8 +119,7 @@ function App() {
         <PublicRoute>
           <Questionnaire />
         </PublicRoute>
-      }/>
-      <Route path="/traveler/trip-summary" element={
+      }/>      <Route path="/traveler/trip-summary" element={
         <PublicRoute>
           <TripSummary />
         </PublicRoute>
