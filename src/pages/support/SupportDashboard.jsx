@@ -2,6 +2,8 @@ import React from 'react';
 import './SupportDashboard.css';
 import profilePic from '../../assets/islandHopIcon.png';
 
+console.log('SupportDashboard component loaded');
+
 // Summary data for stat cards
 const summaryData = [
   {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ChatEmailSupport_new.css';
+import './ChatEmailSupport.css';
 
 console.log('ChatEmailSupport component loaded');
 
