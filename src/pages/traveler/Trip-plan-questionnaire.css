@@ -1,0 +1,599 @@
+/* Main Container */
+.questionnaire-container {
+  min-height: 100vh;
+  /* background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%); */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+.questionnaire-wrapper {
+  width: 100%;
+  max-width: 64rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+}
+
+/* Enhanced Progress Bar Styles */
+.questionnaire-container .progress-container {
+  display: block;
+  width: 100%;
+  position: relative;
+  margin: 0 auto 0.5rem auto;
+  z-index: 5;
+  /* padding-top: 1.5rem; */
+}
+
+.questionnaire-container .progress-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 250px;
+  margin: 0 auto;
+  position: relative;
+  height: auto;
+  background-color: white;
+  
+}
+
+.questionnaire-container .progress-step {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #d1d5db;
+  color: #6b7280;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+}
+
+.questionnaire-container .progress-step.active {
+  background-color: #3b82f6;
+  color: white;
+  /* transform: scale(1.05); */
+}
+
+.questionnaire-container .progress-line {
+  height: 0.3rem;
+  /* background-color: #d1d5db; */
+  transition: all 0.3s ease;
+  flex-grow: 1;
+}
+
+.questionnaire-container .progress-line.active {
+  background-color: #3b82f6;
+}
+
+.questionnaire-container .progress-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4b5563;
+  width: 100%;
+  max-width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 0.5rem;
+}
+
+/* Progress Bar */
+.progress-container {
+  /* margin-bottom: 2rem; */
+}
+
+.progress-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.progress-step {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background-color: #d1d5db;
+  color: #6b7280;
+  transition: all 0.3s ease;
+}
+
+.progress-step.active {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.progress-line {
+  width: 3rem;
+  height: 0.25rem;
+  background-color: #d1d5db;
+  transition: all 0.3s ease;
+}
+
+.progress-line.active {
+  background-color: #3b82f6;
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: #6b7280;
+  max-width: 8rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Main Content */
+.questionnaire-container .main-content1 {
+  background-color: rgb(255, 255, 255);
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 3;
+}
+
+.main-title {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Date Selection Step */
+.date-selection-container {
+  width: 100%;
+  max-width: 42rem;
+}
+
+.date-range-picker {
+  width: 100%;
+  max-width: 48rem;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.calendar-select-info {
+  font-size: 1rem;
+  color: #000;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 500;
+  height: 1.5rem;
+  letter-spacing: 0.02em;
+}
+
+.calendar-container {
+  width: 70%;
+  max-width: 100%;
+  background-color: #f8f9fa;
+  border-radius: 1rem;
+  box-shadow: none;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: none;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+}
+
+.month-nav {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.month-nav:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: scale(1.1);
+}
+
+.current-month {
+  font-weight: 600;
+  color: #000;
+  font-size: 1.25rem;
+  letter-spacing: 0.05em;
+}
+
+.weekday-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding-bottom: 0.5rem;
+}
+
+.weekday {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #000;
+  opacity: 0.6;
+  padding: 0.5rem 0;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: default;
+  margin: 1px;
+  border-radius: 0;
+}
+
+.calendar-day.selectable {
+  cursor: pointer;
+}
+
+.calendar-day.empty {
+  background: none;
+}
+
+.day-number {
+  font-size: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+  font-weight: 500;
+}
+
+.calendar-day.selectable:hover .day-number {
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: scale(1.1);
+}
+
+.calendar-day.past {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.calendar-day.start-date, 
+.calendar-day.end-date {
+  color: white;
+}
+
+.calendar-day.start-date .day-number, 
+.calendar-day.end-date .day-number {
+  background-color: #000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: scale(1.1);
+}
+
+.calendar-day.in-range {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.calendar-day.start-date::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 50%;
+  background-color: rgba(0, 0, 0, 0.05);
+  z-index: 1;
+}
+
+.calendar-day.end-date::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 50%;
+  background-color: rgba(0, 0, 0, 0.05);
+  z-index: 1;
+}
+
+.selected-dates-display {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+}
+
+.date-display {
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: 0.75rem;
+  padding: 1rem 1.5rem;
+  flex: 0 0 48%;
+  border: none;
+}
+
+.date-label {
+  font-size: 0.85rem;
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.02em;
+}
+
+.date-value {
+  font-weight: 600;
+  color: #000;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 640px) {
+  .selected-dates-display {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .date-display {
+    flex: none;
+  }
+}
+
+.duration-info {
+  background-color: rgba(0, 0, 0, 0.04);
+  padding: 1rem 1.5rem;
+  border-radius: 0.75rem;
+  text-align: center;
+  width: 100%;
+  margin-top: 1rem;
+  border: none;
+}
+
+.duration-text {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #000;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+/* Preferences Step */
+.preferences-container {
+  width: 100%;
+  max-width: 42rem;
+}
+
+.preferences-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.step-subtitle {
+  color: rgba(0, 0, 0, 0.6);
+  margin-top: 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 0;
+  margin-bottom: 0;
+}
+
+.preferences-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .preferences-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.preference-card {
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 2px solid #e5e7eb;
+  background-color: white;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.preference-card:hover {
+  transform: scale(1.05);
+  border-color: #d1d5db;
+}
+
+.preference-card.selected {
+  border-color: #3b82f6;
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+.preference-icon {
+  width: 2rem;
+  height: 2rem;
+  margin: 0 auto 0.75rem auto;
+  color: #9ca3af;
+}
+
+.preference-icon.selected {
+  color: #3b82f6;
+}
+
+.preference-label {
+  font-weight: 500;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.selected-preferences {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #dcfce7;
+  border-radius: 0.5rem;
+}
+
+.selected-text {
+  font-size: 0.875rem;
+  color: #166534;
+  margin: 0;
+}
+
+/* Navigation Buttons */
+.questionnaire-container .navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 28rem;
+  margin-top: 1.5rem;
+  position: relative;
+  z-index: 4;
+}
+
+.nav-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.back-button {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.back-button:hover {
+  background-color: #d1d5db;
+}
+
+.back-button.invisible {
+  visibility: hidden;
+}
+
+.next-button.enabled {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.next-button.enabled:hover {
+  background-color: #2563eb;
+}
+
+.next-button.disabled {
+  background-color: #d1d5db;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+.next-icon {
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.25rem;
+}
+
+/* Step Header Styles */
+.step-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  gap: 0.75rem;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.step-icon {
+  width: 1.75rem;
+  height: 1.75rem;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.step-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #000;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .questionnaire-container {
+    padding: 0.5rem;
+  }
+  
+  .main-content1 {
+    padding: 1.5rem;
+  }
+  
+  .main-title {
+    font-size: 1.5rem;
+  }
+  
+  .step-title {
+    font-size: 1.25rem;
+  }
+  
+  .preferences-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .preference-card {
+    padding: 1rem;
+  }
+}
