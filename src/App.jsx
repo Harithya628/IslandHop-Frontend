@@ -8,12 +8,16 @@ import SignupPage from './pages/SignupPage'
 import ProfessionalSignupPage from './pages/ProfessionalSignupPage'
 import DashboardLayout from './components/DashboardLayout'
 import Questionnaire from './pages/traveler/Trip-plan-questionnaire'
+
+import TripSummary from './pages/traveler/TripSummary'
+
 import TripDashboard from './pages/traveler/TripDashboard';
 import GuideDashboard from './pages/guide/GuideDashboard';
 
 // --- Support Agent Imports ---
 import SupportRoutes from './routes/SupportRoutes';
 // ----------------------------
+
 
 import './App.css'
 
@@ -79,12 +83,6 @@ function App() {
       } />
       <Route path="/explore" element={
         <PublicRoute>
-          {/* TODO: Replace with Explore page component */}
-          <div>Explore Destinations Page (Coming Soon)</div>
-        </PublicRoute>
-      } />
-      <Route path="/plan-trip" element={
-        <PublicRoute>
           <Questionnaire />
         </PublicRoute>
       } />
@@ -136,6 +134,7 @@ function App() {
       {/* ------------------- */}
 
       {/* Catch-all */}
+
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   )
