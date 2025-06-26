@@ -106,26 +106,28 @@ function App() {
         </ProtectedRoute>
       } />
 
-      <Route path="/explore" element={
+      {/* Remove duplicate/conflicting routes below */}
+      {/* <Route path="/explore" element={
       <PublicRoute>
         <Questionnaire 
         />
       </PublicRoute>
-      }/>     
-       {/* <Route path="/trip-dashboard" element={
+      }/>      */}
+      {/* <Route path="/trip-dashboard" element={
       <PublicRoute>
         <TripDashboard />
       </PublicRoute>
       }/>      */}
-       <Route path="/traveler/trip-plan-questionnaire" element={
+      <Route path="/traveler/trip-plan-questionnaire" element={
         <PublicRoute>
           <Questionnaire />
         </PublicRoute>
-      }/>      <Route path="/traveler/trip-summary" element={
+      }/>      
+      {/* <Route path="/traveler/trip-summary" element={
         <PublicRoute>
           <TripSummary />
         </PublicRoute>
-      }/>
+      }/> */}
 
       {/* --- Support Agent Routes (all under /support/*) --- */}
       <Route path="/support/*" element={<SupportRoutes />} />
