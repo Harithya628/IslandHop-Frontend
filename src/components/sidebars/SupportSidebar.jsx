@@ -10,6 +10,7 @@ import {
   ChatBubbleLeftRightIcon,
   UserCircleIcon,
 } from '@heroicons/react/24/solid';
+import { useNavigate, useLocation } from 'react-router-dom';
 import SidebarItem from './SidebarItem';
 import './Sidebar.css';
 import islandHopLogo from '../../assets/IslandHop.png';
@@ -72,11 +73,58 @@ const navLinks = [
   },
 ];
 
-const SupportSidebar = ({ currentPage, onPageChange }) => {
+const SupportSidebar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
+  const getActivePage = () => {
+    const path = location.pathname;
+    if (path.includes('/support/dashboard')) return 'SupportDashboard';
+    if (path.includes('/support/tickets')) return 'ViewTickets';
+    if (path.includes('/support/complaints')) return 'ResolveComplaint';
+    if (path.includes('/support/escalate')) return 'EscalateIssue';
+    if (path.includes('/support/refunds')) return 'RefundCompensation';
+    if (path.includes('/support/lost-items')) return 'LostItemTracker';
+    if (path.includes('/support/alerts')) return 'PanicAlerts';
+    if (path.includes('/support/chat')) return 'ChatEmailSupport';
+    if (path.includes('/support/profile')) return 'ProfileDetails';
+    return '';
+  };
+  const currentPage = getActivePage();
+
   const handleNav = (page) => {
-    onPageChange(page);
+    switch (page) {
+      case 'SupportDashboard':
+        navigate('/support/dashboard');
+        break;
+      case 'ViewTickets':
+        navigate('/support/tickets');
+        break;
+      case 'ResolveComplaint':
+        navigate('/support/complaints');
+        break;
+      case 'EscalateIssue':
+        navigate('/support/escalate');
+        break;
+      case 'RefundCompensation':
+        navigate('/support/refunds');
+        break;
+      case 'LostItemTracker':
+        navigate('/support/lost-items');
+        break;
+      case 'PanicAlerts':
+        navigate('/support/alerts');
+        break;
+      case 'ChatEmailSupport':
+        navigate('/support/chat');
+        break;
+      case 'ProfileDetails':
+        navigate('/support/profile');
+        break;
+      default:
+        break;
+    }
   };
 
   const toggleSidebar = () => setIsCollapsed((c) => !c);
