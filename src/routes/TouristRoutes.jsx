@@ -1,18 +1,18 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import SupportDashboard from '../pages/support/SupportDashboard';
+import TouristDashboard from '../pages/tourist/TripDashboard';
 import ProtectedRoute from './ProtectedRoute';
 
-const SupportRoutes = () => (
+const TouristRoutes = () => (
   <Routes>
     <Route path="/" element={
-      <ProtectedRoute allowedRoles={["support"]}>
-        <SupportDashboard />
+      <ProtectedRoute allowedRoles={["tourist"]}>
+        <TouristDashboard />
       </ProtectedRoute>
     } />
     {/* Add more admin-specific routes here */}
-    <Route path="*" element={<Navigate to="/support" replace />} />
+    <Route path="*" element={<Navigate to="/tourist" replace />} />
   </Routes>
 );
 
-export default SupportRoutes;
+export default TouristRoutes;
