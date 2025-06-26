@@ -16,7 +16,7 @@ const getRedirectPath = (role) => {
       return '/driver';
     case 'tourist':
     default:
-      return '/dashboard';
+      return '/';
   }
 };
 

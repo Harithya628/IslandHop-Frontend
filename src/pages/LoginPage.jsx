@@ -25,24 +25,26 @@ function LoginPage() {
 
       // Send ID token to backend for session login
       const res = await api.post('/login', { idToken });
+      console.log('Login response:', res);
 
       if (res.status === 200 && res.data && res.data.role) {
         const role = res.data.role;
         // Redirect based on user role
         switch (role) {
           case 'admin':
-            navigate('/admin');
+            navigate('/admin/dashboard');
             break;
           case 'support':
-            navigate('/support');
+            navigate('/support/dashboard');
             break;
           case 'guide':
-            navigate('/guide');
+            navigate('/guide/dashboard');
             break;
           case 'driver':
-            navigate('/driver');
+            navigate('/driver/dashboard');
             break;
           case 'tourist':
+            navigate('/tourist');
           default:
             navigate('/dashboard');
             break;

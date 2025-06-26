@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { auth } from '../firebase';
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, deleteUser } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import sriLankaVideo from '../assets/sri-lanka-video.mp4';
 import islandHopLogo from '../assets/IslandHop.png';
@@ -34,12 +34,14 @@ function ProfessionalSignupPage() {
     }
 
     try {
+      // Create user in Firebase but do not navigate until backend confirms
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const idToken = await userCredential.user.getIdToken();
 
       const endpoint = getEndpoint();
       if (!endpoint) {
         setError('Invalid role selected');
+        await deleteUser(userCredential.user);
         return;
       }
 
@@ -51,6 +53,7 @@ function ProfessionalSignupPage() {
       if (res.status === 200) {
         navigate('/dashboard');
       } else {
+        await deleteUser(userCredential.user);
         setError('Registration failed on server');
       }
     } catch (err) {

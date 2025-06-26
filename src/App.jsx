@@ -1,12 +1,8 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { useEffect, useState } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase';
-
 
 // --- Route Imports ---
-import SupportRoutes from './routes/AdminRoutes';
-import AdminRoutes from './routes/SupportRoutes';
+import SupportRoutes from './routes/SupportRoutes';
+import AdminRoutes from './routes/AdminRoutes';
 import GuideRoutes from './routes/GuideRoutes';
 import DriverRoutes from './routes/DriverRoutes';
 import TouristRoutes from './routes/TouristRoutes'; 
