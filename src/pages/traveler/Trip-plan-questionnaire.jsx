@@ -300,8 +300,9 @@ const Questionnaire = () => {
     if (currentStep === 1) return startDate && endDate;
     if (currentStep === 2) return selectedTerrainPreferences.length > 0;
     if (currentStep === 3) return selectedActivityPreferences.length > 0;
-    return false;
-  };  const handleNext = () => {
+    return false;  };
+
+  const handleNext = () => {
     if (canProceed()) {
       if (currentStep < 3) {
         setCurrentStep(currentStep + 1);
@@ -335,12 +336,11 @@ const Questionnaire = () => {
             <div className={`questionnaire-progress-step ${currentStep >= 3 ? 'active' : ''}`}></div>
           </div>
         </div>
-          <div className="step-container">
-          {currentStep === 1 && <DateSelection />}
+          <div className="step-container">          {currentStep === 1 && <DateSelection />}
           {currentStep === 2 && <PreferencesSelection />}
           {currentStep === 3 && <ActivitiesSelection />}
           
-          <div className="navigation">            <button 
+          <div className="navigation"><button 
               onClick={handleBack}
               className="nav-button-secondary"
               disabled={currentStep === 1}

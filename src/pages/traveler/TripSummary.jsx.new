@@ -1,0 +1,492 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { MapPin, Check, Navigation } from 'lucide-react';
+import Navbar from '../../components/Navbar';
+import './TripSummary.css';
+
+// Mock locations data
+const mockLocations = [
+  { 
+    id: 1, 
+    name: 'Galle Fort', 
+    lat: 6.0257, 
+    lng: 80.2168, 
+    type: 'historical',
+    description: 'Historic fort built by the Portuguese in the 16th century'
+  },
+  { 
+    id: 2, 
+    name: 'Hikkaduwa Beach', 
+    lat: 6.1395, 
+    lng: 80.1063, 
+    type: 'beach',
+    description: 'Famous beach for surfing and marine life'
+  },
+  { 
+    id: 3, 
+    name: 'Yala National Park', 
+    lat: 6.3598, 
+    lng: 81.5048, 
+    type: 'park',
+    description: 'Sri Lanka\'s most famous wildlife park, home to leopards and elephants'
+  },
+  { 
+    id: 4, 
+    name: 'Sigiriya Rock', 
+    lat: 7.9570, 
+    lng: 80.7603, 
+    type: 'historical',
+    description: 'Ancient rock fortress with frescoes and landscaped gardens'
+  },
+  { 
+    id: 5, 
+    name: 'Kandy City', 
+    lat: 7.2906, 
+    lng: 80.6337, 
+    type: 'city',
+    description: 'Cultural capital known for the Temple of the Sacred Tooth Relic'
+  },
+  { 
+    id: 6, 
+    name: 'Ella', 
+    lat: 6.8667, 
+    lng: 81.0466, 
+    type: 'mountain',
+    description: 'Mountain village with spectacular views and hiking trails'
+  },
+  { 
+    id: 7, 
+    name: 'Mirissa Beach', 
+    lat: 5.9483, 
+    lng: 80.4564, 
+    type: 'beach',
+    description: 'Popular beach for whale watching and relaxation'
+  },
+  { 
+    id: 8, 
+    name: 'Trincomalee', 
+    lat: 8.5711, 
+    lng: 81.2335, 
+    type: 'beach',
+    description: 'Harbor city with pristine beaches and coral reefs'
+  },
+];
+
+const TripSummary = () => {
+  const [selectedLocations, setSelectedLocations] = useState([]);
+  const [hoveredLocation, setHoveredLocation] = useState(null);
+  const [map, setMap] = useState(null);
+  const [markers, setMarkers] = useState([]);
+  const [activeInfoWindow, setActiveInfoWindow] = useState(null);
+  const [mapLoaded, setMapLoaded] = useState(false);
+  const [mapLoading, setMapLoading] = useState(true);
+  const [mapError, setMapError] = useState(null);
+  const mapRef = useRef(null);
+  const googleMapRef = useRef(null);
+  const timeoutRef = useRef(null);
+
+  // Function to retry loading the map
+  const retryMapLoad = () => {
+    setMapLoading(true);
+    setMapError(null);
+    
+    // Safely remove existing script if there was an error
+    try {
+      const existingScript = document.getElementById('google-maps-api');
+      if (existingScript) {
+        // Check if the script is actually in the document before removing
+        const isInDocument = document.contains(existingScript);
+        if (isInDocument && existingScript.parentNode) {
+          existingScript.parentNode.removeChild(existingScript);
+        }
+      }
+    } catch (error) {
+      console.warn('Failed to remove existing Google Maps script:', error);
+    }
+    
+    // Set a short timeout before retrying
+    setTimeout(() => {
+      loadGoogleMapsScript();
+    }, 500);
+  };
+
+  // Function to load Google Maps script
+  const loadGoogleMapsScript = () => {
+    setMapLoading(true);
+    
+    try {
+      // Check if script tag already exists
+      const existingScript = document.getElementById('google-maps-api');
+      if (existingScript) {
+        console.log('Google Maps script tag already exists');
+        // Don't try to reload, just wait for it to load
+        return;
+      }
+      
+      // Check if Google Maps is already loaded in window
+      if (window.google && window.google.maps) {
+        console.log('Google Maps API already loaded');
+        initializeMap();
+        setMapLoading(false);
+        return;
+      }
+
+      // Create a global callback that will be called when the API loads
+      window.initMap = function() {
+        console.log('Google Maps API loaded via callback');
+        // Clear timeout since the script loaded successfully
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+          timeoutRef.current = null;
+        }
+        initializeMap();
+        setMapLoading(false);
+      };
+      
+      // Set a timeout for script loading
+      timeoutRef.current = setTimeout(() => {
+        console.warn('Map loading timeout reached');
+        setMapError('Map is taking too long to load. Check your network connection.');
+        setMapLoading(false);
+      }, 10000); // 10 second timeout
+      
+      const script = document.createElement('script');
+      script.id = 'google-maps-api';
+      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBM-r3spbeJzNZMBZXKv4EMMQ3DAS_W4yQ&libraries=places&callback=initMap`;
+      script.async = true;
+      script.defer = true;
+      
+      // Add error handling
+      script.onerror = () => {
+        console.error('Failed to load Google Maps API script');
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+          timeoutRef.current = null;
+        }
+        setMapError('Failed to load Google Maps. Please check your internet connection and try again.');
+        setMapLoading(false);
+      };
+      
+      console.log('Adding Google Maps script to head');
+      document.head.appendChild(script);
+    } catch (error) {
+      console.error('Error setting up Google Maps script:', error);
+      setMapError(`Error setting up map: ${error.message}`);
+      setMapLoading(false);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+    }
+  };
+
+  // Initialize the map
+  const initializeMap = () => {
+    if (!mapRef.current || mapLoaded) {
+      console.log('Map already initialized or ref not ready');
+      return;
+    }
+    
+    console.log('Initializing Google Map');
+    
+    try {
+      if (!window.google || !window.google.maps) {
+        console.error('Google Maps API not loaded properly');
+        setMapError('Google Maps failed to load correctly. Please try refreshing the page.');
+        setMapLoading(false);
+        return;
+      }
+      
+      // Create map with catch for potential API errors
+      try {
+        const googleMap = new window.google.maps.Map(mapRef.current, {
+          center: { lat: 7.8731, lng: 80.7718 }, // Sri Lanka center
+          zoom: 8,
+          mapTypeControl: true,
+          streetViewControl: true,
+          fullscreenControl: true,
+          zoomControl: true,
+          styles: [
+            {
+              featureType: "poi",
+              elementType: "labels",
+              stylers: [{ visibility: "off" }]
+            }
+          ]
+        });
+        
+        // Add a listener to check if map loads correctly
+        googleMap.addListener('tilesloaded', () => {
+          console.log('Map tiles loaded successfully');
+          setMapLoading(false);
+        });
+        
+        // Detect if map has authentication errors
+        googleMap.addListener('authFailure', () => {
+          console.error('Google Maps authentication failed');
+          setMapError('Google Maps authentication failed. This could be due to an invalid API key or billing issues.');
+          setMapLoading(false);
+        });
+        
+        console.log('Map initialized successfully');
+        setMap(googleMap);
+        setMapLoaded(true);
+        googleMapRef.current = googleMap;
+      } catch (mapError) {
+        console.error('Error creating Google Map:', mapError);
+        setMapError('Failed to create map. Error: ' + mapError.message);
+        setMapLoading(false);
+      }
+    } catch (error) {
+      console.error('Error initializing map:', error);
+      setMapError('Unable to load map. Please check your internet connection and try again.');
+      setMapLoading(false);
+    }
+  };
+
+  // Effect to load Google Maps script on component mount
+  useEffect(() => {
+    // Set a flag to track if this component is mounted
+    let isMounted = true;
+    
+    const loadMap = async () => {
+      if (!isMounted) return;
+      loadGoogleMapsScript();
+    };
+    
+    loadMap();
+    
+    // Clean up function
+    return () => {
+      isMounted = false;
+      
+      // Clean up global callback to prevent memory leaks
+      if (window.initMap) {
+        window.initMap = null;
+      }
+      
+      // Clear any pending timeouts
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+      
+      // Clean up markers if component unmounts
+      if (markers.length > 0) {
+        markers.forEach(marker => marker.setMap(null));
+      }
+      
+      // Close any open info windows
+      if (activeInfoWindow) {
+        activeInfoWindow.close();
+      }
+      
+      // Safely remove the script tag if it exists
+      try {
+        const scriptTag = document.getElementById('google-maps-api');
+        if (scriptTag) {
+          // Check if the script is actually in the document
+          const isInDocument = document.contains(scriptTag);
+          if (isInDocument && scriptTag.parentNode) {
+            scriptTag.parentNode.removeChild(scriptTag);
+          }
+        }
+      } catch (error) {
+        console.warn('Failed to remove Google Maps script tag:', error);
+      }
+    };
+  }, [markers, activeInfoWindow]);
+
+  // Effect to update markers when selected locations change
+  useEffect(() => {
+    if (!map || !window.google || !window.google.maps) return;
+    
+    try {
+      // Clear existing markers
+      markers.forEach(marker => marker.setMap(null));
+      
+      // Close active info window if any
+      if (activeInfoWindow) {
+        activeInfoWindow.close();
+        setActiveInfoWindow(null);
+      }
+      
+      // Create new markers for selected locations
+      const newMarkers = [];
+      const bounds = new window.google.maps.LatLngBounds();
+      
+      mockLocations
+        .filter(location => selectedLocations.includes(location.id))
+        .forEach(location => {
+          const position = { lat: location.lat, lng: location.lng };
+          bounds.extend(position);
+          
+          // Create marker
+          const marker = new window.google.maps.Marker({
+            position,
+            map,
+            title: location.name,
+            animation: window.google.maps.Animation.DROP,
+            icon: {
+              path: window.google.maps.SymbolPath.CIRCLE,
+              fillColor: getLocationColor(location.type),
+              fillOpacity: 0.9,
+              strokeWeight: 2,
+              strokeColor: '#ffffff',
+              scale: 10,
+            }
+          });
+          
+          // Create info window
+          const infoWindow = new window.google.maps.InfoWindow({
+            content: `
+              <div class="info-window">
+                <h3>${location.name}</h3>
+                <p>${location.description}</p>
+              </div>
+            `
+          });
+          
+          // Add click listener to marker
+          marker.addListener('click', () => {
+            if (activeInfoWindow) {
+              activeInfoWindow.close();
+            }
+            infoWindow.open(map, marker);
+            setActiveInfoWindow(infoWindow);
+          });
+          
+          newMarkers.push(marker);
+        });
+      
+      setMarkers(newMarkers);
+      
+      // Fit map to marker bounds if there are markers
+      if (newMarkers.length > 0 && !bounds.isEmpty()) {
+        map.fitBounds(bounds);
+        
+        // If only one location is selected, zoom in closer
+        if (newMarkers.length === 1) {
+          map.setZoom(12);
+        }
+      } else {
+        // Reset to Sri Lanka center if no locations selected
+        map.setCenter({ lat: 7.8731, lng: 80.7718 });
+        map.setZoom(8);
+      }
+    } catch (error) {
+      console.error('Error updating markers:', error);
+    }
+  }, [selectedLocations, map, activeInfoWindow, markers]);
+
+  const handleLocationClick = (locationId) => {
+    if (selectedLocations.includes(locationId)) {
+      setSelectedLocations(selectedLocations.filter(id => id !== locationId));
+    } else {
+      setSelectedLocations([...selectedLocations, locationId]);
+    }
+  };
+  
+  // Helper function to get color based on location type
+  const getLocationColor = (type) => {
+    const colors = {
+      beach: '#1FA9FF',
+      historical: '#FF9900',
+      mountain: '#7C4700',
+      city: '#FF3E3E',
+      park: '#33CC66'
+    };
+    return colors[type] || '#1FA9FF';
+  };
+
+  return (
+    <div className="trip-dashboard-page">
+      <Navbar />
+      
+      {/* Full-screen Google Map */}
+      <div className="google-map-container">
+        <div ref={mapRef} className="google-map">
+          {/* Loading indicator */}
+          {mapLoading && (
+            <div className="map-loading">
+              <div className="map-loading-spinner"></div>
+            </div>
+          )}
+          
+          {/* Error message */}
+          {mapError && (
+            <div className="map-error">
+              <h3>Map Error</h3>
+              <p>{mapError}</p>
+              <button onClick={retryMapLoad}>Retry Loading Map</button>
+            </div>
+          )}
+        </div>
+        
+        {/* Destinations panel overlay */}
+        <div className="destinations-panel">
+          <div className="panel-header">
+            <h3>Sri Lanka Destinations</h3>
+          </div>
+          
+          <div className="location-selection">
+            <h4>Select places to visit ({selectedLocations.length})</h4>
+            <div className="location-options">
+              {mockLocations.map(location => (
+                <div 
+                  key={location.id} 
+                  className={`location-option ${selectedLocations.includes(location.id) ? 'selected' : ''}`}
+                  onClick={() => handleLocationClick(location.id)}
+                >
+                  <div className={`location-icon ${location.type}`}>
+                    {selectedLocations.includes(location.id) ? (
+                      <Check size={16} />
+                    ) : (
+                      <MapPin size={16} />
+                    )}
+                  </div>
+                  <span className="location-name">{location.name}</span>
+                </div>
+              ))}
+            </div>
+            
+            {selectedLocations.length > 0 && (
+              <div className="selected-locations-summary">
+                <h4>Your Itinerary</h4>
+                <ul className="selected-list">
+                  {mockLocations
+                    .filter(loc => selectedLocations.includes(loc.id))
+                    .map((location, index) => (
+                      <li key={location.id} className="selected-item">
+                        <div className="item-number">{index + 1}</div>
+                        <div className="item-content">
+                          <span className="item-name">{location.name}</span>
+                          <span className="item-type">{location.type}</span>
+                        </div>
+                        <button 
+                          className="remove-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleLocationClick(location.id);
+                          }}
+                        >
+                          ✕
+                        </button>
+                      </li>
+                    ))
+                  }
+                </ul>
+                
+                <button className="create-btn">
+                  <Navigation size={16} />
+                  Create Itinerary
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default TripSummary;
