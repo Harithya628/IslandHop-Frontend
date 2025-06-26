@@ -79,6 +79,12 @@ function App() {
       } />
       <Route path="/explore" element={
         <PublicRoute>
+          {/* TODO: Replace with Explore page component */}
+          <div>Explore Destinations Page (Coming Soon)</div>
+        </PublicRoute>
+      } />
+      <Route path="/plan-trip" element={
+        <PublicRoute>
           <Questionnaire />
         </PublicRoute>
       } />
