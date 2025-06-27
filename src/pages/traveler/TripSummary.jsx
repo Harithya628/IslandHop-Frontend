@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 import './TripSummary.css';
 
 const TripSummary = () => {
@@ -167,6 +168,7 @@ const TripSummary = () => {
           className="map-container"
         />
       </div>
+      <Footer />
     </div>
   );
 };

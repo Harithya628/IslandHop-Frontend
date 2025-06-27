@@ -195,259 +195,261 @@ const GuideDashboard = () => {
       </span>
     ));
   };
-  return (    <>
+  return (
+    <>
       <Navbar />
       <div className="guide-dashboard">
-      {/* Navigation Tabs */}
-      <div className="guide-tabs"><button
-          className={`tab ${activeTab === 'tours' ? 'active' : ''}`}
-          onClick={() => setActiveTab('tours')}
-        >
-          <span className="icon-clipboard"></span> My Tours
-        </button>
-        <button
-          className={`tab ${activeTab === 'requests' ? 'active' : ''}`}
-          onClick={() => setActiveTab('requests')}
-        >
-          <span className="icon-target"></span> Tour Requests
-        </button>
-        <button
-          className={`tab ${activeTab === 'chats' ? 'active' : ''}`}
-          onClick={() => setActiveTab('chats')}
-        >
-          <span className="icon-chat"></span> Chats
-        </button>
-        <button
-          className={`tab ${activeTab === 'reviews' ? 'active' : ''}`}
-          onClick={() => setActiveTab('reviews')}
-        >
-          <span className="icon-star"></span> Reviews
-        </button>
-      </div>
+        {/* Navigation Tabs */}
+        <div className="guide-tabs"><button
+            className={`tab ${activeTab === 'tours' ? 'active' : ''}`}
+            onClick={() => setActiveTab('tours')}
+          >
+            <span className="icon-clipboard"></span> My Tours
+          </button>
+          <button
+            className={`tab ${activeTab === 'requests' ? 'active' : ''}`}
+            onClick={() => setActiveTab('requests')}
+          >
+            <span className="icon-target"></span> Tour Requests
+          </button>
+          <button
+            className={`tab ${activeTab === 'chats' ? 'active' : ''}`}
+            onClick={() => setActiveTab('chats')}
+          >
+            <span className="icon-chat"></span> Chats
+          </button>
+          <button
+            className={`tab ${activeTab === 'reviews' ? 'active' : ''}`}
+            onClick={() => setActiveTab('reviews')}
+          >
+            <span className="icon-star"></span> Reviews
+          </button>
+        </div>
 
-      {/* Content Area */}
-      <div className="guide-content">        {/* My Tours Tab */}
-        {activeTab === 'tours' && (
-          <div className="tours-section">
-            <h2>My Tours</h2>
-            
-            {/* Upcoming Tours */}
-            <div className="tour-category">
-              <h3 className="category-title">
-                <span className="icon-upcoming"></span> Upcoming Tours
-              </h3>
-              <div className="tours-grid">
-                {mockTours.filter(tour => tour.status === 'Upcoming').map((tour) => (
-                  <div key={tour.id} className="tour-card">
-                    <div className="tour-header">
-                      <h3>{tour.title}</h3>
-                      <span className={`tour-status ${tour.status.toLowerCase().replace(' ', '-')}`}>
-                        {tour.status}
-                      </span>
-                    </div>
-                    <div className="tour-details">
-                      <p className="tour-location"><span className="icon-location"></span> {tour.location}</p>
-                      <p className="tour-date"><span className="icon-calendar"></span> {tour.date}</p>
-                      <p className="tour-duration"><span className="icon-clock"></span> {tour.duration}</p>
-                      <p className="tour-price"><span className="icon-money"></span> {tour.price}</p>
-                      <p className="tour-participants">
-                        <span className="icon-users"></span> {tour.participants}/{tour.maxParticipants} participants
-                      </p>
-                    </div>
-                    <p className="tour-description">{tour.description}</p>
-                    <div className="tour-actions">
-                      <button className="btn-edit">Edit Tour</button>
-                      <button className="btn-view">View Details</button>
-                      <button className="btn-cancel">Cancel</button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Ongoing Tours */}
-            <div className="tour-category">
-              <h3 className="category-title">
-                <span className="icon-ongoing"></span> Ongoing Tours
-              </h3>
-              <div className="tours-grid">
-                {mockTours.filter(tour => tour.status === 'Ongoing').map((tour) => (
-                  <div key={tour.id} className="tour-card ongoing">
-                    <div className="tour-header">
-                      <h3>{tour.title}</h3>
-                      <span className={`tour-status ${tour.status.toLowerCase().replace(' ', '-')}`}>
-                        {tour.status}
-                      </span>
-                    </div>
-                    <div className="tour-details">
-                      <p className="tour-location"><span className="icon-location"></span> {tour.location}</p>
-                      <p className="tour-date"><span className="icon-calendar"></span> {tour.date}</p>
-                      <p className="tour-duration"><span className="icon-clock"></span> {tour.duration}</p>
-                      <p className="tour-price"><span className="icon-money"></span> {tour.price}</p>
-                      <p className="tour-participants">
-                        <span className="icon-users"></span> {tour.participants}/{tour.maxParticipants} participants
-                      </p>
-                    </div>
-                    <p className="tour-description">{tour.description}</p>
-                    <div className="tour-actions">
-                      <button className="btn-live">Live Updates</button>
-                      <button className="btn-contact">Contact Tourists</button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Past Tours */}
-            <div className="tour-category">
-              <h3 className="category-title">
-                <span className="icon-past"></span> Past Tours
-              </h3>
-              <div className="tours-grid">
-                {mockTours.filter(tour => tour.status === 'Completed').map((tour) => (
-                  <div key={tour.id} className="tour-card completed">
-                    <div className="tour-header">
-                      <h3>{tour.title}</h3>
-                      <span className={`tour-status ${tour.status.toLowerCase().replace(' ', '-')}`}>
-                        {tour.status}
-                      </span>
-                    </div>
-                    <div className="tour-details">
-                      <p className="tour-location"><span className="icon-location"></span> {tour.location}</p>
-                      <p className="tour-date"><span className="icon-calendar"></span> {tour.date}</p>
-                      <p className="tour-duration"><span className="icon-clock"></span> {tour.duration}</p>
-                      <p className="tour-price"><span className="icon-money"></span> {tour.price}</p>
-                      <p className="tour-participants">
-                        <span className="icon-users"></span> {tour.participants}/{tour.maxParticipants} participants
-                      </p>
-                    </div>
-                    <p className="tour-description">{tour.description}</p>
-                    <div className="tour-actions">
-                      <button className="btn-review">View Reviews</button>
-                      <button className="btn-report">Download Report</button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Tour Requests Tab */}
-        {activeTab === 'requests' && (
-          <div className="requests-section">
-            <h2>Tour Requests</h2>
-            <div className="requests-list">
-              {mockTourRequests.map((request) => (
-                <div key={request.id} className="request-card">
-                  <div className="request-header">
-                    <div className="tourist-info">
-                      <img src={request.avatar} alt={request.tourist} className="tourist-avatar" />
-                      <div>
-                        <h3>{request.tourist}</h3>
-                        <p className="request-tour-title">{request.tourTitle}</p>
+        {/* Content Area */}
+        <div className="guide-content">        {/* My Tours Tab */}
+          {activeTab === 'tours' && (
+            <div className="tours-section">
+              <h2>My Tours</h2>
+              
+              {/* Upcoming Tours */}
+              <div className="tour-category">
+                <h3 className="category-title">
+                  <span className="icon-upcoming"></span> Upcoming Tours
+                </h3>
+                <div className="tours-grid">
+                  {mockTours.filter(tour => tour.status === 'Upcoming').map((tour) => (
+                    <div key={tour.id} className="tour-card">
+                      <div className="tour-header">
+                        <h3>{tour.title}</h3>
+                        <span className={`tour-status ${tour.status.toLowerCase().replace(' ', '-')}`}>
+                          {tour.status}
+                        </span>
+                      </div>
+                      <div className="tour-details">
+                        <p className="tour-location"><span className="icon-location"></span> {tour.location}</p>
+                        <p className="tour-date"><span className="icon-calendar"></span> {tour.date}</p>
+                        <p className="tour-duration"><span className="icon-clock"></span> {tour.duration}</p>
+                        <p className="tour-price"><span className="icon-money"></span> {tour.price}</p>
+                        <p className="tour-participants">
+                          <span className="icon-users"></span> {tour.participants}/{tour.maxParticipants} participants
+                        </p>
+                      </div>
+                      <p className="tour-description">{tour.description}</p>
+                      <div className="tour-actions">
+                        <button className="btn-edit">Edit Tour</button>
+                        <button className="btn-view">View Details</button>
+                        <button className="btn-cancel">Cancel</button>
                       </div>
                     </div>
-                    <span className="request-status pending">Pending</span>
-                  </div>
-                  <div className="request-details">
-                    <p><strong>Date:</strong> {request.requestedDate}</p>
-                    <p><strong>Participants:</strong> {request.participants}</p>
-                    <p><strong>Budget:</strong> {request.budget}</p>
-                    <p><strong>Message:</strong> {request.message}</p>
-                  </div>
-                  <div className="request-actions">
-                    <button
-                      className="btn-accept"
-                      onClick={() => handleRequestAction(request.id, 'Accept')}
-                    >
-                      Accept
-                    </button>
-                    <button
-                      className="btn-decline"
-                      onClick={() => handleRequestAction(request.id, 'Decline')}
-                    >
-                      Decline
-                    </button>
-                    <button
-                      className="btn-negotiate"
-                      onClick={() => setSelectedRequest(request)}
-                    >
-                      Negotiate
-                    </button>
-                  </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
-        )}
+              </div>
 
-        {/* Chats Tab */}
-        {activeTab === 'chats' && (
-          <div className="chats-section">
-            <h2>Chat with Tourists</h2>
-            <div className="chats-list">
-              {mockChats.map((chat) => (
-                <div
-                  key={chat.id}
-                  className="chat-card"
-                  onClick={() => handleChatOpen(chat)}
-                >
-                  <div className="chat-avatar">
-                    <img src={chat.avatar} alt={chat.tourist} />
-                    {chat.unread > 0 && <span className="unread-badge">{chat.unread}</span>}
-                  </div>
-                  <div className="chat-info">
-                    <h3>{chat.tourist}</h3>
-                    <p className="chat-tour">{chat.tour}</p>
-                    <p className="chat-last-message">{chat.lastMessage}</p>
-                  </div>
-                  <div className="chat-meta">
-                    <span className="chat-time">{chat.lastMessageTime}</span>
-                  </div>
+              {/* Ongoing Tours */}
+              <div className="tour-category">
+                <h3 className="category-title">
+                  <span className="icon-ongoing"></span> Ongoing Tours
+                </h3>
+                <div className="tours-grid">
+                  {mockTours.filter(tour => tour.status === 'Ongoing').map((tour) => (
+                    <div key={tour.id} className="tour-card ongoing">
+                      <div className="tour-header">
+                        <h3>{tour.title}</h3>
+                        <span className={`tour-status ${tour.status.toLowerCase().replace(' ', '-')}`}>
+                          {tour.status}
+                        </span>
+                      </div>
+                      <div className="tour-details">
+                        <p className="tour-location"><span className="icon-location"></span> {tour.location}</p>
+                        <p className="tour-date"><span className="icon-calendar"></span> {tour.date}</p>
+                        <p className="tour-duration"><span className="icon-clock"></span> {tour.duration}</p>
+                        <p className="tour-price"><span className="icon-money"></span> {tour.price}</p>
+                        <p className="tour-participants">
+                          <span className="icon-users"></span> {tour.participants}/{tour.maxParticipants} participants
+                        </p>
+                      </div>
+                      <p className="tour-description">{tour.description}</p>
+                      <div className="tour-actions">
+                        <button className="btn-live">Live Updates</button>
+                        <button className="btn-contact">Contact Tourists</button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
-        )}
+              </div>
 
-        {/* Reviews Tab */}
-        {activeTab === 'reviews' && (
-          <div className="reviews-section">
-            <h2>Customer Reviews</h2>
-            <div className="reviews-summary">
-              <div className="rating-overview">
-                <div className="average-rating">
-                  <span className="rating-number">4.8</span>
-                  <div className="rating-stars">
-                    {renderStars(5)}
-                  </div>
-                  <span className="total-reviews">Based on 24 reviews</span>
+              {/* Past Tours */}
+              <div className="tour-category">
+                <h3 className="category-title">
+                  <span className="icon-past"></span> Past Tours
+                </h3>
+                <div className="tours-grid">
+                  {mockTours.filter(tour => tour.status === 'Completed').map((tour) => (
+                    <div key={tour.id} className="tour-card completed">
+                      <div className="tour-header">
+                        <h3>{tour.title}</h3>
+                        <span className={`tour-status ${tour.status.toLowerCase().replace(' ', '-')}`}>
+                          {tour.status}
+                        </span>
+                      </div>
+                      <div className="tour-details">
+                        <p className="tour-location"><span className="icon-location"></span> {tour.location}</p>
+                        <p className="tour-date"><span className="icon-calendar"></span> {tour.date}</p>
+                        <p className="tour-duration"><span className="icon-clock"></span> {tour.duration}</p>
+                        <p className="tour-price"><span className="icon-money"></span> {tour.price}</p>
+                        <p className="tour-participants">
+                          <span className="icon-users"></span> {tour.participants}/{tour.maxParticipants} participants
+                        </p>
+                      </div>
+                      <p className="tour-description">{tour.description}</p>
+                      <div className="tour-actions">
+                        <button className="btn-review">View Reviews</button>
+                        <button className="btn-report">Download Report</button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
-            <div className="reviews-list">
-              {mockReviews.map((review) => (
-                <div key={review.id} className="review-card">
-                  <div className="review-header">
-                    <div className="reviewer-info">
-                      <img src={review.avatar} alt={review.tourist} className="reviewer-avatar" />
-                      <div>
-                        <h3>{review.tourist}</h3>
-                        <p className="review-tour">{review.tour}</p>
-                        <p className="review-date">{review.date}</p>
+          )}
+
+          {/* Tour Requests Tab */}
+          {activeTab === 'requests' && (
+            <div className="requests-section">
+              <h2>Tour Requests</h2>
+              <div className="requests-list">
+                {mockTourRequests.map((request) => (
+                  <div key={request.id} className="request-card">
+                    <div className="request-header">
+                      <div className="tourist-info">
+                        <img src={request.avatar} alt={request.tourist} className="tourist-avatar" />
+                        <div>
+                          <h3>{request.tourist}</h3>
+                          <p className="request-tour-title">{request.tourTitle}</p>
+                        </div>
                       </div>
+                      <span className="request-status pending">Pending</span>
                     </div>
-                    <div className="review-rating">
-                      {renderStars(review.rating)}
+                    <div className="request-details">
+                      <p><strong>Date:</strong> {request.requestedDate}</p>
+                      <p><strong>Participants:</strong> {request.participants}</p>
+                      <p><strong>Budget:</strong> {request.budget}</p>
+                      <p><strong>Message:</strong> {request.message}</p>
+                    </div>
+                    <div className="request-actions">
+                      <button
+                        className="btn-accept"
+                        onClick={() => handleRequestAction(request.id, 'Accept')}
+                      >
+                        Accept
+                      </button>
+                      <button
+                        className="btn-decline"
+                        onClick={() => handleRequestAction(request.id, 'Decline')}
+                      >
+                        Decline
+                      </button>
+                      <button
+                        className="btn-negotiate"
+                        onClick={() => setSelectedRequest(request)}
+                      >
+                        Negotiate
+                      </button>
                     </div>
                   </div>
-                  <p className="review-text">{review.review}</p>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+
+          {/* Chats Tab */}
+          {activeTab === 'chats' && (
+            <div className="chats-section">
+              <h2>Chat with Tourists</h2>
+              <div className="chats-list">
+                {mockChats.map((chat) => (
+                  <div
+                    key={chat.id}
+                    className="chat-card"
+                    onClick={() => handleChatOpen(chat)}
+                  >
+                    <div className="chat-avatar">
+                      <img src={chat.avatar} alt={chat.tourist} />
+                      {chat.unread > 0 && <span className="unread-badge">{chat.unread}</span>}
+                    </div>
+                    <div className="chat-info">
+                      <h3>{chat.tourist}</h3>
+                      <p className="chat-tour">{chat.tour}</p>
+                      <p className="chat-last-message">{chat.lastMessage}</p>
+                    </div>
+                    <div className="chat-meta">
+                      <span className="chat-time">{chat.lastMessageTime}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Reviews Tab */}
+          {activeTab === 'reviews' && (
+            <div className="reviews-section">
+              <h2>Customer Reviews</h2>
+              <div className="reviews-summary">
+                <div className="rating-overview">
+                  <div className="average-rating">
+                    <span className="rating-number">4.8</span>
+                    <div className="rating-stars">
+                      {renderStars(5)}
+                    </div>
+                    <span className="total-reviews">Based on 24 reviews</span>
+                  </div>
+                </div>
+              </div>
+              <div className="reviews-list">
+                {mockReviews.map((review) => (
+                  <div key={review.id} className="review-card">
+                    <div className="review-header">
+                      <div className="reviewer-info">
+                        <img src={review.avatar} alt={review.tourist} className="reviewer-avatar" />
+                        <div>
+                          <h3>{review.tourist}</h3>
+                          <p className="review-tour">{review.tour}</p>
+                          <p className="review-date">{review.date}</p>
+                        </div>
+                      </div>
+                      <div className="review-rating">
+                        {renderStars(review.rating)}
+                      </div>
+                    </div>
+                    <p className="review-text">{review.review}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Negotiate Modal */}
@@ -530,7 +532,6 @@ const GuideDashboard = () => {
             </div>
           </div>
         </div>        )}
-      </div>
     </>
   );
 };

@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const initialUser = {
   firstName: 'Alex',
-  lastName: 'Support',
+  lastName: 'Unsupport',
   email: 'alex.support@islandhop.com',
   phone: '+94 77 123 4567',
   address: 'Colombo, Sri Lanka',
@@ -19,7 +19,7 @@ const initialUser = {
   lastActive: '2 minutes ago',
 };
 
-const ProfileDetails = () => {
+const ProfileDetails = ({ isSidebarCollapsed }) => {
   const [user, setUser] = useState(initialUser);
   const [editMode, setEditMode] = useState(false);
   const [form, setForm] = useState({
@@ -113,14 +113,14 @@ const ProfileDetails = () => {
   };
 
   return (
-    <div className="full-width-profile">
+    <div className={`full-width-profile ${isSidebarCollapsed ? 'sidebar-collapsed' : 'sidebar-expanded'}`} data-testid="profile-container">
       <ToastContainer />
       <div className="profile-details-card">
         <div className="profile-details-header">
-          <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div className="profile-details-avatar-container">
             <img src={editMode ? avatarPreview : user.avatar} alt="Profile" className="profile-details-avatar" />
             {editMode && (
-              <label className="profile-avatar-upload" style={{ marginTop: 8, cursor: 'pointer', fontSize: 13, color: '#38bdf8', fontWeight: 600 }}>
+              <label className="profile-avatar-upload">
                 Change Photo
                 <input
                   type="file"
@@ -240,25 +240,6 @@ const ProfileDetails = () => {
               </button>
             </>
           )}
-        </div>
-
-        <div className="profile-details-flex-row">
-          <div className="profile-details-section">
-            <h3>Skills</h3>
-            <ul className="profile-details-skills">
-              {user.skills.map((skill) => (
-                <li key={skill}>{skill}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="profile-details-section">
-            <h3>Languages</h3>
-            <ul className="profile-details-languages">
-              {user.languages.map((lang) => (
-                <li key={lang}>{lang}</li>
-              ))}
-            </ul>
-          </div>
         </div>
       </div>
 

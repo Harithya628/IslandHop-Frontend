@@ -1,5 +1,6 @@
 import React from 'react';
 import '../Page.css';
+import Footer from '../../components/Footer';
 
 const Support = () => {
   const tickets = [
@@ -36,6 +37,7 @@ const Support = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

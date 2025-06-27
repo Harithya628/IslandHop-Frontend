@@ -1,5 +1,6 @@
 import React from 'react';
 import '../Page.css';
+import Footer from '../../components/Footer';
 
 const Emergency = () => {
   const incidents = [
@@ -36,6 +37,7 @@ const Emergency = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

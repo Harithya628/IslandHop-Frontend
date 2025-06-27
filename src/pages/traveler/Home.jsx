@@ -3,6 +3,7 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
 import '../Page.css';
+import Footer from '../../components/Footer';
 
 const Home = ({ onPageChange }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -26,7 +27,8 @@ const Home = ({ onPageChange }) => {
     } catch (error) {
       console.error('Error signing out:', error);
     }
-  };  return (
+  };
+  return (
     <div className="page">
       <div className="page-content-card">
         <div className="page-header">
@@ -80,6 +82,7 @@ const Home = ({ onPageChange }) => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

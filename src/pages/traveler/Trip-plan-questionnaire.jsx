@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, ArrowRight, Mountain, Waves, Camera, MapPin, Utensils, Music, Gamepad2, Book, Building } from 'lucide-react';
 import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 import './Trip-plan-questionnaire.css' ;
 
 const Questionnaire = () => {
@@ -360,6 +361,7 @@ const Questionnaire = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

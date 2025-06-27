@@ -9,6 +9,87 @@
   padding-top: 120px; /* Account for fixed navbar */
 }
 
+/* Flex Layout for Guide Dashboard */
+.guide-dashboard-flex {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  margin: 0 32px;
+}
+
+.guide-dashboard-main {
+  flex: 2 1 0;
+  min-width: 0;
+}
+
+.guide-profile-card {
+  flex: 1 1 340px;
+  max-width: 400px;
+  background: #f8fafc;
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  padding: 36px 28px 32px 28px;
+  margin-top: 32px;
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.guide-profile-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 18px;
+  border: 3px solid #1FA9FF;
+}
+
+.guide-profile-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: #1e293b;
+}
+
+.guide-profile-role {
+  color: #38bdf8;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.guide-profile-location {
+  color: #64748b;
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
+
+.guide-profile-bio {
+  color: #334155;
+  font-size: 1rem;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.guide-profile-stats {
+  display: flex;
+  gap: 24px;
+  margin-top: 8px;
+}
+
+.guide-profile-stats .stat-number {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1FA9FF;
+  display: block;
+}
+
+.guide-profile-stats .stat-label {
+  font-size: 0.9rem;
+  color: #64748b;
+  display: block;
+}
+
 /* Navigation Tabs */
 .guide-tabs {
   display: flex;
@@ -1001,5 +1082,18 @@
 
   .chat-modal {
     height: 80vh;
+  }
+}
+
+@media (max-width: 900px) {
+  .guide-dashboard-flex {
+    flex-direction: column;
+    gap: 0;
+    margin: 0 8px;
+  }
+
+  .guide-profile-card {
+    max-width: 100%;
+    margin: 24px 0 0 0;
   }
 }
