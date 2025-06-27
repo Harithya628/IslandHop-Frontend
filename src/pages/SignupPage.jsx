@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { auth } from '../firebase';
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, deleteUser } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import sriLankaVideo from '../assets/sri-lanka-video.mp4';
 import islandHopLogo from '../assets/IslandHop.png';
@@ -23,8 +23,10 @@ function SignupPage() {
 
   const handleEmailSignup = async (e) => {
     e.preventDefault();
+    let userCredential = null;
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      // Create user in Firebase but do not navigate until backend confirms
+      userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const idToken = await userCredential.user.getIdToken();
       console.log('User created:', userCredential.user);
       console.log('ID Token:', idToken);
@@ -41,17 +43,24 @@ function SignupPage() {
       if (res.status === 200) {
         navigate('/dashboard');
       } else {
+        // If backend fails, delete Firebase user
+        await deleteUser(userCredential.user);
         setError('Registration failed on server');
       }
     } catch (err) {
+      // If Firebase user was created but any error (including network) occurs, delete user
+      if (userCredential && userCredential.user) {
+        try { await deleteUser(userCredential.user); } catch (e) { /* ignore */ }
+      }
       setError(err.message || 'Registration error');
       console.log('Error during email signup:', err);
     }
   };
 
   const handleGoogleSignup = async () => {
+    let result = null;
     try {
-      const result = await signInWithPopup(auth, provider);
+      result = await signInWithPopup(auth, provider);
       const idToken = await result.user.getIdToken();
       console.log('Google user:', result.user);
       console.log('Google ID Token:', idToken);
@@ -67,9 +76,15 @@ function SignupPage() {
       if (res.status === 200) {
         navigate('/dashboard');
       } else {
+        // If backend fails, delete Firebase user
+        await deleteUser(result.user);
         setError('Google registration failed on server');
       }
     } catch (err) {
+      // If Firebase user was created but any error (including network) occurs, delete user
+      if (result && result.user) {
+        try { await deleteUser(result.user); } catch (e) { /* ignore */ }
+      }
       setError(err.message || 'Google sign-up error');
       console.log('Error during Google signup:', err);
     }

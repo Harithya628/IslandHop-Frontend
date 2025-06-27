@@ -20,14 +20,75 @@ import SidebarItem from "./SidebarItem";
 import "./Sidebar.css";
 import islandHopLogo from "../../assets/IslandHop.png";
 import islandHopIcon from "../../assets/islandHopIcon.png";
+import { useNavigate, useLocation } from "react-router-dom";
 
-const AdminSidebar = ({ currentPage, onPageChange }) => {
+const AdminSidebar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [collapsedSections, setCollapsedSections] = useState({
     overview: false,
     configuration: false,
     userManagement: false,
   });
+
+  const getActivePage = () => {
+    const path = location.pathname;
+    if (path.includes("/admin/dashboard")) return "AdminDashboard";
+    if (path.includes("/admin/analytics")) return "Analytics";
+    if (path.includes("/admin/system-settings")) return "SystemSettings";
+    if (path.includes("/admin/hosting")) return "Hosting";
+    if (path.includes("/admin/ai-settings")) return "AISettings";
+    if (path.includes("/admin/apis")) return "APIs";
+    if (path.includes("/admin/system-history")) return "SystemHistory";
+    if (path.includes("/admin/user-accounts")) return "UserAccounts";
+    if (path.includes("/admin/accounts")) return "Accounts";
+    if (path.includes("/admin/reviews")) return "Reviews";
+    if (path.includes("/admin/notifications")) return "Notifications";
+    return "";
+  };
+  const currentPage = getActivePage();
+
+  // Sidebar navigation handler
+  const handleNav = (page) => {
+    switch (page) {
+      case "AdminDashboard":
+        navigate("/admin/dashboard");
+        break;
+      case "Analytics":
+        navigate("/admin/analytics");
+        break;
+      case "SystemSettings":
+        navigate("/admin/system-settings");
+        break;
+      case "Hosting":
+        navigate("/admin/hosting");
+        break;
+      case "AISettings":
+        navigate("/admin/ai-settings");
+        break;
+      case "APIs":
+        navigate("/admin/apis");
+        break;
+      case "SystemHistory":
+        navigate("/admin/system-history");
+        break;
+      case "UserAccounts":
+        navigate("/admin/user-accounts");
+        break;
+      case "Accounts":
+        navigate("/admin/accounts");
+        break;
+      case "Reviews":
+        navigate("/admin/reviews");
+        break;
+      case "Notifications":
+        navigate("/admin/notifications");
+        break;
+      default:
+        break;
+    }
+  };
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
@@ -42,7 +103,17 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
   };
 
   return (
-    <div className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
+    <div
+      className={`sidebar ${isCollapsed ? "collapsed" : ""}`}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        height: "100vh",
+        zIndex: 100,
+        width: isCollapsed ? 60 : 240,
+      }}
+    >
       <button
         className="sidebar-toggle-btn"
         onClick={toggleSidebar}
@@ -103,7 +174,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
                 icon={<HomeIcon className="w-4.5 h-4.5" />}
                 label="Home"
                 isActive={currentPage === "AdminDashboard"}
-                onClick={() => onPageChange("AdminDashboard")}
+                onClick={() => handleNav("AdminDashboard")}
                 iconColor="#3B82F6"
               />
             </div>
@@ -138,7 +209,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
                 icon={<ChartBarIcon className="w-4.5 h-4.5" />}
                 label="Analytics"
                 isActive={currentPage === "Analytics"}
-                onClick={() => onPageChange("Analytics")}
+                onClick={() => handleNav("Analytics")}
                 iconColor="#7C3AED"
               />
             </div>
@@ -147,7 +218,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
                 icon={<CogIcon className="w-4.5 h-4.5" />}
                 label="System Settings"
                 isActive={currentPage === "SystemSettings"}
-                onClick={() => onPageChange("SystemSettings")}
+                onClick={() => handleNav("SystemSettings")}
                 iconColor="#6B7280"
               />
             </div>
@@ -156,7 +227,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
                 icon={<ServerIcon className="w-4.5 h-4.5" />}
                 label="Hosting"
                 isActive={currentPage === "Hosting"}
-                onClick={() => onPageChange("Hosting")}
+                onClick={() => handleNav("Hosting")}
                 iconColor="#059669"
               />
             </div>
@@ -165,7 +236,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
                 icon={<RocketLaunchIcon className="w-4.5 h-4.5" />}
                 label="AI Settings"
                 isActive={currentPage === "AISettings"}
-                onClick={() => onPageChange("AISettings")}
+                onClick={() => handleNav("AISettings")}
                 iconColor="#8B5CF6"
               />
             </div>
@@ -174,7 +245,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
                 icon={<BoltIcon className="w-4.5 h-4.5" />}
                 label="APIs"
                 isActive={currentPage === "APIs"}
-                onClick={() => onPageChange("APIs")}
+                onClick={() => handleNav("APIs")}
                 iconColor="#F59E0B"
               />
             </div>
@@ -183,7 +254,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
                 icon={<ClockIcon className="w-4.5 h-4.5" />}
                 label="System History"
                 isActive={currentPage === "SystemHistory"}
-                onClick={() => onPageChange("SystemHistory")}
+                onClick={() => handleNav("SystemHistory")}
                 iconColor="#06B6D4"
               />
             </div>
@@ -219,7 +290,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
                 icon={<UsersIcon className="w-4.5 h-4.5" />}
                 label="User Accounts"
                 isActive={currentPage === "UserAccounts"}
-                onClick={() => onPageChange("UserAccounts")}
+                onClick={() => handleNav("UserAccounts")}
                 iconColor="#6366F1"
               />
             </div>
@@ -228,7 +299,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
                 icon={<StarIcon className="w-4.5 h-4.5" />}
                 label="Reviews"
                 isActive={currentPage === "Reviews"}
-                onClick={() => onPageChange("Reviews")}
+                onClick={() => handleNav("Reviews")}
                 iconColor="#EF4444"
               />
             </div>
@@ -237,7 +308,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
                 icon={<BellIcon className="w-4.5 h-4.5" />}
                 label="Notifications"
                 isActive={currentPage === "Notifications"}
-                onClick={() => onPageChange("Notifications")}
+                onClick={() => handleNav("Notifications")}
                 iconColor="#14B8A6"
               />
             </div>
@@ -250,7 +321,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
           <SidebarItem
             icon={<HomeIcon className="w-5 h-5" />}
             isActive={currentPage === "AdminDashboard"}
-            onClick={() => onPageChange("AdminDashboard")}
+            onClick={() => handleNav("AdminDashboard")}
             iconColor="#3B82F6"
             collapsed={true}
             title="Admin Dashboard"
@@ -263,7 +334,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
           <SidebarItem
             icon={<ChartBarIcon className="w-5 h-5" />}
             isActive={currentPage === "Analytics"}
-            onClick={() => onPageChange("Analytics")}
+            onClick={() => handleNav("Analytics")}
             iconColor="#7C3AED"
             collapsed={true}
             title="Analytics"
@@ -272,7 +343,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
           <SidebarItem
             icon={<CogIcon className="w-5 h-5" />}
             isActive={currentPage === "SystemSettings"}
-            onClick={() => onPageChange("SystemSettings")}
+            onClick={() => handleNav("SystemSettings")}
             iconColor="#6B7280"
             collapsed={true}
             title="System Settings"
@@ -281,7 +352,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
           <SidebarItem
             icon={<ServerIcon className="w-5 h-5" />}
             isActive={currentPage === "Hosting"}
-            onClick={() => onPageChange("Hosting")}
+            onClick={() => handleNav("Hosting")}
             iconColor="#059669"
             collapsed={true}
             title="Hosting"
@@ -290,7 +361,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
           <SidebarItem
             icon={<RocketLaunchIcon className="w-5 h-5" />}
             isActive={currentPage === "AISettings"}
-            onClick={() => onPageChange("AISettings")}
+            onClick={() => handleNav("AISettings")}
             iconColor="#8B5CF6"
             collapsed={true}
             title="AI Settings"
@@ -299,7 +370,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
           <SidebarItem
             icon={<BoltIcon className="w-5 h-5" />}
             isActive={currentPage === "APIs"}
-            onClick={() => onPageChange("APIs")}
+            onClick={() => handleNav("APIs")}
             iconColor="#F59E0B"
             collapsed={true}
             title="APIs"
@@ -308,7 +379,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
           <SidebarItem
             icon={<ClockIcon className="w-5 h-5" />}
             isActive={currentPage === "SystemHistory"}
-            onClick={() => onPageChange("SystemHistory")}
+            onClick={() => handleNav("SystemHistory")}
             iconColor="#06B6D4"
             collapsed={true}
             title="System History"
@@ -321,7 +392,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
           <SidebarItem
             icon={<UsersIcon className="w-5 h-5" />}
             isActive={currentPage === "Accounts"}
-            onClick={() => onPageChange("Accounts")}
+            onClick={() => handleNav("Accounts")}
             iconColor="#6366F1"
             collapsed={true}
             title="Accounts"
@@ -330,7 +401,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
           <SidebarItem
             icon={<StarIcon className="w-5 h-5" />}
             isActive={currentPage === "Reviews"}
-            onClick={() => onPageChange("Reviews")}
+            onClick={() => handleNav("Reviews")}
             iconColor="#EF4444"
             collapsed={true}
             title="Reviews"
@@ -339,7 +410,7 @@ const AdminSidebar = ({ currentPage, onPageChange }) => {
           <SidebarItem
             icon={<BellIcon className="w-5 h-5" />}
             isActive={currentPage === "Notifications"}
-            onClick={() => onPageChange("Notifications")}
+            onClick={() => handleNav("Notifications")}
             iconColor="#14B8A6"
             collapsed={true}
             title="Notifications"

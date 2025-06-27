@@ -504,7 +504,7 @@ const UserAccounts = ({
                         setAddSupportMessage("");
                         try {
                           const res = await fetch(
-                            "http://localhost:8080/admin/create/support",
+                            "http://localhost:8083/api/v1/admin/create/support",
                             {
                               method: "POST",
                               headers: { "Content-Type": "application/json" },

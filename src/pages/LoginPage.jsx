@@ -26,9 +26,30 @@ function LoginPage() {
 
       // Send ID token to backend for session login
       const res = await api.post('/login', { idToken });
+      console.log('Login response:', res);
 
-      if (res.status === 200) {
-        navigate('/dashboard');
+      if (res.status === 200 && res.data && res.data.role) {
+        const role = res.data.role;
+        // Redirect based on user role
+        switch (role) {
+          case 'admin':
+            navigate('/admin/dashboard');
+            break;
+          case 'support':
+            navigate('/support/dashboard');
+            break;
+          case 'guide':
+            navigate('/guide/dashboard');
+            break;
+          case 'driver':
+            navigate('/driver/dashboard');
+            break;
+          case 'tourist':
+            navigate('/tourist');
+          default:
+            navigate('/dashboard');
+            break;
+        }
       } else {
         setError('Login failed on server');
       }
@@ -49,9 +70,27 @@ function LoginPage() {
       // Send ID token to backend for session login
       const res = await api.post('/login', { idToken });
 
-      if (res.status === 200) {
-        console.log('Google login successful:', res.data);
-        navigate('/dashboard');
+      if (res.status === 200 && res.data && res.data.role) {
+        const role = res.data.role;
+        // Redirect based on user role
+        switch (role) {
+          case 'admin':
+            navigate('/admin');
+            break;
+          case 'support':
+            navigate('/support');
+            break;
+          case 'guide':
+            navigate('/guide');
+            break;
+          case 'driver':
+            navigate('/driver');
+            break;
+          case 'tourist':
+          default:
+            navigate('/dashboard');
+            break;
+        }
       } else {
         setError('Google login failed on server');
       }
