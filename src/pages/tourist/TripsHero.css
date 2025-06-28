@@ -1,0 +1,157 @@
+.trips-hero-container {
+  width: 100%;
+  position: relative;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.trips-hero-content {
+  position: relative;
+  max-width: 1200px;
+  width: 100%;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.trips-hero-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 36px;
+  font-weight: 900;
+  color: #1a1a1a;
+  margin: 0 0 12px 0;
+}
+
+.trips-hero-subtitle {
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #666;
+  margin: 0 0 24px 0;
+}
+
+.trips-hero-images {
+  position: relative;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-image {
+  position: absolute;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.hero-image-1 {
+  top: 20px;
+  left: 50px;
+  width: 260px;
+  height: 200px;
+  object-fit: cover;
+  transform: rotate(-5deg);
+}
+
+.hero-image-2 {
+  top: 50px;
+  left: 200px;
+  width: 220px;
+  height: 180px;
+  object-fit: cover;
+  transform: rotate(5deg);
+  z-index: 1;
+}
+
+.hero-image-3 {
+  top: 0px;
+  left: 300px;
+  width: 240px;
+  height: 190px;
+  object-fit: cover;
+  transform: rotate(-3deg);
+}
+
+.hero-image:hover {
+  transform: scale(1.05) rotate(0deg);
+  opacity: 0.9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .trips-hero-container {
+    height: 300px;
+  }
+
+  .trips-hero-title {
+    font-size: 28px;
+  }
+
+  .trips-hero-subtitle {
+    font-size: 16px;
+  }
+
+  .trips-hero-images {
+    height: 200px;
+  }
+
+  .hero-image-1 {
+    left: 20px;
+    width: 200px;
+    height: 150px;
+  }
+
+  .hero-image-2 {
+    left: 120px;
+    width: 180px;
+    height: 140px;
+  }
+
+  .hero-image-3 {
+    left: 200px;
+    width: 180px;
+    height: 140px;
+  }
+}
+
+@media (max-width: 480px) {
+  .trips-hero-container {
+    height: 250px;
+  }
+
+  .trips-hero-title {
+    font-size: 24px;
+  }
+
+  .trips-hero-subtitle {
+    font-size: 14px;
+  }
+
+  .trips-hero-images {
+    height: 150px;
+  }
+
+  .hero-image-1 {
+    left: 10px;
+    width: 150px;
+    height: 120px;
+  }
+
+  .hero-image-2 {
+    left: 80px;
+    width: 140px;
+    height: 110px;
+  }
+
+  .hero-image-3 {
+    left: 140px;
+    width: 140px;
+    height: 110px;
+  }
+}
