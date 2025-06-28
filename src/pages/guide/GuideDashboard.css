@@ -3,7 +3,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px 80px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background: #ffffff;
   min-height: 100vh;
   padding-top: 120px; /* Account for fixed navbar */
@@ -27,7 +27,7 @@
   max-width: 400px;
   background: #f8fafc;
   border-radius: 20px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
   padding: 36px 28px 32px 28px;
   margin-top: 32px;
   margin-bottom: 32px;
@@ -42,7 +42,7 @@
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 18px;
-  border: 3px solid #1FA9FF;
+  border: 3px solid #1fa9ff;
 }
 
 .guide-profile-name {
@@ -80,7 +80,7 @@
 .guide-profile-stats .stat-number {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #1FA9FF;
+  color: #1fa9ff;
   display: block;
 }
 
@@ -138,7 +138,7 @@
   color: #1e293b;
   font-size: 28px;
   font-weight: 700;
-  font-family: 'Outfit', sans-serif;
+  font-family: "Outfit", sans-serif;
 }
 
 /* Tours Section */
@@ -176,7 +176,7 @@
   font-size: 18px;
   font-weight: 600;
   line-height: 1.3;
-  font-family: 'Outfit', sans-serif;
+  font-family: "Outfit", sans-serif;
 }
 
 .tour-status {
@@ -225,7 +225,8 @@
   margin-top: 10px;
 }
 
-.btn-edit, .btn-view {
+.btn-edit,
+.btn-view {
   padding: 6px 12px;
   border: none;
   border-radius: 6px;
@@ -300,7 +301,7 @@
   margin: 0;
   color: #1e293b;
   font-size: 18px;
-  font-family: 'Outfit', sans-serif;
+  font-family: "Outfit", sans-serif;
 }
 
 .request-tour-title {
@@ -330,7 +331,9 @@
   margin-top: 20px;
 }
 
-.btn-accept, .btn-decline, .btn-negotiate {
+.btn-accept,
+.btn-decline,
+.btn-negotiate {
   padding: 10px 20px;
   border: none;
   border-radius: 8px;
@@ -427,7 +430,7 @@
   margin: 0 0 5px 0;
   color: #1e293b;
   font-size: 16px;
-  font-family: 'Outfit', sans-serif;
+  font-family: "Outfit", sans-serif;
 }
 
 .chat-tour {
@@ -538,7 +541,7 @@
   margin: 0;
   color: #1e293b;
   font-size: 16px;
-  font-family: 'Outfit', sans-serif;
+  font-family: "Outfit", sans-serif;
 }
 
 .review-tour {
@@ -605,7 +608,7 @@
   margin: 0;
   color: #1e293b;
   font-size: 20px;
-  font-family: 'Outfit', sans-serif;
+  font-family: "Outfit", sans-serif;
 }
 
 .close-btn {
@@ -656,7 +659,8 @@
   gap: 15px;
 }
 
-.btn-send, .btn-cancel {
+.btn-send,
+.btn-cancel {
   padding: 12px 25px;
   border: none;
   border-radius: 8px;
@@ -775,21 +779,21 @@
 
 /* Icon Styles - CSS-based icons without emojis */
 .icon-location::before {
-  content: '●';
+  content: "●";
   color: #dc2626;
   font-size: 12px;
   margin-right: 6px;
 }
 
 .icon-star::before {
-  content: '★';
+  content: "★";
   color: #fbbf24;
   font-size: 14px;
   margin-right: 6px;
 }
 
 .icon-target::before {
-  content: '◯';
+  content: "◯";
   color: #3b82f6;
   font-size: 14px;
   margin-right: 6px;
@@ -797,7 +801,7 @@
 }
 
 .icon-badge::before {
-  content: '♦';
+  content: "♦";
   color: #f59e0b;
   font-size: 14px;
   margin-right: 6px;
@@ -821,7 +825,7 @@
 }
 
 .icon-clipboard::before {
-  content: '▢';
+  content: "▢";
   color: #6b7280;
   font-size: 14px;
   margin-right: 8px;
@@ -829,7 +833,7 @@
 }
 
 .icon-chat::before {
-  content: '◗';
+  content: "◗";
   color: #10b981;
   font-size: 14px;
   margin-right: 8px;
@@ -837,21 +841,21 @@
 }
 
 .icon-calendar::before {
-  content: '▣';
+  content: "▣";
   color: #8b5cf6;
   font-size: 14px;
   margin-right: 6px;
 }
 
 .icon-clock::before {
-  content: '◷';
+  content: "◷";
   color: #06b6d4;
   font-size: 14px;
   margin-right: 6px;
 }
 
 .icon-money::before {
-  content: '$';
+  content: "$";
   color: #059669;
   font-size: 14px;
   margin-right: 6px;
@@ -859,7 +863,7 @@
 }
 
 .icon-users::before {
-  content: '⚮';
+  content: "⚮";
   color: #7c3aed;
   font-size: 14px;
   margin-right: 6px;
@@ -871,7 +875,7 @@
 }
 
 .category-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 24px;
   font-weight: 600;
   color: #1f2937;
@@ -885,26 +889,27 @@
 
 /* Category Icons */
 .icon-upcoming::before {
-  content: '▲';
+  content: "▲";
   color: #3b82f6;
   font-size: 16px;
 }
 
 .icon-ongoing::before {
-  content: '●';
+  content: "●";
   color: #10b981;
   font-size: 16px;
   animation: pulse 2s infinite;
 }
 
 .icon-past::before {
-  content: '✓';
+  content: "✓";
   color: #6b7280;
   font-size: 16px;
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -1064,14 +1069,20 @@
 }
 
 .sub-tab.active {
-  background: #1FA9FF;
+  background: #1fa9ff;
   color: white;
   box-shadow: 0 2px 8px rgba(31, 169, 255, 0.3);
 }
 
-.sub-tab .icon-upcoming::before { content: "📅"; }
-.sub-tab .icon-ongoing::before { content: "🔄"; }
-.sub-tab .icon-past::before { content: "✅"; }
+.sub-tab .icon-upcoming::before {
+  content: "📅";
+}
+.sub-tab .icon-ongoing::before {
+  content: "🔄";
+}
+.sub-tab .icon-past::before {
+  content: "✅";
+}
 
 /* Tour Filters */
 .tour-filters {
@@ -1109,7 +1120,7 @@
 .filter-input:focus,
 .filter-select:focus {
   outline: none;
-  border-color: #1FA9FF;
+  border-color: #1fa9ff;
   box-shadow: 0 0 0 3px rgba(31, 169, 255, 0.1);
 }
 
@@ -1175,9 +1186,9 @@
 }
 
 .pagination-btn:hover:not(:disabled) {
-  background: #1FA9FF;
+  background: #1fa9ff;
   color: white;
-  border-color: #1FA9FF;
+  border-color: #1fa9ff;
 }
 
 .pagination-btn:disabled {
@@ -1210,13 +1221,14 @@
 }
 
 .pagination-number.active {
-  background: #1FA9FF;
+  background: #1fa9ff;
   color: white;
-  border-color: #1FA9FF;
+  border-color: #1fa9ff;
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {  .guide-dashboard {
+@media (max-width: 768px) {
+  .guide-dashboard {
     padding: 10px;
   }
 
