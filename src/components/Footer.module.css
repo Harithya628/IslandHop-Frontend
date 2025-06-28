@@ -1,0 +1,78 @@
+.footer {
+  background: #1FA9FF;
+  color: #fff;
+  padding: 168px 0 112px 0;
+  font-size: 16px;
+  position: relative;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+}
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.logo {
+  font-weight: bold;
+  font-size: 22px;
+  letter-spacing: 1px;
+  color: #38bdf8;
+}
+.logoImg {
+  height: 56px;
+  width: auto;
+  margin-bottom: 16px;
+  display: block;
+}
+.links {
+  display: flex;
+  gap: 24px;
+}
+.links a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.links a:hover {
+  color: #38bdf8;
+}
+.toTopBtn {
+  position: absolute;
+  top: 32px;
+  right: 48px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 2;
+  transition: transform 0.2s;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.toTopBtn svg {
+  width: 48px;
+  height: 48px;
+}
+.toTopBtn:hover {
+  transform: scale(1.1);
+}
+@media (max-width: 600px) {
+  .container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .links {
+    gap: 16px;
+  }
+}

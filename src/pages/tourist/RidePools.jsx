@@ -1,5 +1,6 @@
 import React from 'react';
 import '../Page.css';
+import Footer from '../../components/Footer';
 
 const RidePools = () => {
   const pools = [
@@ -35,6 +36,7 @@ const RidePools = () => {
         </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

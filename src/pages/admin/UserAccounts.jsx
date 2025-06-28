@@ -381,6 +381,168 @@ const UserAccounts = ({
               <h1>User Accounts</h1>
               <p>Manage user accounts, profiles, and access permissions</p>
             </div>
+            <button
+              className="btn-add-support"
+              style={{
+                marginLeft: 24,
+                height: 40,
+                background: "#2563eb",
+                color: "white",
+                border: "none",
+                borderRadius: 6,
+                padding: "0 18px",
+                fontWeight: 600,
+                cursor: "pointer",
+              }}
+              onClick={() => setShowAddSupportModal(true)}
+            >
+              + Add Customer Support Account
+            </button>
+            {showAddSupportModal && (
+              <div
+                className="modal-overlay"
+                style={{
+                  position: "fixed",
+                  top: 0,
+                  left: 0,
+                  width: "100vw",
+                  height: "100vh",
+                  background: "rgba(0,0,0,0.3)",
+                  zIndex: 1000,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <div
+                  className="modal-content"
+                  style={{
+                    background: "#fff",
+                    padding: 32,
+                    borderRadius: 8,
+                    minWidth: 320,
+                    boxShadow: "0 2px 16px rgba(0,0,0,0.15)",
+                  }}
+                >
+                  <h2 style={{ marginTop: 0 }}>
+                    Add Customer Support Account
+                  </h2>
+                  <label
+                    htmlFor="support-email"
+                    style={{
+                      display: "block",
+                      marginBottom: 8,
+                    }}
+                  >
+                    Support Email
+                  </label>
+                  <input
+                    id="support-email"
+                    type="email"
+                    value={supportEmail}
+                    onChange={(e) => setSupportEmail(e.target.value)}
+                    placeholder="Enter email address"
+                    style={{
+                      width: "100%",
+                      padding: 8,
+                      marginBottom: 16,
+                      borderRadius: 4,
+                      border: "1px solid #ccc",
+                    }}
+                    disabled={addSupportLoading}
+                  />
+                  {addSupportMessage && (
+                    <div
+                      style={{
+                        marginBottom: 12,
+                        color: addSupportMessage.startsWith("Success")
+                          ? "#10b981"
+                          : "#dc2626",
+                      }}
+                    >
+                      {addSupportMessage}
+                    </div>
+                  )}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      gap: 8,
+                    }}
+                  >
+                    <button
+                      onClick={() => {
+                        setShowAddSupportModal(false);
+                        setSupportEmail("");
+                        setAddSupportMessage("");
+                        setAddSupportLoading(false);
+                      }}
+                      style={{
+                        padding: "8px 16px",
+                        borderRadius: 4,
+                        border: "none",
+                        background: "#e5e7eb",
+                        color: "#111",
+                        fontWeight: 500,
+                        cursor: "pointer",
+                      }}
+                      disabled={addSupportLoading}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={async () => {
+                        if (!supportEmail.trim()) {
+                          setAddSupportMessage("Please enter an email address.");
+                          return;
+                        }
+                        setAddSupportLoading(true);
+                        setAddSupportMessage("");
+                        try {
+                          const res = await fetch(
+                            "http://localhost:8083/api/v1/admin/create/support",
+                            {
+                              method: "POST",
+                              headers: { "Content-Type": "application/json" },
+                              credentials: "include",
+                              body: JSON.stringify({ email: supportEmail }),
+                            }
+                          );
+                          const data = await res.json();
+                          if (res.ok) {
+                            setAddSupportMessage(
+                              "Success: " + (data.message || "Account created.")
+                            );
+                            setSupportEmail("");
+                          } else {
+                            setAddSupportMessage(
+                              data.message
+                                ? "Error: " + data.message
+                                : "Error creating account."
+                            );
+                          }
+                        } catch (e) {
+                          setAddSupportMessage("Error: " + e.message);
+                        }
+                        setAddSupportLoading(false);
+                      }}
+                      style={{
+                        padding: "8px 16px",
+                        borderRadius: 4,
+                        border: "none",
+                        background: "#2563eb",
+                        color: "#fff",
+                        fontWeight: 600,
+                        cursor: "pointer",
+                      }}
+                      disabled={addSupportLoading}
+                    >
+                      {addSupportLoading ? "Adding..." : "Add"}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
             <div className="header-stats">
               <div className="stat-item">
                 <span className="stat-number">{users.length}</span>

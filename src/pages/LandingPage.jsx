@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import ReadyForYourNextAdventure from '../components/ReadyForYourNextAdventure';
 import ExperienceText from '../components/ExperienceText';
 import sriLankaVideo from '../assets/sri-lanka-video.mp4';
+import Footer from '../components/Footer';
 import './LandingPage.css';
 
 function LandingPage() {
@@ -210,21 +211,7 @@ function LandingPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="cta-section">
-        <div className="container">
-          <h2>Ready to Start Your Adventure?</h2>
-          <p>Join thousands of travelers who have discovered the magic of Sri Lanka with IslandHop</p>
-          <div className="cta-buttons">
-            <button onClick={() => navigate('/signup')} className="cta-primary">
-              Get Started
-            </button>
-            <button onClick={() => navigate('/explore')} className="cta-secondary">
-              Explore Destinations
-            </button>
-          </div>
-        </div>
-      </section>
+      <Footer />
     </div>
   );
 }
