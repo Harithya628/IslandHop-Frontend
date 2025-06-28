@@ -1,0 +1,32 @@
+.pexels-roman-odintsov-4553621-icon {
+  position: absolute;
+  top: 188px;
+  left: 573px;
+  border-radius: 28px;
+  width: 456.8px;
+  height: 375.6px;
+  object-fit: contain;
+}
+.pexels-roman-odintsov-4553621-icon1 {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border-radius: 28px;
+  width: 456.8px;
+  height: 375.6px;
+  object-fit: contain;
+}
+.pexels-roman-odintsov-4553621-icon2 {
+  position: absolute;
+  top: 112.77px;
+  left: 320px;
+  border-radius: 28px;
+  width: 409px;
+  height: 309px;
+  object-fit: cover;
+}
+.pexels-roman-odintsov-4553621-parent {
+  width: 100%;
+  position: relative;
+  height: 563.6px;
+}

@@ -6,6 +6,8 @@ import SignupPage from '../pages/SignupPage';
 import ProfessionalSignupPage from '../pages/ProfessionalSignupPage';
 import Questionnaire from '../pages/tourist/Trip-plan-questionnaire';
 import TripDashboard from '../pages/tourist/TripDashboard';
+import TripsPublic from '../pages/tourist/TripsPublic';
+import Pools from '../pages/tourist/Pools';
 import DashboardLayout from '../components/DashboardLayout';
 
 // --- Protected Route Imports ---
@@ -59,6 +61,21 @@ const GeneralRoutes = () => (
     <Route path="/trip-dashboard" element={
       <PublicRoute>
         <TripDashboard />
+      </PublicRoute>
+    } />
+    <Route path="/trips-public" element={
+      <PublicRoute>
+        <TripsPublic />
+      </PublicRoute>
+    } />
+    <Route path="/trips" element={
+      <PublicRoute>
+        <TripsPublic />
+      </PublicRoute>
+    } />
+    <Route path="/pools" element={
+      <PublicRoute>
+        <Pools />
       </PublicRoute>
     } />
     {/* Traveler/General User Dashboard */}
