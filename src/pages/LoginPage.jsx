@@ -113,19 +113,19 @@ function LoginPage() {
     const userType = email.split('@')[0].toLowerCase();
     switch (userType) {
       case 'admin':
-        navigate('/admin/dashboard');
+        navigate('/admin/dashboard?user=admin');
         break;
       case 'support':
-        navigate('/support/dashboard');
+        navigate('/support/dashboard?user=support');
         break;
       case 'guide':
-        navigate('/guide/dashboard');
+        navigate('/guide/dashboard?user=guide');
         break;
       case 'driver':
-        navigate('/driver/dashboard');
+        navigate('/driver/dashboard?user=driver');
         break;
       case 'tourist':
-        navigate('/tourist');
+        navigate('/tourist?user=tourist');
         break;
       default:
         setError('Unknown user type for testing. Use admin, support, guide, driver, or tourist as email username.');
