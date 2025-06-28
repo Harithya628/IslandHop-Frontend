@@ -1033,6 +1033,188 @@
   background: #4b5563;
 }
 
+/* Tour Sub-tabs */
+.tour-sub-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 16px;
+}
+
+.sub-tab {
+  background: none;
+  border: none;
+  padding: 12px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.sub-tab:hover {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.sub-tab.active {
+  background: #1FA9FF;
+  color: white;
+  box-shadow: 0 2px 8px rgba(31, 169, 255, 0.3);
+}
+
+.sub-tab .icon-upcoming::before { content: "📅"; }
+.sub-tab .icon-ongoing::before { content: "🔄"; }
+.sub-tab .icon-past::before { content: "✅"; }
+
+/* Tour Filters */
+.tour-filters {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  border: 1px solid #e2e8f0;
+}
+
+.filter-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 200px;
+}
+
+.filter-input,
+.filter-select {
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.filter-input:focus,
+.filter-select:focus {
+  outline: none;
+  border-color: #1FA9FF;
+  box-shadow: 0 0 0 3px rgba(31, 169, 255, 0.1);
+}
+
+.filter-input::placeholder {
+  color: #9ca3af;
+}
+
+.filter-reset-btn {
+  background: #6b7280;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  height: fit-content;
+  margin-top: auto;
+}
+
+.filter-reset-btn:hover {
+  background: #4b5563;
+}
+
+/* Category Header */
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.tour-count {
+  background: #e2e8f0;
+  color: #475569;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 32px;
+  padding: 20px 0;
+}
+
+.pagination-btn {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: #1FA9FF;
+  color: white;
+  border-color: #1FA9FF;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-numbers {
+  display: flex;
+  gap: 4px;
+  margin: 0 16px;
+}
+
+.pagination-number {
+  background: none;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 40px;
+}
+
+.pagination-number:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.pagination-number.active {
+  background: #1FA9FF;
+  color: white;
+  border-color: #1FA9FF;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {  .guide-dashboard {
     padding: 10px;
@@ -1083,17 +1265,78 @@
   .chat-modal {
     height: 80vh;
   }
-}
 
-@media (max-width: 900px) {
-  .guide-dashboard-flex {
+  .tour-sub-tabs {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 20px;
+  }
+
+  .tour-sub-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sub-tab {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .filter-row {
     flex-direction: column;
-    gap: 0;
+    align-items: stretch;
+  }
+
+  .filter-group {
+    min-width: auto;
+    width: 100%;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .pagination-numbers {
     margin: 0 8px;
   }
 
-  .guide-profile-card {
-    max-width: 100%;
-    margin: 24px 0 0 0;
+  .pagination-number {
+    padding: 6px 10px;
+    min-width: 36px;
+  }
+
+  .category-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tour-filters {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .filter-input,
+  .filter-select {
+    padding: 8px 12px;
+  }
+
+  .pagination {
+    margin-top: 20px;
+    padding: 16px 0;
+  }
+
+  .pagination-btn {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+
+  .pagination-number {
+    padding: 6px 8px;
+    min-width: 32px;
+    font-size: 0.85rem;
   }
 }

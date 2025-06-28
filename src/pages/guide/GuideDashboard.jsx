@@ -174,9 +174,20 @@ const mockReviews = [
 
 const GuideDashboard = () => {
   const [activeTab, setActiveTab] = useState('tours');
+  const [activeTourTab, setActiveTourTab] = useState('ongoing');
   const [isAvailable, setIsAvailable] = useState(true);
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [selectedChat, setSelectedChat] = useState(null);
+  
+  // Pagination and filtering states
+  const [currentPage, setCurrentPage] = useState(1);
+  const [toursPerPage] = useState(6);
+  const [tourFilters, setTourFilters] = useState({
+    search: '',
+    location: 'all',
+    priceRange: 'all',
+    participants: 'all'
+  });
 
   // Handler functions
   const handleRequestAction = (requestId, action) => {
@@ -186,6 +197,100 @@ const GuideDashboard = () => {
 
   const handleChatOpen = (chat) => {
     setSelectedChat(chat);
+  };
+
+  // Filtering and pagination functions
+  const handleTourFilterChange = (key, value) => {
+    setTourFilters(prev => ({
+      ...prev,
+      [key]: value
+    }));
+    setCurrentPage(1);
+  };
+
+  const getFilteredTours = (status) => {
+    let filtered = mockTours.filter(tour => tour.status === status);
+    
+    // Apply search filter
+    if (tourFilters.search) {
+      filtered = filtered.filter(tour => 
+        tour.title.toLowerCase().includes(tourFilters.search.toLowerCase()) ||
+        tour.location.toLowerCase().includes(tourFilters.search.toLowerCase())
+      );
+    }
+    
+    // Apply location filter
+    if (tourFilters.location !== 'all') {
+      filtered = filtered.filter(tour => 
+        tour.location.toLowerCase().includes(tourFilters.location.toLowerCase())
+      );
+    }
+    
+    // Apply price range filter
+    if (tourFilters.priceRange !== 'all') {
+      const price = parseInt(tour.price.replace('USD ', ''));
+      switch (tourFilters.priceRange) {
+        case 'low':
+          filtered = filtered.filter(tour => {
+            const tourPrice = parseInt(tour.price.replace('USD ', ''));
+            return tourPrice < 60;
+          });
+          break;
+        case 'medium':
+          filtered = filtered.filter(tour => {
+            const tourPrice = parseInt(tour.price.replace('USD ', ''));
+            return tourPrice >= 60 && tourPrice < 80;
+          });
+          break;
+        case 'high':
+          filtered = filtered.filter(tour => {
+            const tourPrice = parseInt(tour.price.replace('USD ', ''));
+            return tourPrice >= 80;
+          });
+          break;
+      }
+    }
+    
+    // Apply participants filter
+    if (tourFilters.participants !== 'all') {
+      switch (tourFilters.participants) {
+        case 'low':
+          filtered = filtered.filter(tour => tour.participants <= 3);
+          break;
+        case 'medium':
+          filtered = filtered.filter(tour => tour.participants > 3 && tour.participants <= 6);
+          break;
+        case 'high':
+          filtered = filtered.filter(tour => tour.participants > 6);
+          break;
+      }
+    }
+    
+    return filtered;
+  };
+
+  const getPaginatedTours = (tours) => {
+    const startIndex = (currentPage - 1) * toursPerPage;
+    const endIndex = startIndex + toursPerPage;
+    return tours.slice(startIndex, endIndex);
+  };
+
+  const getTotalPages = (tours) => {
+    return Math.ceil(tours.length / toursPerPage);
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const resetFilters = () => {
+    setTourFilters({
+      search: '',
+      location: 'all',
+      priceRange: 'all',
+      participants: 'all'
+    });
+    setCurrentPage(1);
   };
 
   const renderStars = (rating) => {
@@ -232,105 +337,294 @@ const GuideDashboard = () => {
             <div className="tours-section">
               <h2>My Tours</h2>
               
-              {/* Upcoming Tours */}
-              <div className="tour-category">
-                <h3 className="category-title">
+              {/* Tour Sub-tabs */}
+              <div className="tour-sub-tabs">
+                <button
+                  className={`sub-tab ${activeTourTab === 'upcoming' ? 'active' : ''}`}
+                  onClick={() => { setActiveTourTab('upcoming'); setCurrentPage(1); }}
+                >
                   <span className="icon-upcoming"></span> Upcoming Tours
-                </h3>
-                <div className="tours-grid">
-                  {mockTours.filter(tour => tour.status === 'Upcoming').map((tour) => (
-                    <div key={tour.id} className="tour-card">
-                      <div className="tour-header">
-                        <h3>{tour.title}</h3>
-                        <span className={`tour-status ${tour.status.toLowerCase().replace(' ', '-')}`}>
-                          {tour.status}
-                        </span>
-                      </div>
-                      <div className="tour-details">
-                        <p className="tour-location"><span className="icon-location"></span> {tour.location}</p>
-                        <p className="tour-date"><span className="icon-calendar"></span> {tour.date}</p>
-                        <p className="tour-duration"><span className="icon-clock"></span> {tour.duration}</p>
-                        <p className="tour-price"><span className="icon-money"></span> {tour.price}</p>
-                        <p className="tour-participants">
-                          <span className="icon-users"></span> {tour.participants}/{tour.maxParticipants} participants
-                        </p>
-                      </div>
-                      <p className="tour-description">{tour.description}</p>
-                      <div className="tour-actions">
-                        <button className="btn-edit">Edit Tour</button>
-                        <button className="btn-view">View Details</button>
-                        <button className="btn-cancel">Cancel</button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Ongoing Tours */}
-              <div className="tour-category">
-                <h3 className="category-title">
+                </button>
+                <button
+                  className={`sub-tab ${activeTourTab === 'ongoing' ? 'active' : ''}`}
+                  onClick={() => { setActiveTourTab('ongoing'); setCurrentPage(1); }}
+                >
                   <span className="icon-ongoing"></span> Ongoing Tours
-                </h3>
-                <div className="tours-grid">
-                  {mockTours.filter(tour => tour.status === 'Ongoing').map((tour) => (
-                    <div key={tour.id} className="tour-card ongoing">
-                      <div className="tour-header">
-                        <h3>{tour.title}</h3>
-                        <span className={`tour-status ${tour.status.toLowerCase().replace(' ', '-')}`}>
-                          {tour.status}
-                        </span>
-                      </div>
-                      <div className="tour-details">
-                        <p className="tour-location"><span className="icon-location"></span> {tour.location}</p>
-                        <p className="tour-date"><span className="icon-calendar"></span> {tour.date}</p>
-                        <p className="tour-duration"><span className="icon-clock"></span> {tour.duration}</p>
-                        <p className="tour-price"><span className="icon-money"></span> {tour.price}</p>
-                        <p className="tour-participants">
-                          <span className="icon-users"></span> {tour.participants}/{tour.maxParticipants} participants
-                        </p>
-                      </div>
-                      <p className="tour-description">{tour.description}</p>
-                      <div className="tour-actions">
-                        <button className="btn-live">Live Updates</button>
-                        <button className="btn-contact">Contact Tourists</button>
-                      </div>
-                    </div>
-                  ))}
+                </button>
+                <button
+                  className={`sub-tab ${activeTourTab === 'past' ? 'active' : ''}`}
+                  onClick={() => { setActiveTourTab('past'); setCurrentPage(1); }}
+                >
+                  <span className="icon-past"></span> Past Tours
+                </button>
+              </div>
+
+              {/* Filters Section */}
+              <div className="tour-filters">
+                <div className="filter-row">
+                  <div className="filter-group">
+                    <input
+                      type="text"
+                      placeholder="Search tours or locations..."
+                      value={tourFilters.search}
+                      onChange={(e) => handleTourFilterChange('search', e.target.value)}
+                      className="filter-input"
+                    />
+                  </div>
+                  <div className="filter-group">
+                    <select
+                      value={tourFilters.location}
+                      onChange={(e) => handleTourFilterChange('location', e.target.value)}
+                      className="filter-select"
+                    >
+                      <option value="all">All Locations</option>
+                      <option value="central">Central Province</option>
+                      <option value="southern">Southern Province</option>
+                      <option value="western">Western Province</option>
+                      <option value="uva">Uva Province</option>
+                    </select>
+                  </div>
+                  <div className="filter-group">
+                    <select
+                      value={tourFilters.priceRange}
+                      onChange={(e) => handleTourFilterChange('priceRange', e.target.value)}
+                      className="filter-select"
+                    >
+                      <option value="all">All Prices</option>
+                      <option value="low">Under $60</option>
+                      <option value="medium">$60 - $80</option>
+                      <option value="high">$80+</option>
+                    </select>
+                  </div>
+                  <div className="filter-group">
+                    <select
+                      value={tourFilters.participants}
+                      onChange={(e) => handleTourFilterChange('participants', e.target.value)}
+                      className="filter-select"
+                    >
+                      <option value="all">All Group Sizes</option>
+                      <option value="low">1-3 people</option>
+                      <option value="medium">4-6 people</option>
+                      <option value="high">7+ people</option>
+                    </select>
+                  </div>
+                  <button className="filter-reset-btn" onClick={resetFilters}>
+                    Reset Filters
+                  </button>
                 </div>
               </div>
 
-              {/* Past Tours */}
-              <div className="tour-category">
-                <h3 className="category-title">
-                  <span className="icon-past"></span> Past Tours
-                </h3>
-                <div className="tours-grid">
-                  {mockTours.filter(tour => tour.status === 'Completed').map((tour) => (
-                    <div key={tour.id} className="tour-card completed">
-                      <div className="tour-header">
-                        <h3>{tour.title}</h3>
-                        <span className={`tour-status ${tour.status.toLowerCase().replace(' ', '-')}`}>
-                          {tour.status}
-                        </span>
+              {/* Tour Content based on active sub-tab */}
+              {activeTourTab === 'upcoming' && (
+                <div className="tour-category">
+                  <div className="category-header">
+                    <h3 className="category-title">
+                      <span className="icon-upcoming"></span> Upcoming Tours
+                    </h3>
+                    <span className="tour-count">
+                      {getFilteredTours('Upcoming').length} tours
+                    </span>
+                  </div>
+                  <div className="tours-grid">
+                    {getPaginatedTours(getFilteredTours('Upcoming')).map((tour) => (
+                      <div key={tour.id} className="tour-card">
+                        <div className="tour-header">
+                          <h3>{tour.title}</h3>
+                          <span className={`tour-status ${tour.status.toLowerCase().replace(' ', '-')}`}>
+                            {tour.status}
+                          </span>
+                        </div>
+                        <div className="tour-details">
+                          <p className="tour-location"><span className="icon-location"></span> {tour.location}</p>
+                          <p className="tour-date"><span className="icon-calendar"></span> {tour.date}</p>
+                          <p className="tour-duration"><span className="icon-clock"></span> {tour.duration}</p>
+                          <p className="tour-price"><span className="icon-money"></span> {tour.price}</p>
+                          <p className="tour-participants">
+                            <span className="icon-users"></span> {tour.participants}/{tour.maxParticipants} participants
+                          </p>
+                        </div>
+                        <p className="tour-description">{tour.description}</p>
+                        <div className="tour-actions">
+                          <button className="btn-edit">Edit Tour</button>
+                          <button className="btn-view">View Details</button>
+                          <button className="btn-cancel">Cancel</button>
+                        </div>
                       </div>
-                      <div className="tour-details">
-                        <p className="tour-location"><span className="icon-location"></span> {tour.location}</p>
-                        <p className="tour-date"><span className="icon-calendar"></span> {tour.date}</p>
-                        <p className="tour-duration"><span className="icon-clock"></span> {tour.duration}</p>
-                        <p className="tour-price"><span className="icon-money"></span> {tour.price}</p>
-                        <p className="tour-participants">
-                          <span className="icon-users"></span> {tour.participants}/{tour.maxParticipants} participants
-                        </p>
+                    ))}
+                  </div>
+                  
+                  {/* Pagination for Upcoming Tours */}
+                  {getTotalPages(getFilteredTours('Upcoming')) > 1 && (
+                    <div className="pagination">
+                      <button
+                        className="pagination-btn"
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                      >
+                        Previous
+                      </button>
+                      <div className="pagination-numbers">
+                        {Array.from({ length: getTotalPages(getFilteredTours('Upcoming')) }, (_, i) => (
+                          <button
+                            key={i + 1}
+                            className={`pagination-number ${currentPage === i + 1 ? 'active' : ''}`}
+                            onClick={() => handlePageChange(i + 1)}
+                          >
+                            {i + 1}
+                          </button>
+                        ))}
                       </div>
-                      <p className="tour-description">{tour.description}</p>
-                      <div className="tour-actions">
-                        <button className="btn-review">View Reviews</button>
-                        <button className="btn-report">Download Report</button>
-                      </div>
+                      <button
+                        className="pagination-btn"
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === getTotalPages(getFilteredTours('Upcoming'))}
+                      >
+                        Next
+                      </button>
                     </div>
-                  ))}
+                  )}
                 </div>
-              </div>
+              )}
+
+              {activeTourTab === 'ongoing' && (
+                <div className="tour-category">
+                  <div className="category-header">
+                    <h3 className="category-title">
+                      <span className="icon-ongoing"></span> Ongoing Tours
+                    </h3>
+                    <span className="tour-count">
+                      {getFilteredTours('Ongoing').length} tours
+                    </span>
+                  </div>
+                  <div className="tours-grid">
+                    {getPaginatedTours(getFilteredTours('Ongoing')).map((tour) => (
+                      <div key={tour.id} className="tour-card ongoing">
+                        <div className="tour-header">
+                          <h3>{tour.title}</h3>
+                          <span className={`tour-status ${tour.status.toLowerCase().replace(' ', '-')}`}>
+                            {tour.status}
+                          </span>
+                        </div>
+                        <div className="tour-details">
+                          <p className="tour-location"><span className="icon-location"></span> {tour.location}</p>
+                          <p className="tour-date"><span className="icon-calendar"></span> {tour.date}</p>
+                          <p className="tour-duration"><span className="icon-clock"></span> {tour.duration}</p>
+                          <p className="tour-price"><span className="icon-money"></span> {tour.price}</p>
+                          <p className="tour-participants">
+                            <span className="icon-users"></span> {tour.participants}/{tour.maxParticipants} participants
+                          </p>
+                        </div>
+                        <p className="tour-description">{tour.description}</p>
+                        <div className="tour-actions">
+                          <button className="btn-live">Live Updates</button>
+                          <button className="btn-contact">Contact Tourists</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {/* Pagination for Ongoing Tours */}
+                  {getTotalPages(getFilteredTours('Ongoing')) > 1 && (
+                    <div className="pagination">
+                      <button
+                        className="pagination-btn"
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                      >
+                        Previous
+                      </button>
+                      <div className="pagination-numbers">
+                        {Array.from({ length: getTotalPages(getFilteredTours('Ongoing')) }, (_, i) => (
+                          <button
+                            key={i + 1}
+                            className={`pagination-number ${currentPage === i + 1 ? 'active' : ''}`}
+                            onClick={() => handlePageChange(i + 1)}
+                          >
+                            {i + 1}
+                          </button>
+                        ))}
+                      </div>
+                      <button
+                        className="pagination-btn"
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === getTotalPages(getFilteredTours('Ongoing'))}
+                      >
+                        Next
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {activeTourTab === 'past' && (
+                <div className="tour-category">
+                  <div className="category-header">
+                    <h3 className="category-title">
+                      <span className="icon-past"></span> Past Tours
+                    </h3>
+                    <span className="tour-count">
+                      {getFilteredTours('Completed').length} tours
+                    </span>
+                  </div>
+                  <div className="tours-grid">
+                    {getPaginatedTours(getFilteredTours('Completed')).map((tour) => (
+                      <div key={tour.id} className="tour-card completed">
+                        <div className="tour-header">
+                          <h3>{tour.title}</h3>
+                          <span className={`tour-status ${tour.status.toLowerCase().replace(' ', '-')}`}>
+                            {tour.status}
+                          </span>
+                        </div>
+                        <div className="tour-details">
+                          <p className="tour-location"><span className="icon-location"></span> {tour.location}</p>
+                          <p className="tour-date"><span className="icon-calendar"></span> {tour.date}</p>
+                          <p className="tour-duration"><span className="icon-clock"></span> {tour.duration}</p>
+                          <p className="tour-price"><span className="icon-money"></span> {tour.price}</p>
+                          <p className="tour-participants">
+                            <span className="icon-users"></span> {tour.participants}/{tour.maxParticipants} participants
+                          </p>
+                        </div>
+                        <p className="tour-description">{tour.description}</p>
+                        <div className="tour-actions">
+                          <button className="btn-review">View Reviews</button>
+                          <button className="btn-report">Download Report</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {/* Pagination for Past Tours */}
+                  {getTotalPages(getFilteredTours('Completed')) > 1 && (
+                    <div className="pagination">
+                      <button
+                        className="pagination-btn"
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                      >
+                        Previous
+                      </button>
+                      <div className="pagination-numbers">
+                        {Array.from({ length: getTotalPages(getFilteredTours('Completed')) }, (_, i) => (
+                          <button
+                            key={i + 1}
+                            className={`pagination-number ${currentPage === i + 1 ? 'active' : ''}`}
+                            onClick={() => handlePageChange(i + 1)}
+                          >
+                            {i + 1}
+                          </button>
+                        ))}
+                      </div>
+                      <button
+                        className="pagination-btn"
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === getTotalPages(getFilteredTours('Completed'))}
+                      >
+                        Next
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           )}
 
