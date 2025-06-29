@@ -8,7 +8,8 @@ const mockReviews = [
     id: "REV-001",
     tourist: "Anna Rodriguez",
     rating: 5,
-    review: "Absolutely amazing experience! Our guide was knowledgeable and friendly. Highly recommend!",
+    review:
+      "Absolutely amazing experience! Our guide was knowledgeable and friendly. Highly recommend!",
     tour: "Sigiriya Rock Fortress Tour",
     date: "2025-06-20",
     avatar: "https://randomuser.me/api/portraits/women/5.jpg",
@@ -19,7 +20,8 @@ const mockReviews = [
     id: "REV-002",
     tourist: "David Kim",
     rating: 4,
-    review: "Great tour with beautiful scenery. The guide provided excellent insights into local culture.",
+    review:
+      "Great tour with beautiful scenery. The guide provided excellent insights into local culture.",
     tour: "Kandy Temple Tour",
     date: "2025-06-18",
     avatar: "https://randomuser.me/api/portraits/men/6.jpg",
@@ -30,7 +32,8 @@ const mockReviews = [
     id: "REV-003",
     tourist: "Lisa Thompson",
     rating: 5,
-    review: "Perfect day exploring Galle Fort. Professional guide and well-organized tour.",
+    review:
+      "Perfect day exploring Galle Fort. Professional guide and well-organized tour.",
     tour: "Galle Fort Heritage Walk",
     date: "2025-06-15",
     avatar: "https://randomuser.me/api/portraits/women/7.jpg",
@@ -41,7 +44,8 @@ const mockReviews = [
     id: "REV-004",
     tourist: "James Wilson",
     rating: 3,
-    review: "Good tour but could have been more interactive. The location was beautiful though.",
+    review:
+      "Good tour but could have been more interactive. The location was beautiful though.",
     tour: "Nuwara Eliya Hill Country Tour",
     date: "2025-06-12",
     avatar: "https://randomuser.me/api/portraits/men/8.jpg",
@@ -52,7 +56,8 @@ const mockReviews = [
     id: "REV-005",
     tourist: "Maria Garcia",
     rating: 5,
-    review: "Outstanding wildlife experience! Saw elephants, leopards, and many birds. Guide was extremely knowledgeable about wildlife behavior.",
+    review:
+      "Outstanding wildlife experience! Saw elephants, leopards, and many birds. Guide was extremely knowledgeable about wildlife behavior.",
     tour: "Yala National Park Safari",
     date: "2025-06-10",
     avatar: "https://randomuser.me/api/portraits/women/9.jpg",
@@ -63,7 +68,8 @@ const mockReviews = [
     id: "REV-006",
     tourist: "Robert Chen",
     rating: 4,
-    review: "Very informative city tour. Learned a lot about Colombo's history and culture.",
+    review:
+      "Very informative city tour. Learned a lot about Colombo's history and culture.",
     tour: "Colombo City & Shopping Tour",
     date: "2025-06-08",
     avatar: "https://randomuser.me/api/portraits/men/10.jpg",
@@ -82,13 +88,14 @@ const Reviews = () => {
   // Calculate review statistics
   const getReviewStats = () => {
     const total = mockReviews.length;
-    const average = mockReviews.reduce((sum, review) => sum + review.rating, 0) / total;
+    const average =
+      mockReviews.reduce((sum, review) => sum + review.rating, 0) / total;
     const distribution = {
-      5: mockReviews.filter(r => r.rating === 5).length,
-      4: mockReviews.filter(r => r.rating === 4).length,
-      3: mockReviews.filter(r => r.rating === 3).length,
-      2: mockReviews.filter(r => r.rating === 2).length,
-      1: mockReviews.filter(r => r.rating === 1).length,
+      5: mockReviews.filter((r) => r.rating === 5).length,
+      4: mockReviews.filter((r) => r.rating === 4).length,
+      3: mockReviews.filter((r) => r.rating === 3).length,
+      2: mockReviews.filter((r) => r.rating === 2).length,
+      1: mockReviews.filter((r) => r.rating === 1).length,
     };
 
     return { total, average, distribution };
@@ -102,15 +109,18 @@ const Reviews = () => {
 
     // Filter by rating
     if (filterRating !== "all") {
-      filtered = filtered.filter(review => review.rating === parseInt(filterRating));
+      filtered = filtered.filter(
+        (review) => review.rating === parseInt(filterRating)
+      );
     }
 
     // Filter by search term
     if (searchTerm) {
-      filtered = filtered.filter(review =>
-        review.tourist.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        review.tour.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        review.review.toLowerCase().includes(searchTerm.toLowerCase())
+      filtered = filtered.filter(
+        (review) =>
+          review.tourist.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          review.tour.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          review.review.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
@@ -140,17 +150,17 @@ const Reviews = () => {
   // Pagination
   const indexOfLastReview = currentPage * reviewsPerPage;
   const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
-  const currentReviews = filteredReviews.slice(indexOfFirstReview, indexOfLastReview);
+  const currentReviews = filteredReviews.slice(
+    indexOfFirstReview,
+    indexOfLastReview
+  );
   const totalPages = Math.ceil(filteredReviews.length / reviewsPerPage);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const renderStars = (rating) => {
     return [...Array(5)].map((_, index) => (
-      <span
-        key={index}
-        className={`star ${index < rating ? "filled" : ""}`}
-      >
+      <span key={index} className={`star ${index < rating ? "filled" : ""}`}>
         ⭐
       </span>
     ));
@@ -162,10 +172,7 @@ const Reviews = () => {
       <div className="rating-bar">
         <span className="rating-label">{rating} ⭐</span>
         <div className="bar-container">
-          <div 
-            className="bar-fill" 
-            style={{ width: `${percentage}%` }}
-          ></div>
+          <div className="bar-fill" style={{ width: `${percentage}%` }}></div>
         </div>
         <span className="rating-count">({count})</span>
       </div>
@@ -174,7 +181,9 @@ const Reviews = () => {
 
   const handleReply = (reviewId) => {
     // In a real app, this would open a reply interface
-    alert(`Reply functionality for review ${reviewId} would be implemented here.`);
+    alert(
+      `Reply functionality for review ${reviewId} would be implemented here.`
+    );
   };
 
   return (
@@ -209,7 +218,14 @@ const Reviews = () => {
             <div className="stat-card">
               <div className="stat-icon">👍</div>
               <div className="stat-info">
-                <h3>{Math.round((stats.distribution[5] + stats.distribution[4]) / stats.total * 100)}%</h3>
+                <h3>
+                  {Math.round(
+                    ((stats.distribution[5] + stats.distribution[4]) /
+                      stats.total) *
+                      100
+                  )}
+                  %
+                </h3>
                 <p>Positive Reviews</p>
               </div>
             </div>
@@ -217,7 +233,7 @@ const Reviews = () => {
 
           <div className="rating-distribution">
             <h3>Rating Distribution</h3>
-            {[5, 4, 3, 2, 1].map(rating => 
+            {[5, 4, 3, 2, 1].map((rating) =>
               renderRatingBar(rating, stats.distribution[rating])
             )}
           </div>
@@ -278,8 +294,8 @@ const Reviews = () => {
                   <div key={review.id} className="review-card">
                     <div className="review-header">
                       <div className="reviewer-info">
-                        <img 
-                          src={review.avatar} 
+                        <img
+                          src={review.avatar}
                           alt={review.tourist}
                           className="reviewer-avatar"
                         />
@@ -298,7 +314,9 @@ const Reviews = () => {
                         <div className="stars">
                           {renderStars(review.rating)}
                         </div>
-                        <span className="rating-number">({review.rating}/5)</span>
+                        <span className="rating-number">
+                          ({review.rating}/5)
+                        </span>
                       </div>
                     </div>
 
@@ -313,15 +331,13 @@ const Reviews = () => {
                         </span>
                       </div>
                       <div className="review-actions">
-                        <button 
+                        <button
                           className="action-btn secondary"
                           onClick={() => handleReply(review.id)}
                         >
                           Reply
                         </button>
-                        <button className="action-btn secondary">
-                          Share
-                        </button>
+                        <button className="action-btn secondary">Share</button>
                       </div>
                     </div>
                   </div>
@@ -338,17 +354,19 @@ const Reviews = () => {
                   >
                     Previous
                   </button>
-                  
+
                   {[...Array(totalPages)].map((_, index) => (
                     <button
                       key={index + 1}
                       onClick={() => paginate(index + 1)}
-                      className={`pagination-btn ${currentPage === index + 1 ? 'active' : ''}`}
+                      className={`pagination-btn ${
+                        currentPage === index + 1 ? "active" : ""
+                      }`}
                     >
                       {index + 1}
                     </button>
                   ))}
-                  
+
                   <button
                     onClick={() => paginate(currentPage + 1)}
                     disabled={currentPage === totalPages}
@@ -363,7 +381,7 @@ const Reviews = () => {
             <div className="no-reviews">
               <p>No reviews found.</p>
               {searchTerm || filterRating !== "all" ? (
-                <button 
+                <button
                   onClick={() => {
                     setSearchTerm("");
                     setFilterRating("all");

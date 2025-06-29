@@ -11,7 +11,8 @@ const mockTourRequests = [
     requestedDate: "2025-07-05",
     participants: 2,
     budget: "USD 120",
-    message: "We are interested in a personalized wildlife safari with elephant watching.",
+    message:
+      "We are interested in a personalized wildlife safari with elephant watching.",
     status: "Pending",
     avatar: "https://randomuser.me/api/portraits/men/1.jpg",
     contactEmail: "john.smith@email.com",
@@ -24,7 +25,8 @@ const mockTourRequests = [
     requestedDate: "2025-07-08",
     participants: 1,
     budget: "USD 80",
-    message: "Looking for a photography-focused tour of scenic locations around Ella.",
+    message:
+      "Looking for a photography-focused tour of scenic locations around Ella.",
     status: "Pending",
     avatar: "https://randomuser.me/api/portraits/women/2.jpg",
     contactEmail: "emma.wilson@email.com",
@@ -37,7 +39,8 @@ const mockTourRequests = [
     requestedDate: "2025-07-10",
     participants: 4,
     budget: "USD 200",
-    message: "Family tour focusing on cultural sites and traditional experiences.",
+    message:
+      "Family tour focusing on cultural sites and traditional experiences.",
     status: "Accepted",
     avatar: "https://randomuser.me/api/portraits/men/3.jpg",
     contactEmail: "michael.chen@email.com",
@@ -68,15 +71,16 @@ const TourRequests = () => {
     let filtered = mockTourRequests;
 
     if (filterStatus !== "all") {
-      filtered = filtered.filter(request => 
-        request.status.toLowerCase() === filterStatus.toLowerCase()
+      filtered = filtered.filter(
+        (request) => request.status.toLowerCase() === filterStatus.toLowerCase()
       );
     }
 
     if (searchTerm) {
-      filtered = filtered.filter(request =>
-        request.tourist.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        request.tourTitle.toLowerCase().includes(searchTerm.toLowerCase())
+      filtered = filtered.filter(
+        (request) =>
+          request.tourist.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          request.tourTitle.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
@@ -160,14 +164,18 @@ const TourRequests = () => {
           <div className="stat-card">
             <div className="stat-icon">⏳</div>
             <div className="stat-info">
-              <h3>{mockTourRequests.filter(r => r.status === "Pending").length}</h3>
+              <h3>
+                {mockTourRequests.filter((r) => r.status === "Pending").length}
+              </h3>
               <p>Pending Requests</p>
             </div>
           </div>
           <div className="stat-card">
             <div className="stat-icon">✅</div>
             <div className="stat-info">
-              <h3>{mockTourRequests.filter(r => r.status === "Accepted").length}</h3>
+              <h3>
+                {mockTourRequests.filter((r) => r.status === "Accepted").length}
+              </h3>
               <p>Accepted This Month</p>
             </div>
           </div>
@@ -188,8 +196,8 @@ const TourRequests = () => {
                 <div key={request.id} className="request-card">
                   <div className="request-header">
                     <div className="tourist-info">
-                      <img 
-                        src={request.avatar} 
+                      <img
+                        src={request.avatar}
                         alt={request.tourist}
                         className="tourist-avatar"
                       />
@@ -198,7 +206,7 @@ const TourRequests = () => {
                         <p className="request-id">#{request.id}</p>
                       </div>
                     </div>
-                    <div 
+                    <div
                       className="request-status"
                       style={{ color: getStatusColor(request.status) }}
                     >
@@ -226,7 +234,7 @@ const TourRequests = () => {
                   </div>
 
                   <div className="request-actions">
-                    <button 
+                    <button
                       className="action-btn secondary"
                       onClick={() => handleViewDetails(request)}
                     >
@@ -234,13 +242,13 @@ const TourRequests = () => {
                     </button>
                     {request.status === "Pending" && (
                       <>
-                        <button 
+                        <button
                           className="action-btn success"
                           onClick={() => handleAcceptRequest(request.id)}
                         >
                           Accept
                         </button>
-                        <button 
+                        <button
                           className="action-btn danger"
                           onClick={() => handleRejectRequest(request.id)}
                         >
@@ -256,7 +264,7 @@ const TourRequests = () => {
             <div className="no-requests">
               <p>No tour requests found.</p>
               {searchTerm || filterStatus !== "all" ? (
-                <button 
+                <button
                   onClick={() => {
                     setSearchTerm("");
                     setFilterStatus("all");
@@ -276,34 +284,53 @@ const TourRequests = () => {
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
               <div className="modal-header">
                 <h2>Request Details</h2>
-                <button className="close-btn" onClick={closeModal}>×</button>
+                <button className="close-btn" onClick={closeModal}>
+                  ×
+                </button>
               </div>
-              
+
               <div className="modal-body">
                 <div className="request-detail-section">
                   <h3>Tourist Information</h3>
                   <div className="tourist-details">
-                    <img 
-                      src={selectedRequest.avatar} 
+                    <img
+                      src={selectedRequest.avatar}
                       alt={selectedRequest.tourist}
                       className="tourist-avatar large"
                     />
                     <div>
-                      <p><strong>Name:</strong> {selectedRequest.tourist}</p>
-                      <p><strong>Email:</strong> {selectedRequest.contactEmail}</p>
-                      <p><strong>Phone:</strong> {selectedRequest.contactPhone}</p>
+                      <p>
+                        <strong>Name:</strong> {selectedRequest.tourist}
+                      </p>
+                      <p>
+                        <strong>Email:</strong> {selectedRequest.contactEmail}
+                      </p>
+                      <p>
+                        <strong>Phone:</strong> {selectedRequest.contactPhone}
+                      </p>
                     </div>
                   </div>
                 </div>
 
                 <div className="request-detail-section">
                   <h3>Tour Details</h3>
-                  <p><strong>Tour Title:</strong> {selectedRequest.tourTitle}</p>
-                  <p><strong>Requested Date:</strong> {selectedRequest.requestedDate}</p>
-                  <p><strong>Participants:</strong> {selectedRequest.participants}</p>
-                  <p><strong>Budget:</strong> {selectedRequest.budget}</p>
-                  <p><strong>Status:</strong> 
-                    <span 
+                  <p>
+                    <strong>Tour Title:</strong> {selectedRequest.tourTitle}
+                  </p>
+                  <p>
+                    <strong>Requested Date:</strong>{" "}
+                    {selectedRequest.requestedDate}
+                  </p>
+                  <p>
+                    <strong>Participants:</strong>{" "}
+                    {selectedRequest.participants}
+                  </p>
+                  <p>
+                    <strong>Budget:</strong> {selectedRequest.budget}
+                  </p>
+                  <p>
+                    <strong>Status:</strong>
+                    <span
                       className="status-inline"
                       style={{ color: getStatusColor(selectedRequest.status) }}
                     >
@@ -321,7 +348,7 @@ const TourRequests = () => {
               <div className="modal-footer">
                 {selectedRequest.status === "Pending" && (
                   <>
-                    <button 
+                    <button
                       className="action-btn success"
                       onClick={() => {
                         handleAcceptRequest(selectedRequest.id);
@@ -330,7 +357,7 @@ const TourRequests = () => {
                     >
                       Accept Request
                     </button>
-                    <button 
+                    <button
                       className="action-btn danger"
                       onClick={() => {
                         handleRejectRequest(selectedRequest.id);

@@ -1145,6 +1145,117 @@
   border: 1px solid #e5e7eb;
 }
 
+/* Tour Filters - specific for MyTours page */
+.tour-filters {
+  display: flex;
+  gap: 16px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+  padding: 20px;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.tour-filters .filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 200px;
+}
+
+.tour-filters .filter-input {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  background: white;
+}
+
+.tour-filters .filter-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Tour Tabs */
+.tour-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 20px 0;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.tab-button {
+  padding: 12px 24px;
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.tab-button:hover {
+  color: #374151;
+  background: #f9fafb;
+}
+
+.tab-button.active {
+  color: #3b82f6;
+  border-bottom-color: #3b82f6;
+  background: #eff6ff;
+}
+
+/* Tour Content */
+.tour-content {
+  margin: 30px 0;
+}
+
+/* Pagination Styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 30px 0;
+  padding: 20px 0;
+}
+
+.pagination-btn {
+  padding: 8px 16px;
+  border: 1px solid #d1d5db;
+  background: white;
+  color: #374151;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #f9fafb;
+}
+
+.pagination-btn.active {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+.pagination-btn.active:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .guide-dashboard {
@@ -1246,29 +1357,43 @@
   .dashboard-stats {
     grid-template-columns: 1fr;
   }
-  
+
   .action-buttons {
     flex-direction: column;
   }
-  
+
   .request-filters,
+  .tour-filters,
   .review-controls {
     flex-direction: column;
   }
   
+  .tour-filters {
+    padding: 16px;
+  }
+  
+  .tour-filters .filter-group {
+    min-width: 100%;
+  }
+  
+  .tour-tabs {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
   .chat-container {
     grid-template-columns: 1fr;
     height: auto;
   }
-  
+
   .chat-sidebar {
     max-height: 300px;
   }
-  
+
   .review-statistics {
     grid-template-columns: 1fr;
   }
-  
+
   .modal-content {
     margin: 10px;
     max-width: calc(100vw - 20px);
@@ -1306,11 +1431,11 @@
     flex-direction: column;
     gap: 8px;
   }
-  
+
   .request-actions {
     flex-direction: column;
   }
-  
+
   .action-btn {
     text-align: center;
   }

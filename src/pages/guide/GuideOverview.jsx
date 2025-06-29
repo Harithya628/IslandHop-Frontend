@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signOut } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
 import "../Page.css";
 import "./GuideDashboard.css";
 
@@ -48,9 +48,9 @@ const GuideOverview = () => {
   const handleSignOut = async () => {
     try {
       await signOut(auth);
-      navigate('/');
+      navigate("/");
     } catch (error) {
-      console.error('Error signing out:', error);
+      console.error("Error signing out:", error);
     }
   };
 
@@ -59,8 +59,8 @@ const GuideOverview = () => {
   };
 
   // Get upcoming and ongoing tours
-  const upcomingTours = mockTours.filter(tour => tour.status === "Upcoming");
-  const ongoingTours = mockTours.filter(tour => tour.status === "Ongoing");
+  const upcomingTours = mockTours.filter((tour) => tour.status === "Upcoming");
+  const ongoingTours = mockTours.filter((tour) => tour.status === "Ongoing");
 
   return (
     <div className="page">
@@ -105,7 +105,11 @@ const GuideOverview = () => {
               />
               <span className="slider"></span>
             </label>
-            <span className={`availability-status ${isAvailable ? "available" : "unavailable"}`}>
+            <span
+              className={`availability-status ${
+                isAvailable ? "available" : "unavailable"
+              }`}
+            >
               {isAvailable ? "Available" : "Unavailable"}
             </span>
           </div>
@@ -147,19 +151,19 @@ const GuideOverview = () => {
         <div className="quick-actions">
           <h2>Quick Actions</h2>
           <div className="action-buttons">
-            <button 
+            <button
               className="action-btn primary"
               onClick={() => navigate("/guide/my-tours")}
             >
               View All Tours
             </button>
-            <button 
+            <button
               className="action-btn secondary"
               onClick={() => navigate("/guide/tour-requests")}
             >
               Check Requests
             </button>
-            <button 
+            <button
               className="action-btn secondary"
               onClick={() => navigate("/guide/chat")}
             >
@@ -181,12 +185,21 @@ const GuideOverview = () => {
                     </div>
                     <h3>{tour.title}</h3>
                     <div className="tour-details">
-                      <p><strong>Duration:</strong> {tour.duration}</p>
-                      <p><strong>Participants:</strong> {tour.participants}/{tour.maxParticipants}</p>
-                      <p><strong>Location:</strong> {tour.location}</p>
-                      <p><strong>Price:</strong> {tour.price}</p>
+                      <p>
+                        <strong>Duration:</strong> {tour.duration}
+                      </p>
+                      <p>
+                        <strong>Participants:</strong> {tour.participants}/
+                        {tour.maxParticipants}
+                      </p>
+                      <p>
+                        <strong>Location:</strong> {tour.location}
+                      </p>
+                      <p>
+                        <strong>Price:</strong> {tour.price}
+                      </p>
                     </div>
-                    <button 
+                    <button
                       className="view-details-btn"
                       onClick={() => handleViewTourDetails(tour.id)}
                     >
@@ -211,12 +224,21 @@ const GuideOverview = () => {
                     </div>
                     <h3>{tour.title}</h3>
                     <div className="tour-details">
-                      <p><strong>Date:</strong> {tour.date}</p>
-                      <p><strong>Duration:</strong> {tour.duration}</p>
-                      <p><strong>Participants:</strong> {tour.participants}/{tour.maxParticipants}</p>
-                      <p><strong>Location:</strong> {tour.location}</p>
+                      <p>
+                        <strong>Date:</strong> {tour.date}
+                      </p>
+                      <p>
+                        <strong>Duration:</strong> {tour.duration}
+                      </p>
+                      <p>
+                        <strong>Participants:</strong> {tour.participants}/
+                        {tour.maxParticipants}
+                      </p>
+                      <p>
+                        <strong>Location:</strong> {tour.location}
+                      </p>
                     </div>
-                    <button 
+                    <button
                       className="view-details-btn"
                       onClick={() => handleViewTourDetails(tour.id)}
                     >

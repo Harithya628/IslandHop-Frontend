@@ -12,14 +12,16 @@ import GuideSidebar from "../components/sidebars/GuideSidebar";
 const GuideRoutes = () => (
   <>
     <GuideSidebar />
-    <div style={{
-      marginLeft: 240, // width of expanded sidebar
-      transition: 'margin-left 0.2s',
-      minHeight: '100vh',
-      background: '#f8fafc',
-      position: 'relative',
-      zIndex: 1
-    }}>
+    <div
+      style={{
+        marginLeft: 240, // width of expanded sidebar
+        transition: "margin-left 0.2s",
+        minHeight: "100vh",
+        background: "#f8fafc",
+        position: "relative",
+        zIndex: 1,
+      }}
+    >
       <Routes>
         <Route
           path="dashboard"

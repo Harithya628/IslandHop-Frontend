@@ -16,7 +16,8 @@ const mockTours = [
     date: "2025-06-28",
     status: "Upcoming",
     location: "Sigiriya, Central Province",
-    description: "Explore the ancient rock fortress of Sigiriya and learn about Sri Lankan history and culture.",
+    description:
+      "Explore the ancient rock fortress of Sigiriya and learn about Sri Lankan history and culture.",
   },
   {
     id: "TOUR-002",
@@ -28,7 +29,8 @@ const mockTours = [
     date: "2025-06-30",
     status: "Upcoming",
     location: "Kandy, Central Province",
-    description: "Visit the sacred Temple of the Tooth and experience authentic Sri Lankan tea plantation.",
+    description:
+      "Visit the sacred Temple of the Tooth and experience authentic Sri Lankan tea plantation.",
   },
   {
     id: "TOUR-003",
@@ -40,7 +42,8 @@ const mockTours = [
     date: "2025-07-02",
     status: "Upcoming",
     location: "Galle, Southern Province",
-    description: "Discover the colonial architecture and maritime history of UNESCO World Heritage Galle Fort.",
+    description:
+      "Discover the colonial architecture and maritime history of UNESCO World Heritage Galle Fort.",
   },
   // Ongoing Tours
   {
@@ -53,7 +56,8 @@ const mockTours = [
     date: "2025-06-25",
     status: "Ongoing",
     location: "Ella, Uva Province",
-    description: "Hike through tea plantations and visit the famous Nine Arches Bridge.",
+    description:
+      "Hike through tea plantations and visit the famous Nine Arches Bridge.",
   },
   // Past Tours
   {
@@ -66,7 +70,8 @@ const mockTours = [
     date: "2025-06-20",
     status: "Completed",
     location: "Yala, Southern Province",
-    description: "Wildlife safari with leopard and elephant spotting opportunities.",
+    description:
+      "Wildlife safari with leopard and elephant spotting opportunities.",
   },
   {
     id: "TOUR-006",
@@ -78,7 +83,8 @@ const mockTours = [
     date: "2025-06-18",
     status: "Completed",
     location: "Colombo, Western Province",
-    description: "Explore the capital city, visit markets, and experience local culture.",
+    description:
+      "Explore the capital city, visit markets, and experience local culture.",
   },
   {
     id: "TOUR-007",
@@ -90,7 +96,8 @@ const mockTours = [
     date: "2025-06-15",
     status: "Completed",
     location: "Nuwara Eliya, Central Province",
-    description: "Experience the cool climate and scenic beauty of Sri Lanka's hill country.",
+    description:
+      "Experience the cool climate and scenic beauty of Sri Lanka's hill country.",
   },
 ];
 
@@ -121,9 +128,10 @@ const MyTours = () => {
 
     // Apply search and location filters
     if (tourFilters.search) {
-      filteredTours = filteredTours.filter((tour) =>
-        tour.title.toLowerCase().includes(tourFilters.search.toLowerCase()) ||
-        tour.location.toLowerCase().includes(tourFilters.search.toLowerCase())
+      filteredTours = filteredTours.filter(
+        (tour) =>
+          tour.title.toLowerCase().includes(tourFilters.search.toLowerCase()) ||
+          tour.location.toLowerCase().includes(tourFilters.search.toLowerCase())
       );
     }
 
@@ -147,9 +155,9 @@ const MyTours = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleFilterChange = (filterName, value) => {
-    setTourFilters(prev => ({
+    setTourFilters((prev) => ({
       ...prev,
-      [filterName]: value
+      [filterName]: value,
     }));
     setCurrentPage(1); // Reset to first page when filters change
   };
@@ -169,7 +177,9 @@ const MyTours = () => {
         {/* Tour Tabs */}
         <div className="tour-tabs">
           <button
-            className={`tab-button ${activeTourTab === "ongoing" ? "active" : ""}`}
+            className={`tab-button ${
+              activeTourTab === "ongoing" ? "active" : ""
+            }`}
             onClick={() => {
               setActiveTourTab("ongoing");
               setCurrentPage(1);
@@ -178,7 +188,9 @@ const MyTours = () => {
             Ongoing Tours
           </button>
           <button
-            className={`tab-button ${activeTourTab === "upcoming" ? "active" : ""}`}
+            className={`tab-button ${
+              activeTourTab === "upcoming" ? "active" : ""
+            }`}
             onClick={() => {
               setActiveTourTab("upcoming");
               setCurrentPage(1);
@@ -243,22 +255,38 @@ const MyTours = () => {
             <>
               <div className="tours-grid">
                 {currentTours.map((tour) => (
-                  <div key={tour.id} className={`tour-card ${tour.status.toLowerCase()}`}>
+                  <div
+                    key={tour.id}
+                    className={`tour-card ${tour.status.toLowerCase()}`}
+                  >
                     <div className="tour-status">
-                      <span className={`status-badge ${tour.status.toLowerCase()}`}>
+                      <span
+                        className={`status-badge ${tour.status.toLowerCase()}`}
+                      >
                         {tour.status}
                       </span>
                     </div>
                     <h3>{tour.title}</h3>
                     <div className="tour-details">
-                      <p><strong>Date:</strong> {tour.date}</p>
-                      <p><strong>Duration:</strong> {tour.duration}</p>
-                      <p><strong>Participants:</strong> {tour.participants}/{tour.maxParticipants}</p>
-                      <p><strong>Location:</strong> {tour.location}</p>
-                      <p><strong>Price:</strong> {tour.price}</p>
+                      <p>
+                        <strong>Date:</strong> {tour.date}
+                      </p>
+                      <p>
+                        <strong>Duration:</strong> {tour.duration}
+                      </p>
+                      <p>
+                        <strong>Participants:</strong> {tour.participants}/
+                        {tour.maxParticipants}
+                      </p>
+                      <p>
+                        <strong>Location:</strong> {tour.location}
+                      </p>
+                      <p>
+                        <strong>Price:</strong> {tour.price}
+                      </p>
                     </div>
                     <p className="tour-description">{tour.description}</p>
-                    <button 
+                    <button
                       className="view-details-btn"
                       onClick={() => handleViewTourDetails(tour.id)}
                     >
@@ -278,17 +306,19 @@ const MyTours = () => {
                   >
                     Previous
                   </button>
-                  
+
                   {[...Array(totalPages)].map((_, index) => (
                     <button
                       key={index + 1}
                       onClick={() => paginate(index + 1)}
-                      className={`pagination-btn ${currentPage === index + 1 ? 'active' : ''}`}
+                      className={`pagination-btn ${
+                        currentPage === index + 1 ? "active" : ""
+                      }`}
                     >
                       {index + 1}
                     </button>
                   ))}
-                  
+
                   <button
                     onClick={() => paginate(currentPage + 1)}
                     disabled={currentPage === totalPages}
@@ -303,9 +333,14 @@ const MyTours = () => {
             <div className="no-tours">
               <p>No {activeTourTab} tours found.</p>
               {tourFilters.search || tourFilters.location ? (
-                <button 
+                <button
                   onClick={() => {
-                    setTourFilters({ search: "", location: "", dateFrom: "", dateTo: "" });
+                    setTourFilters({
+                      search: "",
+                      location: "",
+                      dateFrom: "",
+                      dateTo: "",
+                    });
                     setCurrentPage(1);
                   }}
                   className="clear-filters-btn"

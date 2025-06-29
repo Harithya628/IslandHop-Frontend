@@ -22,7 +22,8 @@ const mockChats = [
       {
         id: 2,
         sender: "guide",
-        message: "Hello Sarah! I'm excited too. Please bring comfortable walking shoes and a hat.",
+        message:
+          "Hello Sarah! I'm excited too. Please bring comfortable walking shoes and a hat.",
         timestamp: "10:20 AM",
       },
       {
@@ -57,7 +58,8 @@ const mockChats = [
       {
         id: 3,
         sender: "guide",
-        message: "I'm so glad you enjoyed it! Please don't forget to leave a review.",
+        message:
+          "I'm so glad you enjoyed it! Please don't forget to leave a review.",
         timestamp: "3:00 PM",
       },
     ],
@@ -74,7 +76,8 @@ const mockChats = [
       {
         id: 1,
         sender: "tourist",
-        message: "Hi, I was wondering if we could start the photography tour a bit earlier to catch the golden hour?",
+        message:
+          "Hi, I was wondering if we could start the photography tour a bit earlier to catch the golden hour?",
         timestamp: "8:00 AM",
       },
       {
@@ -95,10 +98,11 @@ const Chat = () => {
   // Filter chats based on search term
   const getFilteredChats = () => {
     if (!searchTerm) return mockChats;
-    
-    return mockChats.filter(chat =>
-      chat.tourist.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      chat.tour.toLowerCase().includes(searchTerm.toLowerCase())
+
+    return mockChats.filter(
+      (chat) =>
+        chat.tourist.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        chat.tour.toLowerCase().includes(searchTerm.toLowerCase())
     );
   };
 
@@ -120,21 +124,21 @@ const Chat = () => {
         sender: "guide",
         message: newMessage,
         timestamp: new Date().toLocaleTimeString([], {
-          hour: '2-digit',
-          minute: '2-digit'
+          hour: "2-digit",
+          minute: "2-digit",
         }),
       };
-      
+
       selectedChat.messages.push(message);
       selectedChat.lastMessage = newMessage;
       selectedChat.lastMessageTime = "Now";
-      
+
       setNewMessage("");
     }
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSendMessage();
     }
@@ -179,7 +183,9 @@ const Chat = () => {
                 filteredChats.map((chat) => (
                   <div
                     key={chat.id}
-                    className={`chat-item ${selectedChat?.id === chat.id ? "active" : ""}`}
+                    className={`chat-item ${
+                      selectedChat?.id === chat.id ? "active" : ""
+                    }`}
                     onClick={() => handleChatSelect(chat)}
                   >
                     <div className="chat-avatar">
@@ -191,10 +197,16 @@ const Chat = () => {
                     <div className="chat-info">
                       <div className="chat-header">
                         <h4>{chat.tourist}</h4>
-                        <span className="chat-time">{chat.lastMessageTime}</span>
+                        <span className="chat-time">
+                          {chat.lastMessageTime}
+                        </span>
                       </div>
                       <p className="chat-tour">{chat.tour}</p>
-                      <p className={`chat-preview ${chat.unread > 0 ? "unread" : ""}`}>
+                      <p
+                        className={`chat-preview ${
+                          chat.unread > 0 ? "unread" : ""
+                        }`}
+                      >
                         {chat.lastMessage}
                       </p>
                     </div>
@@ -222,12 +234,8 @@ const Chat = () => {
                     </div>
                   </div>
                   <div className="chat-actions">
-                    <button className="action-btn secondary">
-                      📞 Call
-                    </button>
-                    <button className="action-btn secondary">
-                      📧 Email
-                    </button>
+                    <button className="action-btn secondary">📞 Call</button>
+                    <button className="action-btn secondary">📧 Email</button>
                   </div>
                 </div>
 
@@ -236,11 +244,15 @@ const Chat = () => {
                   {selectedChat.messages.map((message) => (
                     <div
                       key={message.id}
-                      className={`message ${message.sender === "guide" ? "sent" : "received"}`}
+                      className={`message ${
+                        message.sender === "guide" ? "sent" : "received"
+                      }`}
                     >
                       <div className="message-content">
                         <p>{message.message}</p>
-                        <span className="message-time">{message.timestamp}</span>
+                        <span className="message-time">
+                          {message.timestamp}
+                        </span>
                       </div>
                     </div>
                   ))}
@@ -271,7 +283,10 @@ const Chat = () => {
                 <div className="no-chat-content">
                   <h3>💬</h3>
                   <h3>Select a conversation</h3>
-                  <p>Choose a conversation from the list to start messaging with your tour participants.</p>
+                  <p>
+                    Choose a conversation from the list to start messaging with
+                    your tour participants.
+                  </p>
                 </div>
               </div>
             )}

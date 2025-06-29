@@ -87,7 +87,11 @@ const GuideSidebar = () => {
       {!isCollapsed && (
         <div className="sidebar-logo">
           <img src={islandHopIcon} alt="IslandHop Icon" className="logo-icon" />
-          <img src={islandHopLogo} alt="IslandHop Logo" className="logo-image" />
+          <img
+            src={islandHopLogo}
+            alt="IslandHop Logo"
+            className="logo-image"
+          />
         </div>
       )}
       {isCollapsed && (
