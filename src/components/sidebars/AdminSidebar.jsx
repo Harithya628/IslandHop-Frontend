@@ -10,6 +10,7 @@ import {
   UsersIcon,
   StarIcon,
   BellIcon,
+  UserIcon,
 } from "@heroicons/react/24/solid";
 import {
   Bars3Icon,
@@ -45,6 +46,7 @@ const AdminSidebar = () => {
     if (path.includes("/admin/accounts")) return "Accounts";
     if (path.includes("/admin/reviews")) return "Reviews";
     if (path.includes("/admin/notifications")) return "Notifications";
+    if (path.includes("/admin/profile")) return "ProfileDetails";
     return "";
   };
   const currentPage = getActivePage();
@@ -84,6 +86,9 @@ const AdminSidebar = () => {
         break;
       case "Notifications":
         navigate("/admin/notifications");
+        break;
+      case "ProfileDetails":
+        navigate("/admin/profile");
         break;
       default:
         break;
@@ -313,6 +318,17 @@ const AdminSidebar = () => {
               />
             </div>
           </div>
+
+          {/* Profile Section at Bottom */}
+          <div className="sidebar-profile-section">
+            <SidebarItem
+              icon={<UserIcon className="w-4.5 h-4.5" />}
+              label="Profile"
+              isActive={currentPage === "ProfileDetails"}
+              onClick={() => handleNav("ProfileDetails")}
+              iconColor="#10B981"
+            />
+          </div>
         </>
       )}
 
@@ -415,6 +431,18 @@ const AdminSidebar = () => {
             collapsed={true}
             title="Notifications"
             className="collapsed-item-notifications"
+          />
+
+          {/* Profile Section at Bottom */}
+          <div className="collapsed-section-divider"></div>
+          <SidebarItem
+            icon={<UserIcon className="w-5 h-5" />}
+            isActive={currentPage === "ProfileDetails"}
+            onClick={() => handleNav("ProfileDetails")}
+            iconColor="#10B981"
+            collapsed={true}
+            title="Profile"
+            className="collapsed-item-profile"
           />
         </div>
       )}

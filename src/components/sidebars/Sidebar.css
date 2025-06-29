@@ -224,6 +224,14 @@
   padding-left: 0; /* No additional padding - let items handle their own positioning */
 }
 
+/* Profile section at bottom of sidebar */
+.sidebar-profile-section {
+  margin-top: auto; /* Push to bottom */
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+  margin-bottom: 8px;
+}
+
 /* Horizontal divider between sections in collapsed mode */
 .collapsed-section-divider {
   width: 32px;
@@ -308,6 +316,11 @@
 
 .collapsed-nav .collapsed-item-notifications {
   margin-top: 8px; /* Normal button spacing */
+  margin-bottom: 0;
+}
+
+.collapsed-nav .collapsed-item-profile {
+  margin-top: 0; /* No extra margin - divider provides all spacing */
   margin-bottom: 0;
 }
 
