@@ -11,6 +11,7 @@ import {
   StarIcon,
   BellIcon,
   UserIcon,
+  ArrowLeftOnRectangleIcon,
 } from "@heroicons/react/24/solid";
 import {
   Bars3Icon,
@@ -90,9 +91,22 @@ const AdminSidebar = () => {
       case "ProfileDetails":
         navigate("/admin/profile");
         break;
+      case "SignOut":
+        handleSignOut();
+        break;
       default:
         break;
     }
+  };
+
+  const handleSignOut = () => {
+    // Clear any stored authentication data
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('userEmail');
+    
+    // Navigate to login page
+    navigate("/login");
   };
 
   const toggleSidebar = () => {
@@ -329,6 +343,17 @@ const AdminSidebar = () => {
               iconColor="#10B981"
             />
           </div>
+
+          {/* Sign Out Section at Very Bottom */}
+          <div className="sidebar-signout-section">
+            <SidebarItem
+              icon={<ArrowLeftOnRectangleIcon className="w-4.5 h-4.5" />}
+              label="Sign Out"
+              isActive={false}
+              onClick={() => handleNav("SignOut")}
+              iconColor="#EF4444"
+            />
+          </div>
         </>
       )}
 
@@ -443,6 +468,17 @@ const AdminSidebar = () => {
             collapsed={true}
             title="Profile"
             className="collapsed-item-profile"
+          />
+
+          {/* Sign Out Section at Very Bottom */}
+          <SidebarItem
+            icon={<ArrowLeftOnRectangleIcon className="w-5 h-5" />}
+            isActive={false}
+            onClick={() => handleNav("SignOut")}
+            iconColor="#EF4444"
+            collapsed={true}
+            title="Sign Out"
+            className="collapsed-item-signout"
           />
         </div>
       )}
