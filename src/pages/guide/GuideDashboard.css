@@ -1367,15 +1367,15 @@
   .review-controls {
     flex-direction: column;
   }
-  
+
   .tour-filters {
     padding: 16px;
   }
-  
+
   .tour-filters .filter-group {
     min-width: 100%;
   }
-  
+
   .tour-tabs {
     flex-wrap: wrap;
     gap: 4px;
