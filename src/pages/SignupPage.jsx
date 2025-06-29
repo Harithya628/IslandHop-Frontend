@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { auth } from '../firebase';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, deleteUser } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import sriLankaVideo from '../assets/sri-lanka-video.mp4';
 import islandHopLogo from '../assets/IslandHop.png';
 import islandHopIcon from '../assets/islandHopIcon.png';
@@ -41,10 +43,26 @@ function SignupPage() {
       console.log('Backend response (email signup):', res);
 
       if (res.status === 200) {
-        navigate('/dashboard');
+        toast.success('Account created successfully! Please sign in to continue.', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        
+        // Wait a moment for the toast to be visible, then navigate
+        setTimeout(() => {
+          navigate('/login');
+        }, 1500);
       } else {
         // If backend fails, delete Firebase user
         await deleteUser(userCredential.user);
+        toast.error('Registration failed on server. Please try again.', {
+          position: 'top-right',
+          autoClose: 4000,
+        });
         setError('Registration failed on server');
       }
     } catch (err) {
@@ -52,6 +70,12 @@ function SignupPage() {
       if (userCredential && userCredential.user) {
         try { await deleteUser(userCredential.user); } catch (e) { /* ignore */ }
       }
+      
+      toast.error(err.message || 'Registration failed. Please try again.', {
+        position: 'top-right',
+        autoClose: 4000,
+      });
+      
       setError(err.message || 'Registration error');
       console.log('Error during email signup:', err);
     }
@@ -74,10 +98,26 @@ function SignupPage() {
       console.log('Backend response (Google signup):', res);
 
       if (res.status === 200) {
-        navigate('/dashboard');
+        toast.success('Account created successfully! Please sign in to continue.', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        
+        // Wait a moment for the toast to be visible, then navigate
+        setTimeout(() => {
+          navigate('/login');
+        }, 1500);
       } else {
         // If backend fails, delete Firebase user
         await deleteUser(result.user);
+        toast.error('Google registration failed on server. Please try again.', {
+          position: 'top-right',
+          autoClose: 4000,
+        });
         setError('Google registration failed on server');
       }
     } catch (err) {
@@ -85,6 +125,12 @@ function SignupPage() {
       if (result && result.user) {
         try { await deleteUser(result.user); } catch (e) { /* ignore */ }
       }
+      
+      toast.error(err.message || 'Google sign-up failed. Please try again.', {
+        position: 'top-right',
+        autoClose: 4000,
+      });
+      
       setError(err.message || 'Google sign-up error');
       console.log('Error during Google signup:', err);
     }
@@ -100,6 +146,7 @@ function SignupPage() {
 
   return (
     <>
+      <ToastContainer />
       <div className="signup-container">
         {/* Top left logo */}
         <div className="top-logo" onClick={handleLogoClick}>

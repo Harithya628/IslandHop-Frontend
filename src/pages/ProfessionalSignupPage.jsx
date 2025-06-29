@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { auth } from '../firebase';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, deleteUser } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import sriLankaVideo from '../assets/sri-lanka-video.mp4';
 import islandHopLogo from '../assets/IslandHop.png';
 import islandHopIcon from '../assets/islandHopIcon.png';
@@ -30,6 +32,10 @@ function ProfessionalSignupPage() {
     e.preventDefault();
 
     if (!role) {
+      toast.error('Please select your professional role', {
+        position: 'top-right',
+        autoClose: 3000,
+      });
       setError('Please select your professional role');
       return;
     }
@@ -41,6 +47,10 @@ function ProfessionalSignupPage() {
 
       const endpoint = getEndpoint();
       if (!endpoint) {
+        toast.error('Invalid role selected', {
+          position: 'top-right',
+          autoClose: 3000,
+        });
         setError('Invalid role selected');
         await deleteUser(userCredential.user);
         return;
@@ -52,12 +62,32 @@ function ProfessionalSignupPage() {
       });
 
       if (res.status === 200) {
-        navigate('/dashboard');
+        toast.success('Professional account created successfully! Please sign in to continue.', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        
+        // Wait a moment for the toast to be visible, then navigate
+        setTimeout(() => {
+          navigate('/login');
+        }, 1500);
       } else {
         await deleteUser(userCredential.user);
+        toast.error('Registration failed on server. Please try again.', {
+          position: 'top-right',
+          autoClose: 4000,
+        });
         setError('Registration failed on server');
       }
     } catch (err) {
+      toast.error(err.message || 'Registration failed. Please try again.', {
+        position: 'top-right',
+        autoClose: 4000,
+      });
       setError(err.message || 'Registration error');
       console.log('Error during email signup:', err);
     }
@@ -65,6 +95,10 @@ function ProfessionalSignupPage() {
 
   const handleGoogleSignup = async () => {
     if (!role) {
+      toast.error('Please select your professional role before continuing with Google', {
+        position: 'top-right',
+        autoClose: 3000,
+      });
       setError('Please select your professional role before continuing with Google');
       return;
     }
@@ -76,6 +110,10 @@ function ProfessionalSignupPage() {
 
       const endpoint = getEndpoint();
       if (!endpoint) {
+        toast.error('Invalid role selected', {
+          position: 'top-right',
+          autoClose: 3000,
+        });
         setError('Invalid role selected');
         return;
       }
@@ -86,11 +124,31 @@ function ProfessionalSignupPage() {
       });
 
       if (res.status === 200) {
-        navigate('/dashboard');
+        toast.success('Professional account created successfully! Please sign in to continue.', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        
+        // Wait a moment for the toast to be visible, then navigate
+        setTimeout(() => {
+          navigate('/login');
+        }, 1500);
       } else {
+        toast.error('Google registration failed on server. Please try again.', {
+          position: 'top-right',
+          autoClose: 4000,
+        });
         setError('Google registration failed on server');
       }
     } catch (err) {
+      toast.error(err.message || 'Google sign-up failed. Please try again.', {
+        position: 'top-right',
+        autoClose: 4000,
+      });
       setError(err.message || 'Google sign-up error');
       console.log('Error during Google signup:', err);
     }
@@ -102,6 +160,7 @@ function ProfessionalSignupPage() {
 
   return (
     <>
+      <ToastContainer />
       <div className="professional-signup-container">
         {/* Top left logo */}
         <div className="top-logo" onClick={handleLogoClick}>
