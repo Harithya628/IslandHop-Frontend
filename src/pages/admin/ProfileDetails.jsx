@@ -1,24 +1,69 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ProfileDetails.css';
 import profilePic from '../../assets/islandHopIcon.png';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { auth } from '../../firebase';
-import { sendPasswordResetEmail } from 'firebase/auth';
+import { sendPasswordResetEmail, onAuthStateChanged } from 'firebase/auth';
 
 const initialUser = {
   firstName: 'System',
   lastName: 'Administrator',
-  email: 'admin@islandhop.lk',
+  email: 'islandhopdev@gmail.com',
   role: 'System Admin',
   avatar: profilePic,
-  lastActive: '2 minutes ago',
+  lastActive: 'Loading...',
 };
 
 const ProfileDetails = () => {
   const [user, setUser] = useState(initialUser);
   const [showPasswordReset, setShowPasswordReset] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  // Function to format the last active time
+  const formatLastActive = (timestamp) => {
+    if (!timestamp) return 'Never';
+    
+    const now = new Date();
+    const lastActive = new Date(timestamp);
+    const diffInMinutes = Math.floor((now - lastActive) / (1000 * 60));
+    
+    if (diffInMinutes < 1) return 'Just now';
+    if (diffInMinutes < 60) return `${diffInMinutes} minute${diffInMinutes > 1 ? 's' : ''} ago`;
+    
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    if (diffInHours < 24) return `${diffInHours} hour${diffInHours > 1 ? 's' : ''} ago`;
+    
+    const diffInDays = Math.floor(diffInHours / 24);
+    if (diffInDays < 7) return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
+    
+    return lastActive.toLocaleDateString();
+  };
+
+  // Get user's last sign-in time from Firebase Auth
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        // Get last sign-in time from Firebase Auth metadata
+        const lastSignInTime = currentUser.metadata.lastSignInTime;
+        const formattedLastActive = formatLastActive(lastSignInTime);
+        
+        setUser(prevUser => ({
+          ...prevUser,
+          email: currentUser.email || prevUser.email,
+          lastActive: formattedLastActive
+        }));
+      } else {
+        // If no user is signed in, show "Not signed in"
+        setUser(prevUser => ({
+          ...prevUser,
+          lastActive: 'Not signed in'
+        }));
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const notify = (msg, type = 'success') => {
     toast[type](msg, {
