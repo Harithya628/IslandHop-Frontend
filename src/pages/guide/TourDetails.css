@@ -3,7 +3,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px 80px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background: #ffffff;
   min-height: 100vh;
   padding-top: 120px;
@@ -24,14 +24,18 @@
   width: 40px;
   height: 40px;
   border: 4px solid #f3f4f6;
-  border-top: 4px solid #1FA9FF;
+  border-top: 4px solid #1fa9ff;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .error-container h2 {
@@ -131,7 +135,7 @@
 }
 
 .btn-edit {
-  background: #1FA9FF;
+  background: #1fa9ff;
   color: white;
 }
 
@@ -191,8 +195,8 @@
 }
 
 .details-tab.active {
-  color: #1FA9FF;
-  border-bottom-color: #1FA9FF;
+  color: #1fa9ff;
+  border-bottom-color: #1fa9ff;
   background: #f0f9ff;
 }
 
@@ -338,7 +342,7 @@
   content: "•";
   position: absolute;
   left: 0;
-  color: #1FA9FF;
+  color: #1fa9ff;
   font-weight: bold;
 }
 
@@ -370,7 +374,7 @@
 }
 
 .itinerary-timeline::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 15px;
   top: 0;
@@ -386,21 +390,21 @@
 }
 
 .itinerary-item::before {
-  content: '';
+  content: "";
   position: absolute;
   left: -7px;
   top: 25px;
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: #1FA9FF;
+  background: #1fa9ff;
   border: 3px solid white;
-  box-shadow: 0 0 0 2px #1FA9FF;
+  box-shadow: 0 0 0 2px #1fa9ff;
 }
 
 .itinerary-item .time {
   font-weight: 700;
-  color: #1FA9FF;
+  color: #1fa9ff;
   font-size: 0.9rem;
   margin-bottom: 5px;
 }

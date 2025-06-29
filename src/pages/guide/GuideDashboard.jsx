@@ -511,7 +511,7 @@ const GuideDashboard = () => {
                           <p className="tour-description">{tour.description}</p>
                           <div className="tour-actions">
                             <button className="btn-edit">Edit Tour</button>
-                            <button 
+                            <button
                               className="btn-view"
                               onClick={() => handleViewTourDetails(tour.id)}
                             >
