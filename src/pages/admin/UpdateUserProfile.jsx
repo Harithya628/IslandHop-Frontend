@@ -189,6 +189,7 @@ const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
             </div>
           </div>
         </div>
+
         {showConfirmation && (
           <div className="confirmation-banner">
             <div className="confirmation-content">
@@ -196,8 +197,7 @@ const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
               <span>User profile updated successfully!</span>
             </div>
           </div>
-        )}{" "}
-        <div className="page-content">
+        )}        <div className="page-content">
           <div className="profile-form">
             {/* Basic Information Section */}
             <div className="update-profile-form">
@@ -281,8 +281,7 @@ const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
                   />
                 </div>
               </div>
-            </div>{" "}
-            {/* Account Settings Section */}
+            </div>            {/* Account Settings Section */}
             <div className="update-profile-form">
               <h3 className="section-title">Account Settings</h3>
               <div className="form-grid">
@@ -339,8 +338,7 @@ const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
                   </div>
                 </div>
               </div>
-            </div>{" "}
-            {/* Professional Information Section (for drivers and guides) */}
+            </div>            {/* Professional Information Section (for drivers and guides) */}
             {(formData.userType === "driver" ||
               formData.userType === "guide") && (
               <div className="update-profile-form">
@@ -406,8 +404,7 @@ const UpdateUserProfile = ({ userId, onPageChange, users, setUsers }) => {
                   </div>
                 </div>
               </div>
-            )}{" "}
-            {/* User Statistics Section */}
+            )}            {/* User Statistics Section */}
             <div className="update-profile-form">
               <h3 className="section-title">User Statistics</h3>
               <div className="stats-grid">

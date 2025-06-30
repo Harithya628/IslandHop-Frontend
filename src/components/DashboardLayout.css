@@ -67,7 +67,7 @@
 
 .page-container {
   flex: 1;
-  padding-top: 60px; /* Account for role switcher height */
+  padding-top: 60px; 
   background-color: #E6F0FA; /* Ensure blue background */
 }
 
