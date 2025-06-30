@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
+import GoogleMapComponent from "../../components/GoogleMapComponent";
 import "./TourDetails.css";
 
 // Mock data - in real app this would come from API/database
@@ -205,95 +206,106 @@ const mockTours = [
     ],
   },
   {
-    id: "TOUR-003",
-    title: "Galle Fort Heritage Walk",
-    duration: "4 hours",
-    price: "USD 45",
-    participants: 8,
-    maxParticipants: 12,
-    date: "2025-07-02",
-    status: "Upcoming",
-    location: "Galle, Southern Province",
+    id: "TOUR-004",
+    title: "Ella Nine Arches Bridge & Hiking Tour",
+    duration: "5 hours",
+    price: "USD 55",
+    participants: 3,
+    maxParticipants: 6,
+    date: "2025-06-30",
+    status: "Ongoing",
+    location: "Ella, Uva Province",
     description:
-      "Discover the colonial architecture and maritime history of UNESCO World Heritage Galle Fort.",
+      "Hike through tea plantations and visit the famous Nine Arches Bridge.",
     detailedDescription:
-      "Step back in time as you explore the UNESCO World Heritage Site of Galle Fort. This walking tour takes you through cobblestone streets lined with Dutch colonial architecture, historic churches, museums, and charming boutiques. Learn about the fort's Portuguese and Dutch colonial history, its role in maritime trade, and how it survived the 2004 tsunami.",
-    meetingPoint: "Galle Fort Main Gate",
-    meetingTime: "09:00 AM",
+      "Experience the breathtaking beauty of Ella with this guided hiking tour. We'll trek through lush tea plantations, visit the iconic Nine Arches Bridge, and enjoy panoramic views of the surrounding mountains. This tour combines adventure with cultural immersion as you learn about tea cultivation and local village life.",
+    meetingPoint: "Ella Railway Station",
+    meetingTime: "08:00 AM",
     endTime: "01:00 PM",
     inclusions: [
-      "Expert local guide",
-      "Museum entrance fees",
-      "Light refreshments",
-      "Historical maps and materials",
+      "Professional hiking guide",
+      "Tea plantation visit",
+      "Traditional lunch",
       "Photography opportunities",
+      "Safety equipment",
+      "Bottled water",
     ],
     exclusions: [
-      "Lunch",
-      "Shopping expenses",
-      "Transportation to/from Galle",
-      "Personal items",
+      "Transportation to Ella",
+      "Personal expenses",
+      "Additional meals",
+      "Travel insurance",
     ],
     itinerary: [
       {
-        time: "09:00 AM",
-        activity: "Fort entrance",
-        description: "Meet at main gate and historical overview",
+        time: "08:00 AM",
+        activity: "Meet at Railway Station",
+        description: "Introduction and equipment check",
       },
       {
-        time: "09:30 AM",
-        activity: "Rampart walk",
-        description: "Walk along the fort walls with ocean views",
+        time: "08:30 AM",
+        activity: "Start hiking trail",
+        description: "Begin trek through tea plantations",
       },
       {
-        time: "10:30 AM",
-        activity: "Dutch Reformed Church",
-        description: "Visit historic church and cemetery",
+        time: "10:00 AM",
+        activity: "Nine Arches Bridge",
+        description: "Visit and photograph the famous bridge",
       },
       {
-        time: "11:00 AM",
-        activity: "Maritime Museum",
-        description: "Learn about naval history and artifacts",
+        time: "11:30 AM",
+        activity: "Tea factory visit",
+        description: "Learn about tea processing",
       },
       {
-        time: "12:00 PM",
-        activity: "Local streets exploration",
-        description: "Discover boutiques, cafes, and colonial buildings",
+        time: "12:30 PM",
+        activity: "Traditional lunch",
+        description: "Local cuisine with mountain views",
       },
       {
         time: "01:00 PM",
-        activity: "Tour conclusion",
-        description: "End at lighthouse with final Q&A",
+        activity: "Return to station",
+        description: "End of tour",
       },
     ],
     requirements: [
-      "Comfortable walking shoes",
+      "Good physical fitness",
+      "Hiking boots or sturdy shoes",
+      "Weather-appropriate clothing",
       "Sun protection",
-      "Camera for photos",
-      "Water bottle",
+      "Camera",
     ],
     weatherPolicy:
-      "Tours run in most weather. Covered areas available during rain.",
-    cancellationPolicy: "Free cancellation up to 12 hours before tour.",
-    emergencyContact: "+94 77 456 7890",
+      "Tours operate in most weather conditions. Alternative routes available during heavy rain.",
+    cancellationPolicy: "Free cancellation up to 24 hours in advance.",
+    emergencyContact: "+94 77 321 6548",
     touristDetails: [
       {
-        id: 5,
-        name: "Michael Chen",
-        email: "mchen@email.com",
-        phone: "+1 408 555 0198",
-        nationality: "American",
-        age: 35,
-        specialRequests: "History enthusiast",
+        id: 7,
+        name: "Alex Thompson",
+        email: "alex.t@email.com",
+        phone: "+61 412 345 678",
+        nationality: "Australian",
+        age: 26,
+        specialRequests: "Vegetarian meal",
       },
       {
-        id: 6,
-        name: "Lisa Chen",
-        email: "lchen@email.com",
-        phone: "+1 408 555 0199",
-        nationality: "American",
-        age: 33,
-        specialRequests: "Architecture lover",
+        id: 8,
+        name: "Maria Garcia",
+        email: "maria.g@email.com",
+        phone: "+34 612 345 678",
+        nationality: "Spanish",
+        age: 24,
+        specialRequests: "Photography enthusiast",
+      },
+      {
+        id: 9,
+        name: "David Brown",
+        email: "david.b@email.com",
+        phone: "+44 7911 123456",
+        nationality: "British",
+        age: 30,
+        specialRequests: "None",
       },
     ],
   },
@@ -501,6 +513,18 @@ const TourDetails = () => {
                   ))}
                 </ul>
               </div>
+
+              {/* Google Map - Only for Ongoing Tours */}
+              {tour.status === "Ongoing" && (
+                <div className="map-section">
+                  <h3>Live Location & Navigation</h3>
+                  <GoogleMapComponent 
+                    tourLocation={tour.location}
+                    meetingPoint={tour.meetingPoint}
+                    tourTitle={tour.title}
+                  />
+                </div>
+              )}
             </div>
           )}
 

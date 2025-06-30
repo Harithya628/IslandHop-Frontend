@@ -53,7 +53,7 @@ const mockTours = [
     price: "USD 55",
     participants: 3,
     maxParticipants: 6,
-    date: "2025-06-25",
+    date: "2025-06-30",
     status: "Ongoing",
     location: "Ella, Uva Province",
     description:
