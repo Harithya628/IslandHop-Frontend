@@ -90,9 +90,10 @@ const ProfileDetails = ({ isSidebarCollapsed }) => {
               firstName: profileData.firstName || prevUser.firstName,
               lastName: profileData.lastName || prevUser.lastName,
               email: profileData.email || currentUser.email,
-              phone: profileData.phone || prevUser.phone,
+              phone: profileData.contactNo || prevUser.phone,
               address: profileData.address || prevUser.address,
               role: profileData.role || prevUser.role,
+              avatar: profileData.profilePicture || prevUser.avatar, // Use Base64 image from DB
               joined: formattedJoinedDate,
               lastActive: formattedLastActive
             }));
@@ -101,9 +102,12 @@ const ProfileDetails = ({ isSidebarCollapsed }) => {
             setForm({
               firstName: profileData.firstName || initialUser.firstName,
               lastName: profileData.lastName || initialUser.lastName,
-              phone: profileData.phone || initialUser.phone,
+              phone: profileData.contactNo || initialUser.phone,
               address: profileData.address || initialUser.address,
             });
+            
+            // Also update avatar preview
+            setAvatarPreview(profileData.profilePicture || prevUser.avatar);
           } else {
             // If no profile found, use Firebase email and default values
             setUser(prevUser => ({
@@ -184,79 +188,82 @@ const ProfileDetails = ({ isSidebarCollapsed }) => {
     setLoading(true);
     
     try {
-      let photoUrl = user.avatar; // Keep existing photo by default
-      console.log('Starting profile update...');
-      console.log('Current avatar:', user.avatar);
-      console.log('Avatar preview:', avatarPreview);
+      // Create FormData for the entire profile update
+      const formData = new FormData();
+      formData.append('email', user.email);
+      formData.append('firstName', form.firstName);
+      formData.append('lastName', form.lastName);
+      formData.append('contactNo', form.phone); // Note: using contactNo to match backend
+      formData.append('address', form.address);
       
-      // Upload photo if changed
+      // Add photo if changed
       if (avatarPreview !== user.avatar) {
-        console.log('Photo has changed, attempting upload...');
         const fileInput = document.querySelector('input[type="file"]');
-        console.log('File input element:', fileInput);
-        
         if (fileInput && fileInput.files[0]) {
-          console.log('Selected file:', fileInput.files[0]);
-          const formData = new FormData();
-          formData.append('email', user.email);
-          formData.append('photo', fileInput.files[0]);
-          
-          console.log('Uploading photo to /support/profile/photo...');
-          const photoResponse = await api.post('/support/profile/photo', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          });
-          
-          console.log('Photo upload response:', photoResponse);
-          if (photoResponse.status === 200) {
-            photoUrl = photoResponse.data.photoUrl;
-            console.log('Photo uploaded successfully, new URL:', photoUrl);
-            notify('Profile photo uploaded successfully!', 'success');
-          } else {
-            console.log('Photo upload failed with status:', photoResponse.status);
-            notify('Failed to upload photo, but other details will be updated.', 'warning');
-          }
-        } else {
-          console.log('No file selected or file input not found');
+          formData.append('profilePicture', fileInput.files[0]);
+          console.log('Adding photo to form data');
+          console.log('File size:', fileInput.files[0].size);
+          console.log('File type:', fileInput.files[0].type);
         }
-      } else {
-        console.log('Photo unchanged, skipping upload');
       }
       
-      // Update profile details
-      const updateData = {
-        email: user.email,
-        firstName: form.firstName,
-        lastName: form.lastName,
-        phone: form.phone,
-        address: form.address,
-        photoUrl: photoUrl, // Include photo URL
-      };
+      console.log('Updating profile for email:', user.email);
+      console.log('Form data entries:');
+      for (let [key, value] of formData.entries()) {
+        if (key === 'profilePicture') {
+          console.log(key, ':', value.name, value.size, value.type);
+        } else {
+          console.log(key, ':', value);
+        }
+      }
       
-      console.log('Updating profile with data:', updateData);
-      const response = await api.put('/support/profile', updateData);
+      // Send PUT request with FormData
+      const response = await api.put('/support/profile', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      
       console.log('Profile update response:', response);
       
       if (response.status === 200) {
+        const updatedProfile = response.data;
         setUser((prev) => ({
           ...prev,
           firstName: form.firstName,
           lastName: form.lastName,
           phone: form.phone,
           address: form.address,
-          avatar: photoUrl, // Update avatar with new photo URL
+          avatar: updatedProfile.profilePicture || prev.avatar, // Update avatar with Base64 image from response
         }));
+        
+        // Update avatar preview to match the response
+        if (updatedProfile.profilePicture) {
+          setAvatarPreview(updatedProfile.profilePicture);
+        }
+        
         setEditMode(false);
-        console.log('Profile updated successfully');
         notify('Profile updated successfully!', 'success');
       } else {
-        console.log('Profile update failed with status:', response.status);
         notify('Failed to update profile. Please try again.', 'error');
       }
     } catch (error) {
       console.error('Error updating profile:', error);
-      notify('Failed to update profile. Please try again.', 'error');
+      console.error('Error response:', error.response);
+      
+      // Show more specific error message
+      let errorMessage = 'Failed to update profile';
+      if (error.response?.data?.message) {
+        errorMessage += ': ' + error.response.data.message;
+      } else if (error.response?.status === 404) {
+        errorMessage += ': Profile not found. Please try logging out and back in.';
+      } else if (error.response?.status === 400) {
+        errorMessage += ': Bad request. Please check your input data.';
+      } else {
+        errorMessage += ': ' + error.message;
+      }
+      
+      notify(errorMessage, 'error');
     } finally {
       setLoading(false);
     }
