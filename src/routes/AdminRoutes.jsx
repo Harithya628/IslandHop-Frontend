@@ -12,6 +12,7 @@ import SystemSettings from '../pages/admin/SystemSettings';
 import UpdateUserProfile from '../pages/admin/UpdateUserProfile';
 import AISettings from '../pages/admin/AISettings';
 import Accounts from '../pages/admin/Accounts';
+import ProfileDetails from '../pages/admin/ProfileDetails';
 import ProtectedRoute from './ProtectedRoute';
 import AdminSidebar from "../components/sidebars/AdminSidebar";
 
@@ -87,6 +88,11 @@ const AdminRoutes = () => (
         <Route path="accounts" element={
           <ProtectedRoute allowedRoles={["admin"]}>
             <Accounts />
+          </ProtectedRoute>
+        } />
+        <Route path="profile" element={
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <ProfileDetails />
           </ProtectedRoute>
         } />
         {/* Add more admin-specific routes here */}
