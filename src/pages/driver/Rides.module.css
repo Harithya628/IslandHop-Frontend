@@ -1,0 +1,684 @@
+/* Rides Page Base Styles */
+.ridesPage {
+  padding: 12px 20px !important;
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+.ridesPage * {
+  box-sizing: border-box !important;
+}
+
+/* Page Header Styles */
+.pageHeader {
+  margin-bottom: 24px !important;
+  margin-top: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+.pageHeader h1 {
+  font-size: 2.5rem !important;
+  color: #000000 !important;
+  margin-bottom: 8px !important;
+  margin-top: 0 !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  padding: 0 !important;
+}
+
+.pageHeader p {
+  color: #666666 !important;
+  font-size: 1.1rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.5 !important;
+}
+
+/* Page Content */
+.pageContent {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 24px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Tab Navigation */
+.tabNavigation {
+  display: flex !important;
+  background: white !important;
+  border-radius: 12px !important;
+  padding: 6px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid #e5e7eb !important;
+  margin: 0 !important;
+  overflow-x: auto !important;
+}
+
+.tabButton {
+  flex: 1 !important;
+  padding: 12px 20px !important;
+  border: none !important;
+  background: transparent !important;
+  color: #666666 !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  white-space: nowrap !important;
+  min-width: 120px !important;
+  margin: 0 !important;
+}
+
+.tabButton:hover {
+  background: #f8f9fa !important;
+  color: #000000 !important;
+}
+
+.tabButton.activeTab {
+  background: #3b82f6 !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+/* Rides Section */
+.ridesSection {
+  background: white !important;
+  padding: 24px !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid #e0e0e0 !important;
+  margin: 0 !important;
+}
+
+.sectionHeader {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 24px !important;
+  margin-top: 0 !important;
+  padding: 0 !important;
+  flex-wrap: wrap !important;
+  gap: 16px !important;
+}
+
+.sectionHeader h2 {
+  font-size: 1.6rem !important;
+  color: #000000 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+}
+
+.rideCounter {
+  background: #3b82f6 !important;
+  color: white !important;
+  padding: 8px 16px !important;
+  border-radius: 20px !important;
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+  margin: 0 !important;
+  border: none !important;
+  white-space: nowrap !important;
+}
+
+/* No Rides Message */
+.noRides {
+  text-align: center !important;
+  padding: 60px 20px !important;
+  color: #666666 !important;
+  background: #f8f9fa !important;
+  border-radius: 12px !important;
+  border: 2px dashed #cccccc !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.noRidesIcon {
+  width: 48px !important;
+  height: 48px !important;
+  color: #666666 !important;
+  margin-bottom: 8px !important;
+}
+
+.noRides p {
+  margin: 0 !important;
+  font-size: 1.2rem !important;
+  color: #000000 !important;
+  font-weight: 600 !important;
+  padding: 0 !important;
+}
+
+.noRides span {
+  margin: 0 !important;
+  font-size: 1rem !important;
+  color: #666666 !important;
+  padding: 0 !important;
+}
+
+/* Rides List */
+.ridesList {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Ride Card Styles */
+.rideCard {
+  background: #fff !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+  margin: 0 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08) !important;
+  position: relative !important;
+}
+
+.rideCard:hover {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Ride Header */
+.rideHeader {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  margin-bottom: 16px !important;
+  margin-top: 0 !important;
+  padding: 0 !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+}
+
+.passengerInfo {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.passengerName {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.passengerName span {
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  color: #000000 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.passengerContact {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.passengerContact span {
+  font-size: 0.9rem !important;
+  color: #666666 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.rideStatus {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.statusBadge {
+  padding: 8px 16px !important;
+  border-radius: 20px !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  color: white !important;
+  margin: 0 !important;
+  border: none !important;
+  white-space: nowrap !important;
+}
+
+.acceptedTime {
+  font-size: 0.9rem !important;
+  color: #666666 !important;
+  font-weight: 500 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+}
+
+/* Trip Details */
+.tripDetails {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+  margin-bottom: 16px !important;
+  margin-top: 0 !important;
+  padding: 0 !important;
+}
+
+/* Location Info */
+.locationInfo {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative !important;
+}
+
+.location {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 12px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.locationPin {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.pickupIcon {
+  width: 16px !important;
+  height: 16px !important;
+  color: white !important;
+}
+
+.dropoffIcon {
+  width: 16px !important;
+  height: 16px !important;
+  color: white !important;
+}
+
+.location:first-child .locationPin {
+  background: #3b82f6 !important;
+}
+
+.location:last-child .locationPin {
+  background: #000000 !important;
+}
+
+.locationText {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+  flex: 1 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.locationLabel {
+  font-size: 0.85rem !important;
+  color: #666666 !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.locationAddress {
+  font-size: 1rem !important;
+  color: #000000 !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.routeLine {
+  width: 2px !important;
+  height: 16px !important;
+  background: #cccccc !important;
+  margin-left: 13px !important;
+  margin-top: -6px !important;
+  margin-bottom: -6px !important;
+  border-radius: 1px !important;
+  position: relative !important;
+}
+
+/* Trip Info Grid */
+.tripInfo {
+  background: #f8f9fa !important;
+  padding: 12px !important;
+  border-radius: 8px !important;
+  border: 1px solid #e0e0e0 !important;
+  margin: 0 !important;
+}
+
+.infoGrid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
+  gap: 12px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.infoItem {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.infoText {
+  display: flex !important;
+  flex-direction: column !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.infoLabel {
+  font-size: 0.8rem !important;
+  color: #666666 !important;
+  font-weight: 500 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+.infoValue {
+  font-size: 1rem !important;
+  color: #000000 !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Additional Info */
+.additionalInfo {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.tripStats {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  color: #666666 !important;
+  font-size: 0.9rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.stat {
+  font-weight: 500 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.statSeparator {
+  color: #cccccc !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.specialRequests {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: #f0f8ff !important;
+  padding: 10px 12px !important;
+  border-radius: 8px !important;
+  border: 1px solid #3b82f6 !important;
+  color: #3b82f6 !important;
+  font-size: 0.9rem !important;
+  margin: 0 !important;
+}
+
+/* Icons */
+.icon {
+  width: 18px !important;
+  height: 18px !important;
+  color: #666666 !important;
+  flex-shrink: 0 !important;
+}
+
+/* Ride Actions */
+.rideActions {
+  display: flex !important;
+  gap: 8px !important;
+  margin-top: 16px !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  justify-content: flex-end !important;
+  flex-wrap: wrap !important;
+}
+
+.chatButton {
+  background: #3b82f6 !important;
+  color: white !important;
+  border: none !important;
+  padding: 10px 16px !important;
+  border-radius: 6px !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  transition: all 0.2s ease !important;
+  margin: 0 !important;
+  min-width: 120px !important;
+  justify-content: center !important;
+}
+
+.chatButton:hover {
+  background: #2563eb !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+}
+
+.startButton {
+  background: #000000 !important;
+  color: white !important;
+  border: none !important;
+  padding: 10px 16px !important;
+  border-radius: 6px !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  transition: all 0.2s ease !important;
+  margin: 0 !important;
+  min-width: 110px !important;
+  justify-content: center !important;
+}
+
+.startButton:hover {
+  background: #333333 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+.completeButton {
+  background: #666666 !important;
+  color: white !important;
+  border: none !important;
+  padding: 10px 16px !important;
+  border-radius: 6px !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  transition: all 0.2s ease !important;
+  margin: 0 !important;
+  min-width: 120px !important;
+  justify-content: center !important;
+}
+
+.completeButton:hover {
+  background: #444444 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(102, 102, 102, 0.3) !important;
+}
+
+.viewMapButton {
+  background: white !important;
+  color: #000000 !important;
+  border: 1px solid #e0e0e0 !important;
+  padding: 10px 16px !important;
+  border-radius: 6px !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  transition: all 0.2s ease !important;
+  margin: 0 !important;
+  min-width: 110px !important;
+  justify-content: center !important;
+}
+
+.viewMapButton:hover {
+  background: #f8f9fa !important;
+  border-color: #3b82f6 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15) !important;
+}
+
+.buttonIcon {
+  width: 18px !important;
+  height: 18px !important;
+  color: white !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .ridesPage {
+    padding: 8px 12px !important;
+  }
+  
+  .pageHeader h1 {
+    font-size: 2rem !important;
+  }
+  
+  .tabNavigation {
+    padding: 4px !important;
+  }
+  
+  .tabButton {
+    padding: 10px 16px !important;
+    font-size: 0.9rem !important;
+    min-width: 100px !important;
+  }
+  
+  .ridesSection {
+    padding: 16px !important;
+  }
+  
+  .sectionHeader {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  
+  .rideCard {
+    padding: 12px !important;
+  }
+  
+  .rideHeader {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  
+  .rideStatus {
+    align-items: flex-start !important;
+    width: 100% !important;
+  }
+  
+  .infoGrid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)) !important;
+    gap: 10px !important;
+  }
+  
+  .rideActions {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  
+  .chatButton,
+  .startButton,
+  .completeButton,
+  .viewMapButton {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .ridesPage {
+    padding: 8px !important;
+  }
+  
+  .ridesSection {
+    padding: 12px !important;
+  }
+  
+  .rideCard {
+    padding: 10px !important;
+  }
+  
+  .passengerName span {
+    font-size: 1rem !important;
+  }
+  
+  .locationAddress {
+    font-size: 0.95rem !important;
+  }
+  
+  .infoGrid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .tabButton {
+    padding: 8px 12px !important;
+    font-size: 0.85rem !important;
+  }
+}
