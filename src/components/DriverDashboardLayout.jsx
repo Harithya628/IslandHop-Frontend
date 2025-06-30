@@ -6,14 +6,10 @@ import DriverSidebar from "./sidebars/DriverSidebar";
 
 // Import driver pages (we'll create these)
 import DriverDashboard from "../pages/driver/DriverDashboard";
+import RideRequests from "../pages/driver/RideRequests";
 import Rides from "../pages/driver/Rides";
-import Schedule from "../pages/driver/Schedule";
-import History from "../pages/driver/History";
-import Passengers from "../pages/driver/Passengers";
-import Messages from "../pages/driver/Messages";
 import Earnings from "../pages/driver/Earnings";
 import Profile from "../pages/driver/Profile";
-import Settings from "../pages/driver/Settings";
 
 import "./DashboardLayout.css";
 
@@ -35,14 +31,10 @@ const DriverDashboardLayout = () => {
     // Handle direct navigation to different pages
     const path = location.pathname;
     if (path.includes("/driver/dashboard")) setCurrentPage("DriverDashboard");
+    else if (path.includes("/driver/ride-requests")) setCurrentPage("RideRequests");
     else if (path.includes("/driver/rides")) setCurrentPage("Rides");
-    else if (path.includes("/driver/schedule")) setCurrentPage("Schedule");
-    else if (path.includes("/driver/history")) setCurrentPage("History");
-    else if (path.includes("/driver/passengers")) setCurrentPage("Passengers");
-    else if (path.includes("/driver/messages")) setCurrentPage("Messages");
     else if (path.includes("/driver/earnings")) setCurrentPage("Earnings");
     else if (path.includes("/driver/profile")) setCurrentPage("Profile");
-    else if (path.includes("/driver/settings")) setCurrentPage("Settings");
   }, [location]);
 
   if (loading) return <div className="loading">Loading...</div>;
@@ -52,22 +44,14 @@ const DriverDashboardLayout = () => {
     switch (currentPage) {
       case "DriverDashboard":
         return <DriverDashboard onPageChange={setCurrentPage} />;
+      case "RideRequests":
+        return <RideRequests />;
       case "Rides":
         return <Rides />;
-      case "Schedule":
-        return <Schedule />;
-      case "History":
-        return <History />;
-      case "Passengers":
-        return <Passengers />;
-      case "Messages":
-        return <Messages />;
       case "Earnings":
         return <Earnings />;
       case "Profile":
         return <Profile />;
-      case "Settings":
-        return <Settings />;
       default:
         return <DriverDashboard onPageChange={setCurrentPage} />;
     }
@@ -75,7 +59,7 @@ const DriverDashboardLayout = () => {
 
   return (
     <div className="dashboard-layout">
-      <DriverSidebar currentPage={currentPage} onPageChange={setCurrentPage} />
+      <DriverSidebar />
       <div className="main-content">
         <div className="page-container">{renderCurrentPage()}</div>
       </div>

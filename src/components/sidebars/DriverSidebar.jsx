@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 import {
   HomeIcon,
-  MapIcon,
-  CalendarIcon,
-  ClockIcon,
-  UsersIcon,
-  ChatBubbleLeftRightIcon,
-  CogIcon,
   ChartBarIcon,
 } from "@heroicons/react/24/solid";
 import {
@@ -14,6 +8,11 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
 } from "@heroicons/react/24/outline";
+import { 
+  MessageSquare, 
+  Car,
+  User
+} from "lucide-react";
 import SidebarItem from "./SidebarItem";
 import "./Sidebar.css";
 import islandHopLogo from "../../assets/IslandHop.png";
@@ -27,20 +26,15 @@ const DriverSidebar = () => {
   const [collapsedSections, setCollapsedSections] = useState({
     overview: false,
     rides: false,
-    profile: false,
   });
 
   const getActivePage = () => {
     const path = location.pathname;
     if (path.includes("/driver/dashboard")) return "DriverDashboard";
+    if (path.includes("/driver/ride-requests")) return "RideRequests";
     if (path.includes("/driver/rides")) return "Rides";
-    if (path.includes("/driver/schedule")) return "Schedule";
-    if (path.includes("/driver/history")) return "History";
-    if (path.includes("/driver/passengers")) return "Passengers";
-    if (path.includes("/driver/messages")) return "Messages";
     if (path.includes("/driver/earnings")) return "Earnings";
     if (path.includes("/driver/profile")) return "Profile";
-    if (path.includes("/driver/settings")) return "Settings";
     return "";
   };
   
@@ -62,24 +56,15 @@ const DriverSidebar = () => {
   };
 
   return (
-    <div
-      className={`sidebar ${isCollapsed ? "collapsed" : ""}`}
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        height: "100vh",
-        zIndex: 100,
-        width: isCollapsed ? 60 : 240,
-      }}
-    >
+    <div className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
       <button
         className="sidebar-toggle-btn"
         onClick={toggleSidebar}
         aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
         title="Toggle sidebar"
       >
-        ☰
+        <Bars3Icon className="toggle-icon" />
+        <span className="fallback-icon">☰</span>
       </button>
 
       {!isCollapsed && (
@@ -118,16 +103,18 @@ const DriverSidebar = () => {
           {!collapsedSections.overview && (
             <div className="sidebar-section">
               <SidebarItem
-                icon={HomeIcon}
-                text="Dashboard"
-                active={currentPage === "DriverDashboard"}
+                icon={<HomeIcon className="w-4.5 h-4.5" />}
+                label="Dashboard"
+                isActive={currentPage === "DriverDashboard"}
                 onClick={() => handleNavigation("DriverDashboard", "/driver/dashboard")}
+                iconColor="#3B82F6"
               />
               <SidebarItem
-                icon={ChartBarIcon}
-                text="Earnings"
-                active={currentPage === "Earnings"}
+                icon={<ChartBarIcon className="w-4.5 h-4.5" />}
+                label="Earnings"
+                isActive={currentPage === "Earnings"}
                 onClick={() => handleNavigation("Earnings", "/driver/earnings")}
+                iconColor="#3B82F6"
               />
             </div>
           )}
@@ -146,104 +133,69 @@ const DriverSidebar = () => {
           {!collapsedSections.rides && (
             <div className="sidebar-section">
               <SidebarItem
-                icon={MapIcon}
-                text="Active Rides"
-                active={currentPage === "Rides"}
+                icon={<MessageSquare className="w-4.5 h-4.5" />}
+                label="Ride Requests"
+                isActive={currentPage === "RideRequests"}
+                onClick={() => handleNavigation("RideRequests", "/driver/ride-requests")}
+                iconColor="#3B82F6"
+              />
+              <SidebarItem
+                icon={<Car className="w-4.5 h-4.5" />}
+                label="Rides"
+                isActive={currentPage === "Rides"}
                 onClick={() => handleNavigation("Rides", "/driver/rides")}
-              />
-              <SidebarItem
-                icon={CalendarIcon}
-                text="Schedule"
-                active={currentPage === "Schedule"}
-                onClick={() => handleNavigation("Schedule", "/driver/schedule")}
-              />
-              <SidebarItem
-                icon={ClockIcon}
-                text="Ride History"
-                active={currentPage === "History"}
-                onClick={() => handleNavigation("History", "/driver/history")}
-              />
-              <SidebarItem
-                icon={UsersIcon}
-                text="Passengers"
-                active={currentPage === "Passengers"}
-                onClick={() => handleNavigation("Passengers", "/driver/passengers")}
-              />
-              <SidebarItem
-                icon={ChatBubbleLeftRightIcon}
-                text="Messages"
-                active={currentPage === "Messages"}
-                onClick={() => handleNavigation("Messages", "/driver/messages")}
+                iconColor="#3B82F6"
               />
             </div>
           )}
 
-          <div
-            className="sidebar-section-title"
-            onClick={() => toggleSection("profile")}
-          >
-            <span>Profile & Settings</span>
-            {collapsedSections.profile ? (
-              <ChevronRightIcon className="chevron-icon" />
-            ) : (
-              <ChevronLeftIcon className="chevron-icon" />
-            )}
+          <div className="sidebar-section">
+            <SidebarItem
+              icon={<User className="w-4.5 h-4.5" />}
+              label="Profile"
+              isActive={currentPage === "Profile"}
+              onClick={() => handleNavigation("Profile", "/driver/profile")}
+              iconColor="#3B82F6"
+            />
           </div>
-          {!collapsedSections.profile && (
-            <div className="sidebar-section">
-              <SidebarItem
-                icon={UsersIcon}
-                text="Profile"
-                active={currentPage === "Profile"}
-                onClick={() => handleNavigation("Profile", "/driver/profile")}
-              />
-              <SidebarItem
-                icon={CogIcon}
-                text="Settings"
-                active={currentPage === "Settings"}
-                onClick={() => handleNavigation("Settings", "/driver/settings")}
-              />
-            </div>
-          )}
         </>
       )}
 
       {isCollapsed && (
         <div className="sidebar-collapsed-items">
           <SidebarItem
-            icon={HomeIcon}
-            active={currentPage === "DriverDashboard"}
+            icon={<HomeIcon className="w-4.5 h-4.5" />}
+            isActive={currentPage === "DriverDashboard"}
             onClick={() => handleNavigation("DriverDashboard", "/driver/dashboard")}
+            iconColor="#3B82F6"
             collapsed
           />
           <SidebarItem
-            icon={MapIcon}
-            active={currentPage === "Rides"}
+            icon={<MessageSquare className="w-4.5 h-4.5" />}
+            isActive={currentPage === "RideRequests"}
+            onClick={() => handleNavigation("RideRequests", "/driver/ride-requests")}
+            iconColor="#3B82F6"
+            collapsed
+          />
+          <SidebarItem
+            icon={<Car className="w-4.5 h-4.5" />}
+            isActive={currentPage === "Rides"}
             onClick={() => handleNavigation("Rides", "/driver/rides")}
+            iconColor="#3B82F6"
             collapsed
           />
           <SidebarItem
-            icon={CalendarIcon}
-            active={currentPage === "Schedule"}
-            onClick={() => handleNavigation("Schedule", "/driver/schedule")}
-            collapsed
-          />
-          <SidebarItem
-            icon={ClockIcon}
-            active={currentPage === "History"}
-            onClick={() => handleNavigation("History", "/driver/history")}
-            collapsed
-          />
-          <SidebarItem
-            icon={ChartBarIcon}
-            active={currentPage === "Earnings"}
+            icon={<ChartBarIcon className="w-4.5 h-4.5" />}
+            isActive={currentPage === "Earnings"}
             onClick={() => handleNavigation("Earnings", "/driver/earnings")}
+            iconColor="#3B82F6"
             collapsed
           />
           <SidebarItem
-            icon={UsersIcon}
-            active={currentPage === "Profile"}
+            icon={<User className="w-4.5 h-4.5" />}
+            isActive={currentPage === "Profile"}
             onClick={() => handleNavigation("Profile", "/driver/profile")}
+            iconColor="#3B82F6"
             collapsed
           />
         </div>
