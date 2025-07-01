@@ -31,7 +31,6 @@ const ProfileDetails = ({ isSidebarCollapsed }) => {
   const [showDeactivate, setShowDeactivate] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [avatarPreview, setAvatarPreview] = useState(user.avatar);
 
   const notify = (msg, type = 'success') => {
     toast[type](msg, {
@@ -65,17 +64,6 @@ const ProfileDetails = ({ isSidebarCollapsed }) => {
     }));
   };
 
-  const handleAvatarChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setAvatarPreview(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   const handleUpdate = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -86,7 +74,6 @@ const ProfileDetails = ({ isSidebarCollapsed }) => {
         lastName: form.lastName,
         phone: form.phone,
         address: form.address,
-        avatar: avatarPreview,
       }));
       setEditMode(false);
       setLoading(false);
@@ -115,7 +102,7 @@ const ProfileDetails = ({ isSidebarCollapsed }) => {
   return (
     <div className={`full-width-profile ${isSidebarCollapsed ? 'sidebar-collapsed' : 'sidebar-expanded'}`} data-testid="profile-container">
       <ToastContainer />
-      <div className="profile-details-card">
+      <div className="profile-details-card wide">
         <div className="profile-details-header">
           <div className="profile-details-avatar-container">
             <img src={editMode ? avatarPreview : user.avatar} alt="Profile" className="profile-details-avatar" />
@@ -133,7 +120,7 @@ const ProfileDetails = ({ isSidebarCollapsed }) => {
             )}
           </div>
           <div className="profile-details-header-info">
-            <h2 className="profile-details-name">
+            <h2 className="profile-details-name large">
               {editMode ? (
                 <>
                   <input
@@ -159,7 +146,7 @@ const ProfileDetails = ({ isSidebarCollapsed }) => {
                 `${user.firstName} ${user.lastName}`
               )}
             </h2>
-            <p className="profile-details-role">{user.role}</p>
+            <p className="profile-details-role large">{user.role}</p>
             <div className="profile-details-contact-row">
               <span className="profile-details-email">{user.email}</span>
               <span className="profile-details-divider">|</span>
@@ -208,14 +195,14 @@ const ProfileDetails = ({ isSidebarCollapsed }) => {
                 onClick={handleUpdate}
                 disabled={loading}
               >
-                Save
+                <span role="img" aria-label="save">💾</span> Save
               </button>
               <button
                 className="profile-btn profile-btn-cancel"
                 onClick={handleCancelEdit}
                 disabled={loading}
               >
-                Cancel
+                <span role="img" aria-label="cancel">✖️</span> Cancel
               </button>
             </>
           ) : (
@@ -224,19 +211,19 @@ const ProfileDetails = ({ isSidebarCollapsed }) => {
                 className="profile-btn profile-btn-edit"
                 onClick={handleEdit}
               >
-                Edit Profile
+                <span role="img" aria-label="edit">✏️</span> Edit Profile
               </button>
               <button
                 className="profile-btn profile-btn-deactivate"
                 onClick={() => setShowDeactivate(true)}
               >
-                Deactivate
+                <span role="img" aria-label="deactivate">⏸️</span> Deactivate
               </button>
               <button
                 className="profile-btn profile-btn-delete"
                 onClick={() => setShowDelete(true)}
               >
-                Delete
+                <span role="img" aria-label="delete">🗑️</span> Delete
               </button>
             </>
           )}

@@ -23,10 +23,6 @@ const UserAccounts = ({
     key: "name",
     direction: "asc",
   });
-  const [showAddSupportModal, setShowAddSupportModal] = useState(false);
-  const [supportEmail, setSupportEmail] = useState("");
-  const [addSupportLoading, setAddSupportLoading] = useState(false);
-  const [addSupportMessage, setAddSupportMessage] = useState("");
   // Mock data - In a real app, this would come from your backend/Firebase
   const mockUsers = [
     {
