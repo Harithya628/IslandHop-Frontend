@@ -1,11 +1,13 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import GuideDashboard from "../pages/guide/GuideDashboard";
 import GuideOverview from "../pages/guide/GuideOverview";
 import MyTours from "../pages/guide/MyTours";
 import TourRequests from "../pages/guide/TourRequests";
 import Chat from "../pages/guide/Chat";
 import Reviews from "../pages/guide/Reviews";
 import TourDetails from "../pages/guide/TourDetails";
+import GuideProfile from "../pages/guide/GuideProfile";
 import ProtectedRoute from "./ProtectedRoute";
 import GuideSidebar from "../components/sidebars/GuideSidebar";
 
@@ -23,16 +25,27 @@ const GuideRoutes = () => (
       }}
     >
       <Routes>
+        {/* Main Dashboard - using GuideDashboard as primary */}
         <Route
           path="dashboard"
+          element={
+            <ProtectedRoute allowedRoles={["guide"]}>
+              <GuideDashboard />
+            </ProtectedRoute>
+          }
+        />
+        
+        {/* Alternative Overview page */}
+        <Route
+          path="overview"
           element={
             <ProtectedRoute allowedRoles={["guide"]}>
               <GuideOverview />
             </ProtectedRoute>
           }
         />
-        {/* Redirect /guide to /guide/dashboard */}
-        <Route path="/" element={<Navigate to="/guide/dashboard" replace />} />
+
+        {/* Tour Management */}
         <Route
           path="my-tours"
           element={
@@ -50,6 +63,16 @@ const GuideRoutes = () => (
           }
         />
         <Route
+          path="tours/:tourId"
+          element={
+            <ProtectedRoute allowedRoles={["guide"]}>
+              <TourDetails />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Communication */}
+        <Route
           path="chat"
           element={
             <ProtectedRoute allowedRoles={["guide"]}>
@@ -65,15 +88,19 @@ const GuideRoutes = () => (
             </ProtectedRoute>
           }
         />
+
+        {/* Profile Management */}
         <Route
-          path="tour/:tourId"
+          path="profile"
           element={
             <ProtectedRoute allowedRoles={["guide"]}>
-              <TourDetails />
+              <GuideProfile />
             </ProtectedRoute>
           }
         />
-        {/* Add more guide-specific routes here */}
+
+        {/* Default redirects */}
+        <Route path="/" element={<Navigate to="/guide/dashboard" replace />} />
         <Route path="*" element={<Navigate to="/guide/dashboard" replace />} />
       </Routes>
     </div>

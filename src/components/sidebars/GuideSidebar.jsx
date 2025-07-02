@@ -5,6 +5,8 @@ import {
   ClipboardDocumentListIcon,
   ChatBubbleLeftRightIcon,
   StarIcon,
+  UserIcon,
+  ChartBarIcon,
 } from "@heroicons/react/24/solid";
 import {
   Bars3Icon,
@@ -25,15 +27,19 @@ const GuideSidebar = () => {
     general: false,
     tours: false,
     communication: false,
+    profile: false,
   });
 
   const getActivePage = () => {
     const path = location.pathname;
     if (path.includes("/guide/dashboard")) return "GuideDashboard";
+    if (path.includes("/guide/overview")) return "GuideOverview";
     if (path.includes("/guide/my-tours")) return "MyTours";
     if (path.includes("/guide/tour-requests")) return "TourRequests";
+    if (path.includes("/guide/tours/")) return "TourDetails";
     if (path.includes("/guide/chat")) return "Chat";
     if (path.includes("/guide/reviews")) return "Reviews";
+    if (path.includes("/guide/profile")) return "GuideProfile";
     return "";
   };
   const currentPage = getActivePage();
@@ -43,6 +49,9 @@ const GuideSidebar = () => {
     switch (page) {
       case "GuideDashboard":
         navigate("/guide/dashboard");
+        break;
+      case "GuideOverview":
+        navigate("/guide/overview");
         break;
       case "MyTours":
         navigate("/guide/my-tours");
@@ -55,6 +64,9 @@ const GuideSidebar = () => {
         break;
       case "Reviews":
         navigate("/guide/reviews");
+        break;
+      case "GuideProfile":
+        navigate("/guide/profile");
         break;
       default:
         break;
@@ -106,6 +118,7 @@ const GuideSidebar = () => {
 
       {!isCollapsed && (
         <>
+          {/* GENERAL Section */}
           <div
             className="sidebar-section-title first"
             onClick={() => toggleSection("general")}
@@ -139,8 +152,18 @@ const GuideSidebar = () => {
                 iconColor="#3B82F6"
               />
             </div>
+            <div style={{ animationDelay: "50ms" }}>
+              <SidebarItem
+                icon={<ChartBarIcon className="w-4.5 h-4.5" />}
+                label="Overview"
+                isActive={currentPage === "GuideOverview"}
+                onClick={() => handleNav("GuideOverview")}
+                iconColor="#06B6D4"
+              />
+            </div>
           </div>
 
+          {/* TOUR MANAGEMENT Section */}
           <div
             className="sidebar-section-title"
             onClick={() => toggleSection("tours")}
@@ -185,6 +208,7 @@ const GuideSidebar = () => {
             </div>
           </div>
 
+          {/* COMMUNICATION Section */}
           <div
             className="sidebar-section-title"
             onClick={() => toggleSection("communication")}
@@ -228,11 +252,49 @@ const GuideSidebar = () => {
               />
             </div>
           </div>
+
+          {/* PROFILE Section */}
+          <div
+            className="sidebar-section-title"
+            onClick={() => toggleSection("profile")}
+            style={{
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            PROFILE
+            <span
+              className={`chevron-icon ${
+                collapsedSections.profile ? "rotated" : ""
+              }`}
+            >
+              ›
+            </span>
+          </div>
+          <div
+            className={`section-content ${
+              collapsedSections.profile ? "collapsed" : "expanded"
+            }`}
+          >
+            <div style={{ animationDelay: "0ms" }}>
+              <SidebarItem
+                icon={<UserIcon className="w-4.5 h-4.5" />}
+                label="My Profile"
+                isActive={currentPage === "GuideProfile"}
+                onClick={() => handleNav("GuideProfile")}
+                iconColor="#EC4899"
+              />
+            </div>
+          </div>
         </>
       )}
 
+      {/* Collapsed Navigation */}
       {isCollapsed && (
         <div className="collapsed-nav">
+          {/* GENERAL Section */}
           <SidebarItem
             icon={<HomeIcon className="w-5 h-5" />}
             isActive={currentPage === "GuideDashboard"}
@@ -242,10 +304,20 @@ const GuideSidebar = () => {
             title="Dashboard"
             className="collapsed-item-dashboard"
           />
+          <SidebarItem
+            icon={<ChartBarIcon className="w-5 h-5" />}
+            isActive={currentPage === "GuideOverview"}
+            onClick={() => handleNav("GuideOverview")}
+            iconColor="#06B6D4"
+            collapsed={true}
+            title="Overview"
+            className="collapsed-item-overview"
+          />
 
           {/* Divider between GENERAL and TOUR MANAGEMENT sections */}
           <div className="collapsed-section-divider"></div>
 
+          {/* TOUR MANAGEMENT Section */}
           <SidebarItem
             icon={<MapIcon className="w-5 h-5" />}
             isActive={currentPage === "MyTours"}
@@ -268,6 +340,7 @@ const GuideSidebar = () => {
           {/* Divider between TOUR MANAGEMENT and COMMUNICATION sections */}
           <div className="collapsed-section-divider"></div>
 
+          {/* COMMUNICATION Section */}
           <SidebarItem
             icon={<ChatBubbleLeftRightIcon className="w-5 h-5" />}
             isActive={currentPage === "Chat"}
@@ -285,6 +358,20 @@ const GuideSidebar = () => {
             collapsed={true}
             title="Reviews"
             className="collapsed-item-reviews"
+          />
+
+          {/* Divider between COMMUNICATION and PROFILE sections */}
+          <div className="collapsed-section-divider"></div>
+
+          {/* PROFILE Section */}
+          <SidebarItem
+            icon={<UserIcon className="w-5 h-5" />}
+            isActive={currentPage === "GuideProfile"}
+            onClick={() => handleNav("GuideProfile")}
+            iconColor="#EC4899"
+            collapsed={true}
+            title="My Profile"
+            className="collapsed-item-profile"
           />
         </div>
       )}
