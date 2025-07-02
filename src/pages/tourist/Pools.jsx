@@ -4,10 +4,6 @@ import Navbar from '../../components/Navbar';
 import OngoingPoolMap from '../../components/OngoingPoolMap';
 import '../Page.css';
 import './Pools.css';
-import FindPools from './FindPools';
-import MyPools from './MyPools';
-import Confirmed from './Confirmed';
-import Ongoing from './Ongoing';
 
 const tabList = [
   { label: 'Find Pools', key: 'find' },
@@ -461,10 +457,6 @@ const Pools = () => {
               </div>
             </div>
           )}
-          {activeTab === 'find' && <FindPools />}
-          {activeTab === 'my' && <MyPools />}
-          {activeTab === 'confirmed' && <Confirmed />}
-          {activeTab === 'ongoing' && <Ongoing />}
         </div>
       </div>
       <Footer />
