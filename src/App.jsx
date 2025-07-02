@@ -14,6 +14,7 @@ import ProtectedRoute from './routes/ProtectedRoute';
 // --- End Route Imports ---
 
 
+
 import './App.css'
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
       {/* Guide Dashboard */}
       <Route path="/guide/*" element={<GuideRoutes />} />
       {/* Catch-all */}
+
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   )

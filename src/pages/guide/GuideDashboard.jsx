@@ -9,7 +9,7 @@ const mockTours = [
     id: 'TOUR-001',
     title: 'Sigiriya Rock Fortress & Cultural Tour',
     duration: '8 hours',
-    price: 'USD 85',
+    price: 'USD 75',
     participants: 4,
     maxParticipants: 8,
     date: '2025-06-28',
