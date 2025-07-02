@@ -316,7 +316,7 @@ const Questionnaire = () => {
         });
         
         // Navigate to the trip summary page
-        navigate("/traveler/trip-summary");
+        navigate("/trip-summary");
       }
     }
   };
