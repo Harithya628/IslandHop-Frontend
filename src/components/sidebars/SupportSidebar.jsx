@@ -9,6 +9,7 @@ import {
   ExclamationTriangleIcon,
   ChatBubbleLeftRightIcon,
   UserCircleIcon,
+  ArrowLeftOnRectangleIcon,
 } from '@heroicons/react/24/solid';
 import { useNavigate, useLocation } from 'react-router-dom';
 import SidebarItem from './SidebarItem';
@@ -73,6 +74,15 @@ const navLinks = [
   },
 ];
 
+const bottomNavLinks = [
+  {
+    label: 'Sign Out',
+    icon: <ArrowLeftOnRectangleIcon className="w-4.5 h-4.5" />,
+    page: 'SignOut',
+    iconColor: '#EF4444',
+  },
+];
+
 const SupportSidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -122,9 +132,22 @@ const SupportSidebar = () => {
       case 'ProfileDetails':
         navigate('/support/profile');
         break;
+      case 'SignOut':
+        handleSignOut();
+        break;
       default:
         break;
     }
+  };
+
+  const handleSignOut = () => {
+    // Clear any stored authentication data
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('userEmail');
+    
+    // Navigate to login page
+    navigate("/login");
   };
 
   const toggleSidebar = () => setIsCollapsed((c) => !c);
@@ -169,6 +192,20 @@ const SupportSidebar = () => {
               </div>
             ))}
           </div>
+
+          {/* Sign Out Section at Very Bottom */}
+          <div className="sidebar-signout-section">
+            {bottomNavLinks.map((item) => (
+              <SidebarItem
+                key={item.page}
+                icon={item.icon}
+                label={item.label}
+                isActive={false}
+                onClick={() => handleNav(item.page)}
+                iconColor={item.iconColor}
+              />
+            ))}
+          </div>
         </>
       ) : (
         <div className="collapsed-nav">
@@ -177,6 +214,21 @@ const SupportSidebar = () => {
               key={item.page}
               icon={item.icon}
               isActive={currentPage === item.page}
+              onClick={() => handleNav(item.page)}
+              iconColor={item.iconColor}
+              collapsed={true}
+              title={item.label}
+              className={`collapsed-item-${item.page.toLowerCase()}`}
+            />
+          ))}
+
+          {/* Sign Out Section at Very Bottom */}
+          <div className="collapsed-section-divider"></div>
+          {bottomNavLinks.map((item) => (
+            <SidebarItem
+              key={item.page}
+              icon={item.icon}
+              isActive={false}
               onClick={() => handleNav(item.page)}
               iconColor={item.iconColor}
               collapsed={true}

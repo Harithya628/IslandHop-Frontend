@@ -224,6 +224,21 @@
   padding-left: 0; /* No additional padding - let items handle their own positioning */
 }
 
+/* Profile section at bottom of sidebar */
+.sidebar-profile-section {
+  margin-top: auto; /* Push to bottom */
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+  margin-bottom: 8px;
+}
+
+/* Sign out section at very bottom of sidebar */
+.sidebar-signout-section {
+  padding-top: 12px;
+  border-top: 1px solid #fecaca; /* Light red border to separate from profile */
+  margin-bottom: 0;
+}
+
 /* Horizontal divider between sections in collapsed mode */
 .collapsed-section-divider {
   width: 32px;
@@ -307,6 +322,16 @@
 }
 
 .collapsed-nav .collapsed-item-notifications {
+  margin-top: 8px; /* Normal button spacing */
+  margin-bottom: 0;
+}
+
+.collapsed-nav .collapsed-item-profile {
+  margin-top: 0; /* No extra margin - divider provides all spacing */
+  margin-bottom: 0;
+}
+
+.collapsed-nav .collapsed-item-signout {
   margin-top: 8px; /* Normal button spacing */
   margin-bottom: 0;
 }
