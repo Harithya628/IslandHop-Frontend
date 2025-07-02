@@ -20,7 +20,6 @@ const Navbar = () => {
   useEffect(() => {
     if (isMobileMenuOpen && !isMobileMenuClosing) {
       document.body.classList.add('mobile-menu-open');
-      // Prevent scroll on iOS Safari
       document.body.style.position = 'fixed';
       document.body.style.width = '100%';
     } else {
@@ -43,20 +42,6 @@ const Navbar = () => {
 
   const isActive = (path) => {
     return location.pathname === path;
-  };
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchTerm.trim()) {
-      // You can implement search functionality here
-      console.log('Searching for:', searchTerm);
-      // For now, navigate to explore page with search term
-      navigate(`/explore?search=${encodeURIComponent(searchTerm)}`);
-    }
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
   };
 
   const toggleProfileDropdown = () => {
@@ -139,17 +124,12 @@ const Navbar = () => {
                 onClick={() => handleNavigation('/plan-trip')}
               >
                 Trips
-              </div>              <div 
+              </div>
+              <div 
                 className={`${styles.navItem} ${isActive('/pools') ? styles.active : ''}`}
                 onClick={() => handleNavigation('/pools')}
               >
                 Pools
-              </div>
-              <div 
-                className={`${styles.navItem} ${isActive('/guide') ? styles.active : ''}`}
-                onClick={() => handleNavigation('/guide')}
-              >
-                Guide
               </div>
             </div>
           </div>
@@ -168,23 +148,6 @@ const Navbar = () => {
               </div>
             </div>
 
-            <form className={styles.searchContainer} onSubmit={handleSearch}>
-              <div className={styles.searchBox}>            <input
-                type="text"
-                placeholder="Search destinations, experiences..."
-                value={searchTerm}
-                onChange={handleSearchChange}
-                className={styles.searchInput}
-              />
-                <button type="submit" className={styles.searchButton}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <path d="m21 21-4.35-4.35"></path>
-                  </svg>
-                </button>
-              </div>
-            </form>
-            
             <div className={styles.utilityButtons}>
               <div className={styles.languageBtn}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
