@@ -479,11 +479,6 @@ const TripsOverview = () => {
           </button>
         </div>
 
-        {/* Trips Overview Section Header */}
-        <div className="overview-section-header">
-          <h2 className="overview-section-title">Trips Overview</h2>
-        </div>
-
         {/* Filters and Search */}
         <div className="filters-section">
           <div className="search-filter">

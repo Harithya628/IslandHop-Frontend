@@ -80,22 +80,6 @@
   height: 1.25rem;
 }
 
-/* Overview Section Header */
-.overview-section-header {
-  text-align: center;
-  margin: 3rem 0 2rem 0;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #e8ecf2;
-}
-
-.overview-section-title {
-  font-family: 'Outfit', sans-serif !important;
-  font-size: 2rem !important;
-  font-weight: 400 !important;
-  color: #2c3e50 !important;
-  margin: 0 !important;
-}
-
 /* Filters Section */
 .filters-section {
   display: flex;
