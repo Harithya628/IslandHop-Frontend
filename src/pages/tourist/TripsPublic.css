@@ -1,0 +1,80 @@
+.trips-public-page {
+  background: #f7fafd;
+  min-height: 100vh;
+}
+
+.trips-public-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10.5rem;
+  padding-bottom: 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.trips-public-header {
+  text-align: center;
+  margin-bottom: 0.2rem;
+}
+
+.trips-public-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #1FA9FF;
+  margin-bottom: 0.2rem;
+  line-height: 1.1;
+}
+
+.trips-public-spacer {
+  height: 1.5rem;
+}
+
+.trips-public-description {
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  color: #4a5a6a;
+  font-size: 1.15rem;
+  margin-bottom: 3rem;
+  max-width: 700px;
+  line-height: 1.6;
+}
+
+.trips-public-cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.trips-public-card {
+  border: 1px solid #e3e8ee;
+  border-radius: 18px;
+  padding: 2rem 1.5rem;
+  width: 300px;
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.trips-public-card-title {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  color: #223040;
+  margin-bottom: 0.8rem;
+  font-size: 1.4rem;
+}
+
+.trips-public-card-description {
+  font-family: 'Roboto', sans-serif;
+  color: #4a5a6a;
+  margin: 0;
+  line-height: 1.6;
+  font-size: 1.05rem;
+}

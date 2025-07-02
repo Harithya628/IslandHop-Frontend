@@ -5,10 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 40px 0;
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-  border-radius: 16px;
-  overflow: hidden;
+  margin: -1.5rem 0 40px 0;
 }
 
 .trips-hero-content {
@@ -20,7 +17,7 @@
 }
 
 .trips-hero-title {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Outfit', sans-serif;
   font-size: 36px;
   font-weight: 900;
   color: #1a1a1a;
@@ -41,46 +38,36 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .hero-image {
   position: absolute;
-  border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  object-fit: contain;
 }
 
 .hero-image-1 {
-  top: 20px;
-  left: 50px;
-  width: 260px;
-  height: 200px;
-  object-fit: cover;
-  transform: rotate(-5deg);
+  top: 10px;
+  left: calc(50% - 275px);
+  width: 200px;
+  height: 150px;
+  z-index: 1;
 }
 
 .hero-image-2 {
   top: 50px;
-  left: 200px;
-  width: 220px;
-  height: 180px;
-  object-fit: cover;
-  transform: rotate(5deg);
-  z-index: 1;
+  left: calc(50% - 100px);
+  width: 200px;
+  height: 150px;
+  z-index: 3;
 }
 
 .hero-image-3 {
-  top: 0px;
-  left: 300px;
-  width: 240px;
-  height: 190px;
-  object-fit: cover;
-  transform: rotate(-3deg);
-}
-
-.hero-image:hover {
-  transform: scale(1.05) rotate(0deg);
-  opacity: 0.9;
+  top: 100px;
+  left: calc(50% + 75px);
+  width: 200px;
+  height: 150px;
+  z-index: 2;
 }
 
 /* Responsive Design */
@@ -102,21 +89,21 @@
   }
 
   .hero-image-1 {
-    left: 20px;
-    width: 200px;
-    height: 150px;
+    left: calc(50% - 200px);
+    width: 150px;
+    height: 110px;
   }
 
   .hero-image-2 {
-    left: 120px;
-    width: 180px;
-    height: 140px;
+    left: calc(50% - 75px);
+    width: 150px;
+    height: 110px;
   }
 
   .hero-image-3 {
-    left: 200px;
-    width: 180px;
-    height: 140px;
+    left: calc(50% + 50px);
+    width: 150px;
+    height: 110px;
   }
 }
 
@@ -138,20 +125,20 @@
   }
 
   .hero-image-1 {
-    left: 10px;
-    width: 150px;
-    height: 120px;
+    left: calc(50% - 125px);
+    width: 100px;
+    height: 80px;
   }
 
   .hero-image-2 {
-    left: 80px;
-    width: 140px;
-    height: 110px;
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 80px;
   }
 
   .hero-image-3 {
-    left: 140px;
-    width: 140px;
-    height: 110px;
+    left: calc(50% + 25px);
+    width: 100px;
+    height: 80px;
   }
 }

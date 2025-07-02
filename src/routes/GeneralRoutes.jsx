@@ -10,7 +10,8 @@ import TripsPublic from '../pages/tourist/TripsPublic';
 import Pools from '../pages/tourist/Pools';
 import DashboardLayout from '../components/DashboardLayout';
 import ExplorePage from '../pages/tourist/Explore';
-import TripSummary from '../pages/tourist/TripSummary'; 
+import TripSummary from '../pages/tourist/TripSummary';
+import TripsOverview from '../pages/tourist/TripsOverview';
 
 // --- Protected Route Imports ---
 import ProtectedRoute from './ProtectedRoute';
@@ -77,6 +78,11 @@ const GeneralRoutes = () => (
     <Route path="/trip-summary" element={
       <PublicRoute>
         <TripSummary />
+      </PublicRoute>
+    } />
+    <Route path="/trips-overview" element={
+      <PublicRoute>
+        <TripsOverview />
       </PublicRoute>
     } />
     {/* Pools Management */}
