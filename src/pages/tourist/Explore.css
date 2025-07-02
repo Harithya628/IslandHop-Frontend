@@ -28,6 +28,17 @@
   100% { transform: rotate(360deg); }
 }
 
+/* Search loading spinner */
+.search-loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e2e8f0;
+  border-top: 2px solid #1fa9ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  flex-shrink: 0;
+}
+
 /* Hero Section */
 .explore-hero {
   background: linear-gradient(135deg, #1fa9ff 0%, #0088cc 100%);
@@ -109,6 +120,7 @@
 
 .search-input::placeholder {
   color: #9ca3af;
+  font-style: italic;
 }
 
 /* Filters Section */
@@ -297,6 +309,63 @@
   background: #0088cc;
 }
 
+/* Error states */
+.explore-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  padding: 2rem;
+}
+
+.error-content {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.error-icon {
+  color: #ef4444;
+  margin-bottom: 1rem;
+}
+
+.error-content h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 1rem;
+}
+
+.error-content p {
+  color: #6b7280;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.error-content code {
+  background: #f3f4f6;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  color: #1f2937;
+}
+
+.error-message {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.error-message p {
+  color: #dc2626;
+  margin: 0;
+  font-weight: 500;
+}
+
 /* Attractions Container */
 .attractions-container {
   display: grid;
@@ -402,6 +471,12 @@
   align-items: center;
   gap: 0.5rem;
   backdrop-filter: blur(8px);
+}
+
+/* Enhanced card actions for website links */
+.btn-primary a {
+  text-decoration: none;
+  color: inherit;
 }
 
 /* Card Content */
@@ -682,4 +757,16 @@
 
 .attraction-card:nth-child(3n) {
   animation-delay: 0.2s;
+}
+
+/* Loading state for search */
+.search-bar:has(.search-loading-spinner) {
+  background: linear-gradient(90deg, #f8fafc 25%, #f1f5f9 50%, #f8fafc 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
