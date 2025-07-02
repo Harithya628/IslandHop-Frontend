@@ -9,6 +9,7 @@ import islandHopIcon from '../assets/islandHopIcon.png';
 import './LoginPage.css';
 import api from '../api/axios';
 import Footer from '../components/Footer';
+import { encryptUserData, decryptUserData } from '../utils/userStorage';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -17,19 +18,54 @@ function LoginPage() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  // Function to securely store user data
+  const storeUserData = (firebaseUser, role) => {
+    console.log('🔐 Storing user data securely...');
+    
+    const userData = {
+      uid: firebaseUser.uid,
+      email: firebaseUser.email,
+      displayName: firebaseUser.displayName,
+      photoURL: firebaseUser.photoURL,
+      emailVerified: firebaseUser.emailVerified,
+      role: role,
+      loginTimestamp: Date.now(),
+      tokenExpiresAt: Date.now() + (24 * 60 * 60 * 1000), // 24 hours
+      lastLoginMethod: firebaseUser.providerData?.[0]?.providerId || 'password'
+    };
+
+    console.log('📝 User data to store:', {
+      uid: userData.uid,
+      email: userData.email,
+      role: userData.role,
+      loginMethod: userData.lastLoginMethod
+    });
+
+    // Store encrypted user data
+    encryptUserData(userData);
+    console.log('✅ User data stored securely');
+  };
+
   const handleEmailLogin = async (e) => {
     e.preventDefault();
     setError('');
     try {
+      console.log('📧 Starting email login...');
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const idToken = await userCredential.user.getIdToken();
 
+      console.log('🔑 Got Firebase token, sending to backend...');
       // Send ID token to backend for session login
       const res = await api.post('/login', { idToken });
-      console.log('Login response:', res);
+      console.log('📨 Login response:', res);
 
       if (res.status === 200 && res.data && res.data.role) {
         const role = res.data.role;
+        console.log('👤 User role:', role);
+
+        // Store user data securely
+        storeUserData(userCredential.user, role);
+
         // Redirect based on user role
         switch (role) {
           case 'admin':
@@ -46,32 +82,40 @@ function LoginPage() {
             break;
           case 'tourist':
             navigate('/tourist');
+            break;
           default:
             navigate('/dashboard');
             break;
         }
       } else {
         setError('Login failed on server');
+        console.error('❌ Server login failed:', res);
       }
     } catch (err) {
       setError(err.message || 'Login error');
-      console.log('Error during email login:', err);
+      console.error('❌ Error during email login:', err);
     }
   };
 
   const handleGoogleLogin = async () => {
-    console.log('Google login');
+    console.log('🔍 Starting Google login...');
     setError('');
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
       const idToken = await result.user.getIdToken();
 
+      console.log('🔑 Got Google token, sending to backend...');
       // Send ID token to backend for session login
       const res = await api.post('/login', { idToken });
 
       if (res.status === 200 && res.data && res.data.role) {
         const role = res.data.role;
+        console.log('👤 Google user role:', role);
+
+        // Store user data securely
+        storeUserData(result.user, role);
+
         // Redirect based on user role
         switch (role) {
           case 'admin':
@@ -87,19 +131,20 @@ function LoginPage() {
             navigate('/driver');
             break;
           case 'tourist':
+            navigate('/');
           default:
             navigate('/dashboard');
             break;
         }
       } else {
         setError('Google login failed on server');
+        console.error('❌ Google server login failed:', res);
       }
     } catch (err) {
       setError(err.message || 'Google login error');
-      console.log('Error during Google login:', err);
+      console.error('❌ Error during Google login:', err);
     }
   };
-
 
   const handleLogoClick = () => {
     navigate('/');
@@ -190,7 +235,7 @@ function LoginPage() {
             
             <div className="divider"><span>or</span></div>
             
-            <button onClick={handleGoogleLogin} className="google-button" disabled>
+            <button onClick={handleGoogleLogin} className="google-button">
               <svg width="18" height="18" viewBox="0 0 24 24" style={{ marginRight: '8px' }}>
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                 <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
