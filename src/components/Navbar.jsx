@@ -115,7 +115,7 @@ const Navbar = () => {
               </div>
               <div 
                 className={`${styles.navItem} ${isActive('/explore') ? styles.active : ''}`}
-                onClick={() => handleNavigation('/')}
+                onClick={() => handleNavigation('/explore')}
               >
                 Explore
               </div>

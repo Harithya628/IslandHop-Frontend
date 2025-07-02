@@ -9,6 +9,7 @@ import TripDashboard from '../pages/tourist/TripDashboard';
 import TripsPublic from '../pages/tourist/TripsPublic';
 import Pools from '../pages/tourist/Pools';
 import DashboardLayout from '../components/DashboardLayout';
+import ExplorePage from '../pages/tourist/Explore';
 
 // --- Protected Route Imports ---
 import ProtectedRoute from './ProtectedRoute';
@@ -49,8 +50,7 @@ const GeneralRoutes = () => (
     } />
     <Route path="/explore" element={
       <PublicRoute>
-        {/* TODO: Replace with Explore page component */}
-        <div>Explore Destinations Page (Coming Soon)</div>
+        <ExplorePage />
       </PublicRoute>
     } />
     <Route path="/plan-trip" element={
