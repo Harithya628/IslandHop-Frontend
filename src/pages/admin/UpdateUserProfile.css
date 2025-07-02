@@ -322,9 +322,7 @@
   color: #6366f1;
 }
 
-.update-user-profile-page
-  .update-profile-form:nth-child(3)
-  .section-title::before {
+.update-user-profile-page .update-profile-form:nth-child(3) .section-title::before {
   background: linear-gradient(90deg, #6366f1, #8b5cf6);
   width: 50px;
 }

@@ -1,0 +1,442 @@
+/* Driver Page Base Styles */
+.driverPage {
+  padding: 12px 20px;
+  /* max-width: 1200px; */
+  margin: 0 auto;
+  box-sizing: border-box;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.driverPage * {
+  box-sizing: border-box;
+}
+
+.driverPage h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+  margin-top: 0;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.driverPage p {
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  margin-top: 0;
+  line-height: 1.5;
+}
+
+/* Page Header Styles */
+.pageHeader {
+  margin-bottom: 20px;
+  margin-top: 0;
+  padding: 0;
+}
+
+.pageHeader h1 {
+  font-size: 2.5rem;
+  color: #1f2937;
+  margin-bottom: 0;
+  margin-top: 0;
+  font-weight: 700;
+  line-height: 1.2;
+  padding: 0;
+}
+
+/* Search and Filter Bar - One Line */
+.searchFilterBar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 24px;
+  margin-top: 0;
+  flex-wrap: wrap;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.searchFilterBar .searchBar {
+  flex: 1;
+  min-width: 300px;
+  margin-bottom: 0;
+  margin-top: 0;
+  position: relative;
+}
+
+.searchFilterBar .filterOptions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+
+/* Search Bar Styles */
+.searchBar {
+  position: relative;
+  margin-bottom: 20px;
+  margin-top: 0;
+  width: 100%;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: #6b7280;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px 16px 12px 48px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  line-height: 1.5;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+  background-color: white;
+  color: #374151;
+  outline: none;
+  margin: 0;
+}
+
+.searchInput:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.searchInput::placeholder {
+  color: #9ca3af;
+  opacity: 1;
+}
+
+/* Filter Options */
+.filterOptions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+.filterIcon {
+  width: 18px;
+  height: 18px;
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.filterSelect {
+  padding: 8px 12px;
+  border: 2px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  background: white;
+  color: #374151;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+  outline: none;
+  margin: 0;
+  min-width: 120px;
+}
+
+.filterSelect:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.filterSelect:hover {
+  border-color: #d1d5db;
+}
+
+/* Payments Section */
+.paymentsSection {
+  background: white;
+  padding: 24px;
+  margin: 0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.paymentsSection h2 {
+  font-size: 1.4rem;
+  color: #1f2937;
+  margin-bottom: 20px;
+  margin-top: 0;
+  font-weight: 600;
+  line-height: 1.3;
+  padding: 0;
+}
+
+.noPayments {
+  text-align: center;
+  padding: 40px;
+  color: #6b7280;
+  background: transparent;
+  margin: 0;
+}
+
+.noPayments p {
+  margin: 0;
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+.paymentsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Payment Card Styles */
+.paymentCard {
+  border: 2px solid #f3f4f6;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 0;
+  background: white;
+  transition: all 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: none;
+  position: relative;
+}
+
+.paymentCard:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+  transform: none;
+}
+
+.paymentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  margin-top: 0;
+  padding: 0;
+  flex-wrap: nowrap;
+}
+
+.paymentDescription {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  margin-right: 16px;
+}
+
+.paymentDescription h3 {
+  font-size: 1.1rem;
+  color: #1f2937;
+  margin: 0;
+  margin-bottom: 8px;
+  padding: 0;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.paymentStatus {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+  padding: 0;
+  line-height: 1.2;
+}
+
+.paymentAmount {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #059669;
+  margin: 0;
+  padding: 0;
+  line-height: 1.2;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Payment Details */
+.paymentDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.paymentInfo {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 0;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.infoItem span {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 0;
+}
+
+.infoIcon {
+  width: 16px;
+  height: 16px;
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.paymentMethod {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f3f4f6;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #4b5563;
+  margin: 0;
+  border: none;
+  white-space: nowrap;
+}
+
+.methodIcon {
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.methodText {
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+  color: #4b5563;
+}
+
+/* Page Content */
+.pageContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.contentSection {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin: 0;
+}
+
+.contentSection h2 {
+  font-size: 1.4rem;
+  color: #1f2937;
+  margin-bottom: 16px;
+  margin-top: 0;
+  font-weight: 600;
+  padding: 0;
+}
+
+.placeholderContent {
+  padding: 40px;
+  text-align: center;
+  color: #6b7280;
+  background: #f9fafb;
+  border-radius: 8px;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .searchFilterBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .searchFilterBar .searchBar {
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .searchFilterBar .filterOptions {
+    justify-content: space-between;
+  }
+  
+  .paymentHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .paymentAmount {
+    font-size: 1.2rem;
+  }
+  
+  .paymentDetails {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .paymentInfo {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .filterOptions {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .filterGroup {
+    width: 100%;
+  }
+  
+  .filterSelect {
+    flex: 1;
+  }
+}
