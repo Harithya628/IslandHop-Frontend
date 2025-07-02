@@ -1,0 +1,363 @@
+.guide-profile-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #f8fafc;
+  min-height: 100vh;
+}
+
+.guide-profile-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.guide-profile-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.guide-profile-header p {
+  font-size: 1.1rem;
+  color: #64748b;
+}
+
+.guide-profile-form {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.guide-profile-section {
+  padding: 2rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.guide-profile-section:last-child {
+  border-bottom: none;
+}
+
+.guide-profile-section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.guide-profile-section-icon {
+  width: 24px;
+  height: 24px;
+  color: #3b82f6;
+}
+
+.guide-profile-section-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.guide-profile-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.guide-profile-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.guide-profile-field-full {
+  grid-column: 1 / -1;
+}
+
+.guide-profile-label {
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.guide-profile-input,
+.guide-profile-select,
+.guide-profile-textarea {
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.guide-profile-input:focus,
+.guide-profile-select:focus,
+.guide-profile-textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.guide-profile-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.guide-profile-help {
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+/* Image Upload Styles */
+.guide-profile-image-upload {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.guide-profile-image-preview {
+  width: 120px;
+  height: 120px;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #f9fafb;
+}
+
+.guide-profile-preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.guide-profile-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: #6b7280;
+  text-align: center;
+}
+
+.guide-profile-placeholder-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.guide-profile-upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.guide-profile-upload-btn:hover {
+  background: #2563eb;
+}
+
+.guide-profile-upload-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.guide-profile-file-input {
+  display: none;
+}
+
+/* Checkbox Grid Styles */
+.guide-profile-checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.guide-profile-checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.guide-profile-checkbox-item:hover {
+  border-color: #3b82f6;
+  background: #f8fafc;
+}
+
+.guide-profile-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: #3b82f6;
+}
+
+.guide-profile-checkbox-label {
+  font-size: 0.9rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+/* Documents Grid Styles */
+.guide-profile-documents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.guide-profile-document-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.guide-profile-file-upload {
+  position: relative;
+}
+
+.guide-profile-file-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #f9fafb;
+  color: #374151;
+  font-weight: 500;
+  text-align: center;
+}
+
+.guide-profile-file-label:hover {
+  border-color: #3b82f6;
+  background: #f0f9ff;
+  color: #3b82f6;
+}
+
+/* Submit Button Styles */
+.guide-profile-submit-container {
+  padding: 2rem;
+  text-align: center;
+  background: #f8fafc;
+}
+
+.guide-profile-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.guide-profile-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.guide-profile-btn-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .guide-profile-container {
+    padding: 1rem;
+  }
+
+  .guide-profile-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .guide-profile-checkbox-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .guide-profile-documents-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .guide-profile-image-upload {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .guide-profile-header h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .guide-profile-section {
+    padding: 1.5rem;
+  }
+
+  .guide-profile-submit-container {
+    padding: 1.5rem;
+  }
+
+  .guide-profile-submit-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Loading and Success States */
+.guide-profile-loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.guide-profile-success {
+  border-color: #10b981 !important;
+  background-color: #f0fdf4 !important;
+}
+
+.guide-profile-error {
+  border-color: #ef4444 !important;
+  background-color: #fef2f2 !important;
+}
+
+/* Validation Styles */
+.guide-profile-input:invalid {
+  border-color: #ef4444;
+}
+
+.guide-profile-input:valid {
+  border-color: #10b981;
+}
+
+/* Focus States */
+.guide-profile-checkbox-item:has(.guide-profile-checkbox:checked) {
+  border-color: #3b82f6;
+  background: #eff6ff;
+}
+
+.guide-profile-checkbox-item:has(.guide-profile-checkbox:checked) .guide-profile-checkbox-label {
+  color: #3b82f6;
+  font-weight: 600;
+}
