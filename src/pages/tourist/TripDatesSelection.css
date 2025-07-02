@@ -1,0 +1,362 @@
+.trip-dates-page {
+  min-height: 100vh;
+  background-color: #f8fafc;
+  font-family: 'Roboto', sans-serif;
+}
+
+.trip-dates-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.dates-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.dates-header h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #223040;
+  margin-bottom: 0.5rem;
+}
+
+.dates-header p {
+  font-size: 1.1rem;
+  color: #4a5a6a;
+  margin: 0;
+}
+
+.date-display {
+  background: white;
+  border: 1.5px solid #e3e8ee;
+  border-radius: 18px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 12px rgba(31, 169, 255, 0.06);
+}
+
+.selected-dates {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.date-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.date-label {
+  font-weight: 500;
+  color: #666;
+}
+
+.date-value {
+  font-weight: 600;
+  color: #1a1a1a;
+  font-size: 1.1rem;
+}
+
+.date-arrow {
+  color: #007bff;
+}
+
+.content-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.calendars-section {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.calendars-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+  margin-bottom: 2rem;
+}
+
+/* Calendar Styles */
+.calendar {
+  width: 100%;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  color: #666;
+  transition: all 0.2s ease;
+}
+
+.nav-button:hover {
+  background: #f5f5f5;
+  color: #333;
+}
+
+.month-year {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.month {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.year {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.calendar-days-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.day-header {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #666;
+  padding: 0.5rem;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+}
+
+.day-button {
+  aspect-ratio: 1;
+  border: none;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.day-button:hover:not(:disabled) {
+  background: #f0f8ff;
+  color: #007bff;
+}
+
+.day-button.day-selected {
+  background: #007bff;
+  color: white;
+}
+
+.day-button.day-in-range {
+  background: #e6f3ff;
+  color: #007bff;
+}
+
+.day-button.day-disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.day-button.day-empty {
+  cursor: default;
+}
+
+/* Flight Data Section */
+.flight-data-section {
+  border-top: 1px solid #e9ecef;
+  padding-top: 2rem;
+}
+
+.flight-data-section h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.flights-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.flight-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  background: white;
+  transition: all 0.2s ease;
+}
+
+.flight-card:hover {
+  border-color: #007bff;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
+}
+
+.flight-main {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex: 1;
+}
+
+.airline {
+  font-weight: 600;
+  color: #1a1a1a;
+  min-width: 120px;
+}
+
+.flight-times {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.departure,
+.arrival {
+  font-weight: 500;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.flight-duration {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.flight-stops {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.flight-price {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #007bff;
+}
+
+.dates-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.continue-btn {
+  height: 48px;
+  min-width: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #1fa9ff;
+  color: white;
+  border: 2px solid #1fa9ff;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Outfit', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0 2rem;
+}
+
+.continue-btn:hover:not(:disabled) {
+  background: #1687d9;
+  border-color: #1687d9;
+  box-shadow: 0 4px 16px rgba(31, 169, 255, 0.15);
+}
+
+.continue-btn:disabled {
+  background: #ccc;
+  border-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .calendars-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .flight-main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .flight-times {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .trip-dates-container {
+    padding: 5rem 1rem 2rem;
+  }
+
+  .dates-header h1 {
+    font-size: 2rem;
+  }
+
+  .calendars-section {
+    padding: 1.5rem;
+  }
+
+  .flight-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .flight-price {
+    align-self: flex-end;
+  }
+}

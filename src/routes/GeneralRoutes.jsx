@@ -10,7 +10,11 @@ import TripsPublic from '../pages/tourist/TripsPublic';
 import Pools from '../pages/tourist/Pools';
 import DashboardLayout from '../components/DashboardLayout';
 import ExplorePage from '../pages/tourist/Explore';
-import TripSummary from '../pages/tourist/TripSummary'; 
+import TripSummary from '../pages/tourist/TripSummary';
+import TripItinerary from '../pages/tourist/TripItinerary';
+import MyTrips from '../pages/tourist/MyTrips';
+import TripDatesSelection from '../pages/tourist/TripDatesSelection';
+import TripPreferencesSelection from '../pages/tourist/TripPreferencesSelection'; 
 
 // --- Protected Route Imports ---
 import ProtectedRoute from './ProtectedRoute';
@@ -57,6 +61,26 @@ const GeneralRoutes = () => (
     <Route path="/plan-trip" element={
       <PublicRoute>
         <Questionnaire />
+      </PublicRoute>
+    } />
+    <Route path="/my-trips" element={
+      <PublicRoute>
+        <MyTrips />
+      </PublicRoute>
+    } />
+    <Route path="/plan-trip-dates" element={
+      <PublicRoute>
+        <TripDatesSelection />
+      </PublicRoute>
+    } />
+    <Route path="/plan-trip-preferences" element={
+      <PublicRoute>
+        <TripPreferencesSelection />
+      </PublicRoute>
+    } />
+    <Route path="/trip-itinerary" element={
+      <PublicRoute>
+        <TripItinerary />
       </PublicRoute>
     } />
     <Route path="/trip-dashboard" element={

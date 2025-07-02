@@ -120,8 +120,8 @@ const Navbar = () => {
                 Explore
               </div>
               <div 
-                className={`${styles.navItem} ${isActive('/plan-trip') ? styles.active : ''}`}
-                onClick={() => handleNavigation('/plan-trip')}
+                className={`${styles.navItem} ${isActive('/my-trips') ? styles.active : ''}`}
+                onClick={() => handleNavigation('/my-trips')}
               >
                 Trips
               </div>
@@ -199,7 +199,7 @@ const Navbar = () => {
                       <div className={styles.dropdownItem} onClick={() => handleNavigation('/profile')}>
                         My Profile
                       </div>
-                      <div className={styles.dropdownItem} onClick={() => handleNavigation('/trips')}>
+                      <div className={styles.dropdownItem} onClick={() => handleNavigation('/my-trips')}>
                         My Trips
                       </div>
                       <div className={styles.dropdownItem} onClick={handleLogout}>
