@@ -8,14 +8,15 @@
 .landing-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   height: 70vh;
-  padding: 2rem;
+  padding: 0;
   padding-top: 150px; /* Add space for the navbar */
+  padding-left: 2rem; /* Only left padding */
   position: relative;
   color: white;
-  text-align: center;
+  text-align: left;
   font-family: 'Roboto', sans-serif;
   will-change: transform;
   overflow: hidden;
@@ -41,10 +42,12 @@
   z-index: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   width: 100%;
   height: 100%;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Add overlay for better text readability */
@@ -73,6 +76,9 @@
   font-weight: 900; /* Extra bold for main landing title */
   font-family: 'Roboto', sans-serif;
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+  max-width: 100%;
+  word-wrap: break-word;
+  line-height: 1.1;
 }
 
 .landing-container p {
@@ -82,14 +88,17 @@
   font-weight: 400; /* Regular for landing subtitle */
   font-family: 'Roboto', sans-serif;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  max-width: 800px;
+  line-height: 1.6;
 }
 
 .button-container {
   display: flex;
   gap: 1rem;
   margin-top: 2rem;
-  align-self: flex-start;
-  margin-left: 5%;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .primary-button, .secondary-button {
@@ -131,20 +140,66 @@
 @media (max-width: 768px) {
   .landing-container {
     padding-top: 120px; /* Adjust for smaller navbar on mobile */
+    padding-left: 1rem;
+    height: 60vh;
+  }
+  
+  .hero-content {
+    padding: 0;
   }
   
   .landing-container h1 {
     font-size: 2.5rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  
+  .landing-container p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    max-width: 100%;
   }
   
   .button-container {
     flex-direction: column;
     align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
   }
   
   .primary-button, .secondary-button {
     width: 100%;
     max-width: 280px;
+    padding: 1.2rem 2rem;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-container {
+    height: 50vh;
+    padding-top: 100px;
+    padding-left: 1rem;
+  }
+  
+  .landing-container h1 {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .landing-container p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .button-container {
+    margin-top: 1rem;
+  }
+  
+  .primary-button, .secondary-button {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    max-width: 240px;
   }
 }
 
