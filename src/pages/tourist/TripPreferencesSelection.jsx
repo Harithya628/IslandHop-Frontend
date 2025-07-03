@@ -103,14 +103,20 @@ const TripPreferencesSelection = () => {
     <div className="trip-preferences-page">
       <Navbar />
       <div className="trip-preferences-container">
-        <div className="preferences-header">
-          <div className="progress-section">
-            <p className="progress-indicator">Step {currentStep} of 2</p>
-            <h1>Tell us about your travel style</h1>
-            <div className="progress-bar">
-              <div className={`progress-step ${currentStep >= 1 ? 'active' : ''}`}></div>
-              <div className={`progress-step ${currentStep >= 2 ? 'active' : ''}`}></div>
-            </div>
+        <div className="step-indicator">
+          <span>{currentStep} of 2</span>
+        </div>
+        
+        <div className="planning-header">
+          <h2>Planning your trip</h2>
+        </div>
+        
+        <div className="progress-bar-container">
+          <div className="progress-bar">
+            <div className={`progress-step ${currentStep >= 1 ? 'active' : ''}`}></div>
+            <div className={`progress-step ${currentStep >= 2 ? 'active' : ''}`}></div>
+            <div className="progress-step"></div>
+            <div className="progress-step"></div>
           </div>
         </div>
 
@@ -132,8 +138,7 @@ const TripPreferencesSelection = () => {
                       onClick={() => handleTerrainToggle(preference.id)}
                       className={`preference-card ${isSelected ? 'selected' : ''}`}
                       style={{
-                        '--accent-color': preference.color,
-                        borderColor: isSelected ? preference.color : '#e9ecef'
+                        '--accent-color': preference.color
                       }}
                     >
                       <div className="preference-icon-wrapper">
@@ -169,8 +174,7 @@ const TripPreferencesSelection = () => {
                       onClick={() => handleActivityToggle(activity.id)}
                       className={`preference-card ${isSelected ? 'selected' : ''}`}
                       style={{
-                        '--accent-color': activity.color,
-                        borderColor: isSelected ? activity.color : '#e9ecef'
+                        '--accent-color': activity.color
                       }}
                     >
                       <div className="preference-icon-wrapper">
@@ -189,26 +193,24 @@ const TripPreferencesSelection = () => {
             </div>
           )}
 
-          <div className="navigation">
-            <button 
-              onClick={handleBack}
-              className="nav-button-secondary"
-            >
-              <ChevronLeft size={20} />
-              <span className="button-text">Back</span>
-            </button>
-            
-            <button 
-              onClick={handleNext}
-              className={`next-button ${currentStep === 2 ? 'final-step' : ''}`}
-              disabled={!canProceed()}
-            >
-              <span className="button-text">
-                {currentStep === 2 ? 'Start Planning' : 'Next'}
-              </span>
-              <ArrowRight size={20} />
-            </button>
-          </div>
+        <div className="preferences-footer">
+          <button 
+            onClick={handleBack}
+            className="back-btn"
+          >
+            <ChevronLeft size={20} />
+            Back
+          </button>
+          
+          <button 
+            onClick={handleNext}
+            className="next-btn"
+            disabled={!canProceed()}
+          >
+            {currentStep === 2 ? 'Start Planning' : 'Next'}
+            <ArrowRight size={20} />
+          </button>
+        </div>
         </div>
       </div>
       <Footer />

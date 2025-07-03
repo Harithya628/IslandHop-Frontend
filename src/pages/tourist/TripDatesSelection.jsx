@@ -275,6 +275,23 @@ const TripDatesSelection = () => {
     <div className="trip-dates-page">
       <Navbar />
       <div className="trip-dates-container">
+        <div className="planning-header">
+          <h2>Planning your trip</h2>
+        </div>
+        
+        <div className="step-indicator">
+          <span>1 of 4</span>
+        </div>
+        
+        <div className="progress-bar-container">
+          <div className="progress-bar">
+            <div className="progress-step active"></div>
+            <div className="progress-step"></div>
+            <div className="progress-step"></div>
+            <div className="progress-step"></div>
+          </div>
+        </div>
+        
         <div className="dates-header">
           <h1>When are you going to {currentTrip.name}?</h1>
           <p>Select your trip start and end dates</p>
@@ -347,11 +364,18 @@ const TripDatesSelection = () => {
 
         <div className="dates-footer">
           <button 
-            className="continue-btn"
+            className="back-btn"
+            onClick={() => navigate('/my-trips')}
+          >
+            <ChevronLeft size={20} />
+            Back
+          </button>
+          <button 
+            className="next-btn"
             onClick={handleContinue}
             disabled={!startDate || !endDate}
           >
-            Continue to Preferences
+            Next
             <ArrowRight size={20} />
           </button>
         </div>

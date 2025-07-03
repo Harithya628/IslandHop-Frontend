@@ -1,18 +1,95 @@
 .trip-dates-page {
   min-height: 100vh;
-  background-color: #f8fafc;
+  background-color: #fff;
   font-family: 'Roboto', sans-serif;
+  padding-top: 90px; /* Account for fixed navbar */
 }
 
 .trip-dates-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+.step-indicator {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  margin-top: 0.3rem;
+}
+
+.step-indicator span {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #999;
+  letter-spacing: normal;
+}
+
+.planning-header {
+  text-align: center;
+  margin-bottom: 0;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+.planning-header h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1FA9FF;
+  margin: 0;
+  border: none !important;
+  border-bottom: none !important;
+}
+
+.progress-bar-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+  margin-top: 0.8rem;
+  border: none !important;
+  border-bottom: none !important;
+}
+
+.progress-bar {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  border: none !important;
+}
+
+.progress-step {
+  width: 120px;
+  height: 12px;
+  border-radius: 6px;
+  background: #e3e8ee;
+  transition: background-color 0.3s ease;
+}
+
+.progress-step.active {
+  background: #1FA9FF !important;
+}
+
+.calendars-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 100%;
+  justify-items: center;
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .dates-header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 3.5rem;
 }
 
 .dates-header h1 {
@@ -71,116 +148,159 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  outline: none !important;
+}
+
+.content-layout * {
+  border-top: none !important;
+}
+
+/* Allow calendar borders */
+.calendar,
+.calendar *,
+.calendar-header,
+.calendar-days,
+.calendar-days-header,
+.day-button,
+.day-header {
+  border-top: initial !important;
+}
+
+/* Ensure calendars have full borders */
+.calendar {
+  border: 1px solid #000000 !important;
+  border-top: 1px solid #000000 !important;
 }
 
 .calendars-section {
-  background: white;
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  border: none;
+  border-top: none !important;
+  border-bottom: none !important;
+  outline: none !important;
 }
 
-.calendars-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 3rem;
-  margin-bottom: 2rem;
-}
-
-/* Calendar Styles */
+/* Calendar Styles - Based on popup design */
 .calendar {
+  background: white;
+  border: 1px solid #000000;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
   width: 100%;
+  overflow: hidden;
 }
 
 .calendar-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+  gap: 0.5rem;
 }
 
 .nav-button {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0.5rem;
+  width: 32px;
+  height: 32px;
   border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #666;
   transition: all 0.2s ease;
+  font-size: 1rem;
 }
 
 .nav-button:hover {
-  background: #f5f5f5;
-  color: #333;
+  background: #1FA9FF;
+  color: white;
 }
 
 .month-year {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex: 1;
+  justify-content: center;
 }
 
 .month {
   font-family: 'Outfit', sans-serif;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: #223040;
 }
 
 .year {
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   color: #666;
+  font-weight: 500;
 }
 
 .calendar-days-header {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  gap: 1px;
+  margin-bottom: 0.5rem;
 }
 
 .day-header {
   text-align: center;
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   font-weight: 500;
   color: #666;
-  padding: 0.5rem;
+  padding: 0.5rem 0;
 }
 
 .calendar-days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 0.5rem;
+  gap: 1px;
+  max-width: 100%;
 }
 
 .day-button {
   aspect-ratio: 1;
   border: none;
   background: white;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 0.8rem;
+  font-weight: 400;
   color: #333;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 32px;
+  min-width: 32px;
+  max-width: 100%;
 }
 
 .day-button:hover:not(:disabled) {
   background: #f0f8ff;
-  color: #007bff;
+  color: #1FA9FF;
 }
 
 .day-button.day-selected {
-  background: #007bff;
+  background: #1FA9FF;
   color: white;
+  font-weight: 600;
 }
 
 .day-button.day-in-range {
   background: #e6f3ff;
-  color: #007bff;
+  color: #1FA9FF;
 }
 
 .day-button.day-disabled {
@@ -194,8 +314,12 @@
 
 /* Flight Data Section */
 .flight-data-section {
-  border-top: 1px solid #e9ecef;
   padding-top: 2rem;
+  border: none !important;
+  border-top: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  margin-top: 0;
 }
 
 .flight-data-section h3 {
@@ -317,37 +441,107 @@
   transform: none;
 }
 
+/* Universal reset for horizontal lines - excluding calendars */
+.trip-dates-page .content-layout *:not(.calendar):not(.calendar *):not(.calendar-header):not(.calendar-days):not(.calendar-days-header):not(.day-button):not(.day-header),
+.trip-dates-page .content-layout *:not(.calendar):not(.calendar *):not(.calendar-header):not(.calendar-days):not(.calendar-days-header):not(.day-button):not(.day-header)::before,
+.trip-dates-page .content-layout *:not(.calendar):not(.calendar *):not(.calendar-header):not(.calendar-days):not(.calendar-days-header):not(.day-button):not(.day-header)::after {
+  border-top: none !important;
+}
+
+.trip-dates-page .planning-header *,
+.trip-dates-page .planning-header::before,
+.trip-dates-page .planning-header::after,
+.trip-dates-page .progress-bar-container *,
+.trip-dates-page .progress-bar-container::before,
+.trip-dates-page .progress-bar-container::after {
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+.trip-dates-page hr {
+  display: none !important;
+}
+
+/* Reset any potential separator elements */
+.calendars-section::before,
+.calendars-section::after,
+.calendars-container::before,
+.calendars-container::after,
+.flight-data-section::before,
+.flight-data-section::after {
+  content: none !important;
+  display: none !important;
+  border: none !important;
+}
+
 /* Responsive Design */
-@media (max-width: 968px) {
+@media (max-width: 1024px) {
   .calendars-container {
     grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .flight-main {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .flight-times {
-    flex-direction: column;
-    align-items: flex-start;
     gap: 0.5rem;
+  }
+  
+  .trip-dates-container {
+    padding: 1.5rem;
+  }
+  
+  .calendar {
+    max-width: 350px;
   }
 }
 
 @media (max-width: 768px) {
+  .trip-dates-page {
+    padding-top: 80px; /* Smaller navbar on mobile */
+  }
+  
   .trip-dates-container {
-    padding: 5rem 1rem 2rem;
+    padding: 1rem;
   }
 
   .dates-header h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    line-height: 1.2;
   }
 
   .calendars-section {
-    padding: 1.5rem;
+    padding: 0;
+  }
+  
+  .calendar {
+    max-width: 100%;
+    min-width: auto;
+  }
+  
+  .day-button {
+    min-height: 28px;
+    min-width: 28px;
+    font-size: 0.75rem;
+  }
+  
+  .day-header {
+    font-size: 0.65rem;
+    padding: 0.4rem 0;
+  }
+  
+  .planning-header h2 {
+    font-size: 1.6rem;
+  }
+  
+  .progress-step {
+    width: 95px;
+    height: 10px;
+  }
+  
+  .step-indicator span {
+    font-size: 0.8rem;
+  }
+  
+  .nav-button {
+    width: 28px;
+    height: 28px;
   }
 
   .flight-card {
@@ -358,5 +552,81 @@
 
   .flight-price {
     align-self: flex-end;
+  }
+  
+  .flight-main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .flight-times {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dates-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .calendars-section {
+    padding: 0;
+  }
+  
+  .calendar {
+    padding: 0.75rem;
+  }
+  
+  .calendar-days {
+    gap: 0.5px;
+  }
+  
+  .calendar-days-header {
+    gap: 0.5px;
+  }
+  
+  .day-button {
+    min-height: 24px;
+    min-width: 24px;
+    font-size: 0.7rem;
+  }
+  
+  .planning-header h2 {
+    font-size: 1.4rem;
+  }
+  
+  .progress-step {
+    width: 75px;
+    height: 8px;
+  }
+  
+  .step-indicator span {
+    font-size: 0.75rem;
+  }
+  
+  .month {
+    font-size: 0.9rem;
+  }
+  
+  .year {
+    font-size: 0.8rem;
+  }
+  
+  .nav-button {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .selected-dates {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .date-info {
+    justify-content: center;
   }
 }
