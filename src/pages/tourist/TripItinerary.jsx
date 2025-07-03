@@ -7,8 +7,6 @@ import {
   Calendar, 
   Clock, 
   Users, 
-  Share, 
-  Settings,
   ChevronDown,
   ChevronUp,
   X,
@@ -220,49 +218,48 @@ const TripItinerary = () => {
     <div className="trip-itinerary-page">
       <Navbar />
       
-      <div className="trip-header">
-        <div className="trip-header-content">
-          <div className="trip-info">
-            <h1>{currentTrip.name}</h1>
-            <div className="trip-meta">
-              <div className="meta-item">
-                <Calendar size={16} />
-                <span>{currentTrip.dates}</span>
-              </div>
-              <div className="meta-item">
-                <MapPin size={16} />
-                <span>Sri Lanka</span>
-              </div>
-              <div className="meta-item">
-                <Users size={16} />
-                <span>{currentTrip.participants} traveler{currentTrip.participants !== 1 ? 's' : ''}</span>
+      <div className="trip-itinerary-container">
+        <div className="planning-header">
+          <h2>Planning your trip</h2>
+        </div>
+        
+        <div className="step-indicator">
+          <span>4 of 4</span>
+        </div>
+        
+        <div className="progress-bar-container">
+          <div className="progress-bar">
+            <div className="progress-step active"></div>
+            <div className="progress-step active"></div>
+            <div className="progress-step active"></div>
+            <div className="progress-step active"></div>
+          </div>
+        </div>
+      
+        <div className="trip-header">
+          <div className="trip-header-content">
+            <div className="trip-info">
+              <h1>{currentTrip.name}</h1>
+              <div className="trip-meta">
+                <div className="meta-item">
+                  <Calendar size={16} />
+                  <span>{currentTrip.dates}</span>
+                </div>
+                <div className="meta-item">
+                  <MapPin size={16} />
+                  <span>Sri Lanka</span>
+                </div>
+                <div className="meta-item">
+                  <Users size={16} />
+                  <span>{currentTrip.participants} traveler{currentTrip.participants !== 1 ? 's' : ''}</span>
+                </div>
               </div>
             </div>
-          </div>
-          
-          <div className="trip-actions">
-            <button className="action-btn secondary">
-              <Users size={16} />
-              Invite
-            </button>
-            <button className="action-btn secondary">
-              <Share size={16} />
-              Share
-            </button>
-            <button className="action-btn secondary">
-              <Settings size={16} />
-            </button>
           </div>
         </div>
       </div>
 
       <div className="trip-content">
-        <div className="content-tabs">
-          <button className="tab active">Itinerary</button>
-          <button className="tab">Saves</button>
-          <button className="tab">For you</button>
-        </div>
-
         <div className="itinerary-layout">
           {/* Left Panel - Days List */}
           <div className="days-panel">
@@ -391,6 +388,22 @@ const TripItinerary = () => {
           onSelect={handleLocationSelect}
         />
       )}
+
+      {/* Action Buttons */}
+      <div className="trip-actions">
+        <button 
+          className="back-btn"
+          onClick={() => navigate('/plan-trip-preferences')}
+        >
+          Back
+        </button>
+        <button 
+          className="finish-btn"
+          onClick={() => navigate('/my-trips')}
+        >
+          Finish Planning
+        </button>
+      </div>
 
       <Footer />
     </div>

@@ -103,12 +103,12 @@ const TripPreferencesSelection = () => {
     <div className="trip-preferences-page">
       <Navbar />
       <div className="trip-preferences-container">
-        <div className="step-indicator">
-          <span>{currentStep} of 2</span>
-        </div>
-        
         <div className="planning-header">
           <h2>Planning your trip</h2>
+        </div>
+        
+        <div className="step-indicator">
+          <span>{currentStep} of 2</span>
         </div>
         
         <div className="progress-bar-container">
