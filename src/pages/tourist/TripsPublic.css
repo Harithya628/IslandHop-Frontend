@@ -78,3 +78,204 @@
   line-height: 1.6;
   font-size: 1.05rem;
 }
+
+/* Professional Planning Card */
+.planning-card {
+  background: #38bdf8;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  padding: 48px;
+  margin: 48px 0;
+  width: 100%;
+  max-width: none;
+  border: 1px solid #0284c7;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.planning-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.planning-card-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.planning-card-image-space {
+  flex: 1;
+  min-height: 300px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  border: none;
+}
+
+.planning-card-main-logo {
+  max-width: 80%;
+  max-height: 80%;
+  width: auto;
+  height: auto;
+  opacity: 0.95;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.planning-card-main-logo:hover {
+  opacity: 1;
+  transform: scale(1.02);
+}
+
+.planning-card-text-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  padding: 24px 0;
+}
+
+.planning-card-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.planning-card-description {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  margin-bottom: 32px;
+  max-width: 480px;
+}
+
+.planning-button {
+  font-family: inherit;
+}
+
+.planning-button svg {
+  transition: transform 0.3s ease;
+}
+
+.planning-button:hover svg {
+  transform: translateX(4px);
+}
+
+.planning-card-logo {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 10;
+}
+
+.planning-card-logo-img {
+  height: 40px;
+  width: auto;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+.planning-card-logo-img:hover {
+  opacity: 1;
+}
+
+/* Responsive Design for Planning Card */
+@media (max-width: 768px) {
+  .planning-card {
+    padding: 32px 24px;
+    margin: 32px 0;
+  }
+  
+  .planning-card-logo {
+    top: 16px;
+    right: 16px;
+  }
+  
+  .planning-card-logo-img {
+    height: 32px;
+  }
+  
+  .planning-card-content {
+    flex-direction: column;
+    gap: 32px;
+  }
+  
+  .planning-card-image-space {
+    min-height: 200px;
+  }
+  
+  .planning-card-text-content {
+    text-align: center;
+    align-items: center;
+    padding: 16px 0;
+  }
+  
+  .planning-card-title {
+    font-size: 1.8rem;
+  }
+  
+  .planning-card-description {
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  
+  .planning-button {
+    padding: 14px 24px !important;
+    font-size: 14px !important;
+    align-self: center !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .planning-card {
+    padding: 24px 16px;
+  }
+  
+  .planning-card-logo {
+    top: 12px;
+    right: 12px;
+  }
+  
+  .planning-card-logo-img {
+    height: 28px;
+  }
+  
+  .planning-card-content {
+    gap: 24px;
+  }
+  
+  .planning-card-image-space {
+    min-height: 150px;
+  }
+  
+  .planning-card-text-content {
+    padding: 12px 0;
+  }
+  
+  .planning-card-title {
+    font-size: 1.5rem;
+  }
+  
+  .planning-card-description {
+    margin-bottom: 20px;
+  }
+  
+  .planning-button {
+    padding: 12px 20px !important;
+    width: 100%;
+    justify-content: center;
+    align-self: center !important;
+  }
+}
