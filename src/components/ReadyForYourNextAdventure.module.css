@@ -23,28 +23,46 @@
 }
 
 .readyForYour {
-  position: absolute;
-  width: 100%;
-  top: 0%;
-  left: 0%;
   line-height: 112.81%;
   font-weight: 500;
-  display: inline-block;
+  display: block;
   text-shadow: 0px 0px 14px rgba(0, 0, 0, 0.25);
   word-spacing: 0.2em;
   letter-spacing: -0.02em;
   animation: fadeInUp 1.2s ease-out;
+  text-align: left;
+  margin: 0;
+  padding: 0;
 }
 
 .readyForYourNextAdventure {
-  width: 50%;
-  position: relative;
+  width: auto;
   height: 224px;
   text-align: left;
   font-size: 99px;
   color: #fff;
   font-family: Outfit;
-  margin-left: 5%;
   align-self: flex-start;
   animation: slideInUp 1s ease-out;
+  margin: 0;
+  padding: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .readyForYourNextAdventure {
+    font-size: 70px;
+    height: 180px;
+  }
+  
+  .readyForYour {
+    line-height: 1.1;
+  }
+}
+
+@media (max-width: 480px) {
+  .readyForYourNextAdventure {
+    font-size: 50px;
+    height: 140px;
+  }
 }
