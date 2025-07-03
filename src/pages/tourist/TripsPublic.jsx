@@ -10,7 +10,7 @@ const TripsPublic = () => {
   const navigate = useNavigate();
 
   const handleTestNavigation = () => {
-    navigate('/plan-trip'); 
+    navigate('/plan-trip-dates'); 
   };
 
   return (
