@@ -1,37 +1,52 @@
-import React, { useState, useEffect } from 'react';
-import { Search, MapPin, Star, Filter, Grid, List, Heart, Share2, Clock, Camera } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Search, MapPin, Star, Filter, Grid, List, Heart, Share2, Clock, Camera, Navigation } from 'lucide-react';
 import './Explore.css';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 
 const ExplorePage = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [attractions, setAttractions] = useState([]);
   const [filteredAttractions, setFilteredAttractions] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedDistrict, setSelectedDistrict] = useState('all');
   const [viewMode, setViewMode] = useState('grid');
   const [favorites, setFavorites] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [hasSearched, setHasSearched] = useState(false);
+  const [mapsReady, setMapsReady] = useState(false);
+  
+  const searchTimeoutRef = useRef(null);
+  const placesServiceRef = useRef(null);
 
-  // Tourist attractions data for Sri Lanka
-  const touristAttractions = [
+  const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
+  console.log('🔧 ExplorePage initialized');
+  console.log('🔑 Google Maps API Key:', GOOGLE_MAPS_API_KEY ? 'Present' : 'Missing');
+
+  // Demo data as fallback
+  const demoAttractions = [
     {
-      id: 1,
+      id: 'demo_1',
       name: 'Sigiriya Rock Fortress',
       district: 'Matale',
       province: 'Central Province',
       category: 'historical',
       rating: 4.8,
-      description: 'Ancient rock fortress and palace ruins with stunning frescoes and landscaped gardens.',
+      description: 'Ancient rock fortress and palace ruins with stunning frescoes and landscaped gardens. One of Sri Lanka\'s most iconic UNESCO World Heritage sites.',
       image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=800&q=80',
       coordinates: { lat: 7.9570, lng: 80.7603 },
       openTime: '7:00 AM - 5:30 PM',
       bestTime: 'Early morning or late afternoon',
       entryFee: 'LKR 4,770 (Foreigners)',
-      tags: ['UNESCO World Heritage', 'Ancient Architecture', 'Climbing', 'Photography']
+      tags: ['UNESCO World Heritage', 'Ancient Architecture', 'Climbing', 'Photography'],
+      website: 'https://www.sigiriya.lk',
+      address: 'Sigiriya, Matale District, Central Province, Sri Lanka'
     },
     {
-      id: 2,
+      id: 'demo_2',
       name: 'Temple of the Sacred Tooth Relic',
       district: 'Kandy',
       province: 'Central Province',
@@ -43,25 +58,11 @@ const ExplorePage = () => {
       openTime: '5:30 AM - 8:00 PM',
       bestTime: 'Evening during Puja ceremony',
       entryFee: 'LKR 2,000 (Foreigners)',
-      tags: ['Buddhist Temple', 'Sacred Relic', 'Cultural Heritage', 'Religious']
+      tags: ['Buddhist Temple', 'Sacred Relic', 'Cultural Heritage', 'Religious'],
+      address: 'Kandy, Central Province, Sri Lanka'
     },
     {
-      id: 3,
-      name: 'Yala National Park',
-      district: 'Hambantota',
-      province: 'Southern Province',
-      category: 'wildlife',
-      rating: 4.6,
-      description: 'Famous wildlife sanctuary known for leopards, elephants, and diverse bird species.',
-      image: 'https://images.unsplash.com/photo-1549366021-9f761d040dd2?auto=format&fit=crop&w=800&q=80',
-      coordinates: { lat: 6.3724, lng: 81.5185 },
-      openTime: '6:00 AM - 6:00 PM',
-      bestTime: 'February to July',
-      entryFee: 'LKR 3,710 + Jeep Safari',
-      tags: ['Wildlife Safari', 'Leopards', 'Elephants', 'Bird Watching']
-    },
-    {
-      id: 4,
+      id: 'demo_3',
       name: 'Galle Fort',
       district: 'Galle',
       province: 'Southern Province',
@@ -73,10 +74,27 @@ const ExplorePage = () => {
       openTime: '24 hours',
       bestTime: 'Sunset for best views',
       entryFee: 'Free',
-      tags: ['Colonial Architecture', 'UNESCO Heritage', 'Ocean Views', 'Shopping']
+      tags: ['Colonial Architecture', 'UNESCO Heritage', 'Ocean Views', 'Shopping'],
+      address: 'Galle, Southern Province, Sri Lanka'
     },
     {
-      id: 5,
+      id: 'demo_4',
+      name: 'Yala National Park',
+      district: 'Hambantota',
+      province: 'Southern Province',
+      category: 'wildlife',
+      rating: 4.6,
+      description: 'Famous wildlife sanctuary known for leopards, elephants, and diverse bird species.',
+      image: 'https://images.unsplash.com/photo-1549366021-9f761d040dd2?auto=format&fit=crop&w=800&q=80',
+      coordinates: { lat: 6.3724, lng: 81.5185 },
+      openTime: '6:00 AM - 6:00 PM',
+      bestTime: 'February to July',
+      entryFee: 'LKR 3,710 + Jeep Safari',
+      tags: ['Wildlife Safari', 'Leopards', 'Elephants', 'Bird Watching'],
+      address: 'Hambantota District, Southern Province, Sri Lanka'
+    },
+    {
+      id: 'demo_5',
       name: 'Nuwara Eliya',
       district: 'Nuwara Eliya',
       province: 'Central Province',
@@ -88,25 +106,11 @@ const ExplorePage = () => {
       openTime: 'All day',
       bestTime: 'April to September',
       entryFee: 'Free (attractions vary)',
-      tags: ['Tea Plantations', 'Cool Climate', 'British Colonial', 'Hill Country']
+      tags: ['Tea Plantations', 'Cool Climate', 'British Colonial', 'Hill Country'],
+      address: 'Nuwara Eliya, Central Province, Sri Lanka'
     },
     {
-      id: 6,
-      name: 'Ella Rock',
-      district: 'Badulla',
-      province: 'Uva Province',
-      category: 'adventure',
-      rating: 4.7,
-      description: 'Popular hiking destination offering panoramic views of the hill country.',
-      image: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80',
-      coordinates: { lat: 6.8667, lng: 81.0466 },
-      openTime: 'Sunrise to sunset',
-      bestTime: 'Early morning for sunrise',
-      entryFee: 'Free',
-      tags: ['Hiking', 'Sunrise Views', 'Photography', 'Adventure']
-    },
-    {
-      id: 7,
+      id: 'demo_6',
       name: 'Mirissa Beach',
       district: 'Matara',
       province: 'Southern Province',
@@ -118,130 +122,12 @@ const ExplorePage = () => {
       openTime: '24 hours',
       bestTime: 'November to April',
       entryFee: 'Free',
-      tags: ['Beach', 'Whale Watching', 'Surfing', 'Sunset Views']
-    },
-    {
-      id: 8,
-      name: 'Anuradhapura Ancient City',
-      district: 'Anuradhapura',
-      province: 'North Central Province',
-      category: 'historical',
-      rating: 4.6,
-      description: 'Ancient capital with sacred Buddhist sites, stupas, and archaeological treasures.',
-      image: 'https://images.unsplash.com/photo-1590736969955-b593a1b59c44?auto=format&fit=crop&w=800&q=80',
-      coordinates: { lat: 8.3114, lng: 80.4037 },
-      openTime: '6:00 AM - 6:00 PM',
-      bestTime: 'Early morning or late afternoon',
-      entryFee: 'LKR 3,570 (Foreigners)',
-      tags: ['Ancient City', 'Buddhist Heritage', 'UNESCO Heritage', 'Archaeology']
-    },
-    {
-      id: 9,
-      name: 'Adams Peak (Sri Pada)',
-      district: 'Ratnapura',
-      province: 'Sabaragamuwa Province',
-      category: 'religious',
-      rating: 4.8,
-      description: 'Sacred mountain with a footprint-shaped mark at the summit, pilgrimage site.',
-      image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80',
-      coordinates: { lat: 6.8092, lng: 80.4989 },
-      openTime: 'Pilgrimage season: Dec-May',
-      bestTime: 'Night climb for sunrise',
-      entryFee: 'Free',
-      tags: ['Pilgrimage', 'Sacred Mountain', 'Hiking', 'Sunrise']
-    },
-    {
-      id: 10,
-      name: 'Polonnaruwa Ancient City',
-      district: 'Polonnaruwa',
-      province: 'North Central Province',
-      category: 'historical',
-      rating: 4.5,
-      description: 'Medieval capital with well-preserved ruins, including the famous Gal Vihara.',
-      image: 'https://images.unsplash.com/photo-1590736969955-b593a1b59c44?auto=format&fit=crop&w=800&q=80',
-      coordinates: { lat: 7.9403, lng: 81.0188 },
-      openTime: '7:00 AM - 6:00 PM',
-      bestTime: 'Early morning',
-      entryFee: 'LKR 3,570 (Foreigners)',
-      tags: ['Ancient Ruins', 'Gal Vihara', 'UNESCO Heritage', 'Cycling']
-    },
-    {
-      id: 11,
-      name: 'Dambulla Cave Temple',
-      district: 'Matale',
-      province: 'Central Province',
-      category: 'religious',
-      rating: 4.4,
-      description: 'Ancient cave temple complex with beautiful Buddhist murals and statues.',
-      image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80',
-      coordinates: { lat: 7.8567, lng: 80.6496 },
-      openTime: '7:00 AM - 7:00 PM',
-      bestTime: 'Morning hours',
-      entryFee: 'LKR 2,000 (Foreigners)',
-      tags: ['Cave Temple', 'Buddhist Art', 'UNESCO Heritage', 'Ancient Paintings']
-    },
-    {
-      id: 12,
-      name: 'Horton Plains National Park',
-      district: 'Nuwara Eliya',
-      province: 'Central Province',
-      category: 'nature',
-      rating: 4.6,
-      description: 'High-altitude plateau with Worlds End cliff, Bakers Falls, and unique ecosystem.',
-      image: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80',
-      coordinates: { lat: 6.8055, lng: 80.8055 },
-      openTime: '6:00 AM - 6:00 PM',
-      bestTime: 'Early morning for clear views',
-      entryFee: 'LKR 3,710 (Foreigners)',
-      tags: ['National Park', 'Worlds End', 'Trekking', 'Endemic Species']
-    },
-    {
-      id: 13,
-      name: 'Arugam Bay',
-      district: 'Ampara',
-      province: 'Eastern Province',
-      category: 'beach',
-      rating: 4.4,
-      description: 'World-renowned surfing destination with beautiful beaches and laid-back atmosphere.',
-      image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
-      coordinates: { lat: 6.8402, lng: 81.8344 },
-      openTime: '24 hours',
-      bestTime: 'April to October (surfing season)',
-      entryFee: 'Free',
-      tags: ['Surfing', 'Beach', 'Backpacker Destination', 'Wildlife']
-    },
-    {
-      id: 14,
-      name: 'Nine Arch Bridge',
-      district: 'Badulla',
-      province: 'Uva Province',
-      category: 'adventure',
-      rating: 4.3,
-      description: 'Iconic railway bridge built during British era, popular for train spotting.',
-      image: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80',
-      coordinates: { lat: 6.8729, lng: 81.0553 },
-      openTime: 'All day',
-      bestTime: 'Train schedule times',
-      entryFee: 'Free',
-      tags: ['Railway Bridge', 'Train Spotting', 'Photography', 'Colonial Architecture']
-    },
-    {
-      id: 15,
-      name: 'Sinharaja Forest Reserve',
-      district: 'Ratnapura',
-      province: 'Sabaragamuwa Province',
-      category: 'nature',
-      rating: 4.7,
-      description: 'Primary tropical rainforest and biodiversity hotspot with endemic species.',
-      image: 'https://images.unsplash.com/photo-1549366021-9f761d040dd2?auto=format&fit=crop&w=800&q=80',
-      coordinates: { lat: 6.4031, lng: 80.4956 },
-      openTime: '6:00 AM - 5:00 PM',
-      bestTime: 'January to April',
-      entryFee: 'LKR 2,895 (Foreigners)',
-      tags: ['Rainforest', 'Biodiversity', 'UNESCO Heritage', 'Bird Watching']
+      tags: ['Beach', 'Whale Watching', 'Surfing', 'Sunset Views'],
+      address: 'Mirissa, Matara District, Southern Province, Sri Lanka'
     }
   ];
 
+  // Category mappings
   const categories = [
     { value: 'all', label: 'All Attractions', icon: '🏛️' },
     { value: 'historical', label: 'Historical', icon: '🏛️' },
@@ -254,28 +140,154 @@ const ExplorePage = () => {
 
   const districts = [
     'all', 'Kandy', 'Matale', 'Hambantota', 'Galle', 'Nuwara Eliya', 
-    'Badulla', 'Matara', 'Anuradhapura', 'Ratnapura', 'Polonnaruwa', 'Ampara'
+    'Badulla', 'Matara', 'Anuradhapura', 'Ratnapura', 'Polonnaruwa', 'Ampara',
+    'Colombo', 'Jaffna', 'Trincomalee', 'Kurunegala', 'Puttalam'
   ];
 
+  // Load Google Maps script
   useEffect(() => {
-    // Simulate loading
-    setTimeout(() => {
-      setFilteredAttractions(touristAttractions);
-      setLoading(false);
-    }, 1000);
-  }, []);
+    console.log('📍 useEffect: Loading Google Maps script...');
+    
+    if (!GOOGLE_MAPS_API_KEY) {
+      console.error('❌ Google Maps API key not configured - using demo data');
+      loadDemoData();
+      return;
+    }
 
+    const loadGoogleMaps = () => {
+      console.log('🔄 Checking if Google Maps is already loaded...');
+      
+      if (window.google && window.google.maps) {
+        console.log('✅ Google Maps already loaded, initializing Places service...');
+        initializePlacesService();
+        return;
+      }
+
+      console.log('📦 Loading Google Maps script...');
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`;
+      script.async = true;
+      script.defer = true;
+      script.onload = () => {
+        console.log('✅ Google Maps script loaded successfully');
+        initializePlacesService();
+      };
+      script.onerror = (error) => {
+        console.error('❌ Failed to load Google Maps script:', error);
+        console.log('🔄 Falling back to demo data...');
+        loadDemoData();
+      };
+      document.head.appendChild(script);
+    };
+
+    loadGoogleMaps();
+  }, [GOOGLE_MAPS_API_KEY]);
+
+  const loadDemoData = () => {
+    console.log('📦 Loading demo data...');
+    setAttractions(demoAttractions);
+    setFilteredAttractions(demoAttractions);
+    setMapsReady(true);
+    setLoading(false);
+  };
+
+  const initializePlacesService = () => {
+    console.log('🏗️ Initializing Google Places service...');
+    
+    try {
+      if (window.google && window.google.maps) {
+        console.log('✅ Google Maps API available');
+        console.log('🗺️ Creating map instance...');
+        
+        const map = new window.google.maps.Map(document.createElement('div'));
+        console.log('✅ Map created successfully');
+        
+        console.log('🔍 Creating PlacesService...');
+        placesServiceRef.current = new window.google.maps.places.PlacesService(map);
+        console.log('✅ PlacesService initialized successfully');
+        
+        setMapsReady(true);
+        
+        // Now load initial attractions since Maps is ready
+        loadInitialAttractions();
+      } else {
+        console.error('❌ Google Maps API not available');
+        loadDemoData();
+      }
+    } catch (error) {
+      console.error('❌ Error initializing Places service:', error);
+      console.log('🔄 Falling back to demo data...');
+      loadDemoData();
+    }
+  };
+
+  const loadInitialAttractions = () => {
+    console.log('🎯 Loading initial attractions...');
+    
+    if (!mapsReady || !placesServiceRef.current) {
+      console.log('⏳ Maps not ready yet, skipping initial load...');
+      return;
+    }
+    
+    setLoading(true);
+    searchPlaces('tourist attractions Sri Lanka', 'all');
+  };
+
+  // Debounced search effect
   useEffect(() => {
-    let filtered = touristAttractions;
+    console.log('🔍 Search term changed:', searchTerm);
+    
+    if (searchTimeoutRef.current) {
+      console.log('⏰ Clearing previous search timeout');
+      clearTimeout(searchTimeoutRef.current);
+    }
+
+    if (searchTerm.trim()) {
+      console.log('🔄 Setting up debounced search...');
+      setSearchLoading(true);
+      searchTimeoutRef.current = setTimeout(() => {
+        console.log('🚀 Executing search after debounce');
+        performSearch();
+      }, 500);
+    } else if (hasSearched && mapsReady) {
+      console.log('🔙 Search cleared, loading initial attractions...');
+      loadInitialAttractions();
+    } else if (!searchTerm.trim() && !hasSearched) {
+      // Filter demo data if no search and maps not ready
+      filterDemoData();
+    }
+
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
+  }, [searchTerm, mapsReady]);
+
+  // Filter effect
+  useEffect(() => {
+    console.log('🎛️ Filters changed - Category:', selectedCategory, 'District:', selectedDistrict);
+    
+    if (mapsReady && placesServiceRef.current) {
+      filterAttractions();
+    } else {
+      filterDemoData();
+    }
+  }, [attractions, selectedCategory, selectedDistrict, mapsReady]);
+
+  const filterDemoData = () => {
+    console.log('🔍 Filtering demo data...');
+    let filtered = [...demoAttractions];
 
     // Filter by search term
-    if (searchTerm) {
+    if (searchTerm.trim()) {
+      const searchLower = searchTerm.toLowerCase();
       filtered = filtered.filter(attraction =>
-        attraction.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        attraction.district.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        attraction.province.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        attraction.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        attraction.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+        attraction.name.toLowerCase().includes(searchLower) ||
+        attraction.district.toLowerCase().includes(searchLower) ||
+        attraction.description.toLowerCase().includes(searchLower) ||
+        attraction.tags.some(tag => tag.toLowerCase().includes(searchLower)) ||
+        attraction.category.toLowerCase().includes(searchLower)
       );
     }
 
@@ -286,13 +298,345 @@ const ExplorePage = () => {
 
     // Filter by district
     if (selectedDistrict !== 'all') {
-      filtered = filtered.filter(attraction => attraction.district === selectedDistrict);
+      filtered = filtered.filter(attraction => 
+        attraction.district.toLowerCase().includes(selectedDistrict.toLowerCase())
+      );
     }
 
+    console.log('📊 Demo data filtered:', filtered.length, 'results');
     setFilteredAttractions(filtered);
-  }, [searchTerm, selectedCategory, selectedDistrict]);
+    setSearchLoading(false);
+  };
+
+  const performSearch = () => {
+    console.log('🔍 performSearch called with term:', searchTerm);
+    
+    if (!searchTerm.trim()) {
+      console.log('⚠️ Empty search term, aborting search');
+      return;
+    }
+
+    if (!mapsReady || !placesServiceRef.current) {
+      console.log('🔄 Maps not ready, using demo data filter...');
+      filterDemoData();
+      return;
+    }
+    
+    const query = `${searchTerm} Sri Lanka`;
+    console.log('📍 Searching for:', query);
+    searchPlaces(query, selectedCategory);
+    setHasSearched(true);
+  };
+
+  const searchPlaces = (query, category) => {
+    console.log('🔍 searchPlaces called');
+    console.log('  📝 Query:', query);
+    console.log('  🏷️ Category:', category);
+    console.log('  🔧 PlacesService available:', !!placesServiceRef.current);
+    
+    if (!placesServiceRef.current) {
+      console.error('❌ Google Places service not initialized - using demo data');
+      filterDemoData();
+      return;
+    }
+
+    const request = {
+      query: query,
+      fields: [
+        'place_id', 'name', 'geometry', 'formatted_address', 'rating', 
+        'photos', 'types', 'opening_hours', 'price_level', 'website',
+        'international_phone_number', 'vicinity'
+      ],
+      locationBias: {
+        center: { lat: 7.8731, lng: 80.7718 }, // Center of Sri Lanka
+        radius: 200000 // 200km radius
+      }
+    };
+
+    console.log('📋 Search request:', request);
+    console.log('🔄 Using legacy PlacesService textSearch...');
+    
+    placesServiceRef.current.textSearch(request, (results, status) => {
+      console.log('📨 textSearch callback executed');
+      console.log('  📊 Status:', status);
+      console.log('  📋 Results count:', results ? results.length : 0);
+      
+      setLoading(false);
+      setSearchLoading(false);
+
+      if (status === window.google.maps.places.PlacesServiceStatus.OK && results) {
+        console.log('✅ Search successful, processing results...');
+        console.log('  📍 Raw results:', results);
+        
+        const processedAttractions = results
+          .filter(place => {
+            const hasGeometry = place.geometry && place.geometry.location;
+            console.log(`  🔍 Place "${place.name}" has geometry:`, hasGeometry);
+            return hasGeometry;
+          })
+          .map(place => {
+            console.log(`  ⚙️ Processing place: ${place.name}`);
+            return processPlaceData(place);
+          })
+          .filter(attraction => {
+            const isValid = attraction !== null;
+            console.log(`  ✅ Attraction valid:`, isValid);
+            return isValid;
+          });
+
+        console.log('🎯 Final processed attractions:', processedAttractions.length);
+        setAttractions(processedAttractions);
+      } else if (status === window.google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
+        console.log('📭 No results found');
+        setAttractions([]);
+      } else {
+        console.error('❌ Search failed with status:', status);
+        console.log('🔄 Falling back to demo data...');
+        filterDemoData();
+      }
+    });
+  };
+
+  const processPlaceData = (place) => {
+    console.log('⚙️ Processing place data for:', place.name);
+    
+    try {
+      // Get the best photo
+      let imageUrl = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80';
+      if (place.photos && place.photos.length > 0) {
+        console.log('  📸 Getting photo URL...');
+        try {
+          imageUrl = place.photos[0].getUrl({ maxWidth: 800, maxHeight: 600 });
+          console.log('  ✅ Photo URL obtained');
+        } catch (photoError) {
+          console.error('  ❌ Error getting photo URL:', photoError);
+        }
+      } else {
+        console.log('  📷 No photos available, using default image');
+      }
+
+      // Determine category based on place types
+      console.log('  🏷️ Place types:', place.types);
+      const category = determineCategoryFromTypes(place.types || []);
+      console.log('  📂 Determined category:', category);
+
+      // Extract district from address
+      const address = place.formatted_address || place.vicinity || '';
+      console.log('  📍 Address:', address);
+      const district = extractDistrictFromAddress(address);
+      console.log('  🏘️ Extracted district:', district);
+
+      // Generate description
+      const description = generateDescription(place.name, place.types || []);
+      console.log('  📝 Generated description:', description.substring(0, 50) + '...');
+
+      // Format opening hours
+      const openTime = place.opening_hours?.weekday_text?.[0] || 'Hours not available';
+      console.log('  ⏰ Opening time:', openTime);
+
+      // Determine entry fee
+      const entryFee = determineEntryFee(place.price_level, place.types || []);
+      console.log('  💰 Entry fee:', entryFee);
+
+      const processedPlace = {
+        id: place.place_id,
+        name: place.name,
+        district: district,
+        province: getProvinceFromDistrict(district),
+        category: category,
+        rating: place.rating || 4.0,
+        description: description,
+        image: imageUrl,
+        coordinates: {
+          lat: place.geometry.location.lat(),
+          lng: place.geometry.location.lng()
+        },
+        openTime: openTime,
+        bestTime: getBestVisitTime(place.types || []),
+        entryFee: entryFee,
+        tags: generateTags(place.types || []),
+        website: place.website,
+        phone: place.international_phone_number,
+        address: place.formatted_address || place.vicinity,
+        placeTypes: place.types || []
+      };
+
+      console.log('  ✅ Place processed successfully:', processedPlace.name);
+      return processedPlace;
+    } catch (error) {
+      console.error('  ❌ Error processing place data:', error);
+      return null;
+    }
+  };
+
+  const determineCategoryFromTypes = (types) => {
+    console.log('    🔍 Determining category from types:', types);
+    const typeSet = new Set(types.map(type => type.toLowerCase()));
+    
+    if (typeSet.has('museum') || typeSet.has('establishment') && types.some(t => t.includes('historic'))) {
+      console.log('    📚 Category: historical');
+      return 'historical';
+    }
+    if (typeSet.has('place_of_worship') || typeSet.has('hindu_temple') || typeSet.has('church')) {
+      console.log('    🛕 Category: religious');
+      return 'religious';
+    }
+    if (typeSet.has('natural_feature') && types.some(t => t.includes('beach'))) {
+      console.log('    🏖️ Category: beach');
+      return 'beach';
+    }
+    if (typeSet.has('zoo') || types.some(t => t.includes('wildlife') || t.includes('safari'))) {
+      console.log('    🐘 Category: wildlife');
+      return 'wildlife';
+    }
+    if (typeSet.has('park') || typeSet.has('natural_feature')) {
+      console.log('    🌿 Category: nature');
+      return 'nature';
+    }
+    if (types.some(t => t.includes('adventure') || t.includes('hiking') || t.includes('climbing'))) {
+      console.log('    ⛰️ Category: adventure');
+      return 'adventure';
+    }
+    
+    console.log('    🌿 Category: nature (default)');
+    return 'nature'; // Default category
+  };
+
+  const extractDistrictFromAddress = (address) => {
+    console.log('    🏘️ Extracting district from:', address);
+    const commonDistricts = [
+      'Colombo', 'Kandy', 'Galle', 'Matale', 'Nuwara Eliya', 'Badulla', 
+      'Matara', 'Hambantota', 'Anuradhapura', 'Polonnaruwa', 'Ratnapura',
+      'Ampara', 'Jaffna', 'Trincomalee', 'Kurunegala', 'Puttalam'
+    ];
+
+    for (const district of commonDistricts) {
+      if (address.toLowerCase().includes(district.toLowerCase())) {
+        console.log('    ✅ Found district:', district);
+        return district;
+      }
+    }
+    
+    // Extract from address components
+    const parts = address.split(',').map(part => part.trim());
+    const extracted = parts.length > 1 ? parts[parts.length - 2] : 'Unknown';
+    console.log('    🔍 Extracted from address parts:', extracted);
+    return extracted;
+  };
+
+  const getProvinceFromDistrict = (district) => {
+    const provinceMap = {
+      'Colombo': 'Western Province',
+      'Gampaha': 'Western Province',
+      'Kalutara': 'Western Province',
+      'Kandy': 'Central Province',
+      'Matale': 'Central Province',
+      'Nuwara Eliya': 'Central Province',
+      'Galle': 'Southern Province',
+      'Matara': 'Southern Province',
+      'Hambantota': 'Southern Province',
+      'Jaffna': 'Northern Province',
+      'Trincomalee': 'Eastern Province',
+      'Ampara': 'Eastern Province',
+      'Anuradhapura': 'North Central Province',
+      'Polonnaruwa': 'North Central Province',
+      'Kurunegala': 'North Western Province',
+      'Puttalam': 'North Western Province',
+      'Ratnapura': 'Sabaragamuwa Province',
+      'Badulla': 'Uva Province'
+    };
+    
+    const province = provinceMap[district] || 'Sri Lanka';
+    console.log('    🗺️ Province for', district, ':', province);
+    return province;
+  };
+
+  const generateDescription = (name, types) => {
+    const typeDescriptions = {
+      'tourist_attraction': 'Popular tourist destination',
+      'museum': 'Cultural and historical museum',
+      'park': 'Beautiful natural park',
+      'place_of_worship': 'Sacred religious site',
+      'natural_feature': 'Stunning natural landmark',
+      'beach': 'Pristine coastal destination',
+      'zoo': 'Wildlife conservation area'
+    };
+
+    const relevantType = types.find(type => typeDescriptions[type]);
+    const baseDescription = relevantType ? typeDescriptions[relevantType] : 'Interesting place to visit';
+    
+    return `${baseDescription} in Sri Lanka. ${name} offers visitors a unique experience with its distinctive charm and local significance.`;
+  };
+
+  const getBestVisitTime = (types) => {
+    if (types.includes('beach')) return 'November to April (dry season)';
+    if (types.includes('park') || types.includes('natural_feature')) return 'Early morning or late afternoon';
+    if (types.includes('place_of_worship')) return 'Morning or evening ceremonies';
+    return 'Year-round destination';
+  };
+
+  const determineEntryFee = (priceLevel, types) => {
+    if (!priceLevel) return 'Contact for pricing';
+    
+    const fees = {
+      0: 'Free',
+      1: 'LKR 500 - 1,000',
+      2: 'LKR 1,000 - 2,500',
+      3: 'LKR 2,500 - 5,000',
+      4: 'LKR 5,000+'
+    };
+    
+    return fees[priceLevel] || 'Contact for pricing';
+  };
+
+  const generateTags = (types) => {
+    const tagMap = {
+      'tourist_attraction': 'Tourist Attraction',
+      'museum': 'Museum',
+      'park': 'Park',
+      'natural_feature': 'Natural Beauty',
+      'place_of_worship': 'Religious Site',
+      'establishment': 'Heritage Site',
+      'beach': 'Beach',
+      'zoo': 'Wildlife'
+    };
+
+    return types
+      .filter(type => tagMap[type])
+      .map(type => tagMap[type])
+      .slice(0, 4);
+  };
+
+  const filterAttractions = () => {
+    console.log('🎛️ Filtering attractions...');
+    console.log('  📊 Total attractions:', attractions.length);
+    console.log('  🏷️ Selected category:', selectedCategory);
+    console.log('  🏘️ Selected district:', selectedDistrict);
+    
+    let filtered = [...attractions];
+
+    // Filter by category
+    if (selectedCategory !== 'all') {
+      const beforeCount = filtered.length;
+      filtered = filtered.filter(attraction => attraction.category === selectedCategory);
+      console.log(`  📂 Category filter: ${beforeCount} → ${filtered.length}`);
+    }
+
+    // Filter by district
+    if (selectedDistrict !== 'all') {
+      const beforeCount = filtered.length;
+      filtered = filtered.filter(attraction => 
+        attraction.district.toLowerCase().includes(selectedDistrict.toLowerCase())
+      );
+      console.log(`  🏘️ District filter: ${beforeCount} → ${filtered.length}`);
+    }
+
+    console.log('  ✅ Final filtered count:', filtered.length);
+    setFilteredAttractions(filtered);
+  };
 
   const handleFavorite = (attractionId) => {
+    console.log('❤️ Toggling favorite for:', attractionId);
     setFavorites(prev => 
       prev.includes(attractionId) 
         ? prev.filter(id => id !== attractionId)
@@ -301,14 +645,16 @@ const ExplorePage = () => {
   };
 
   const handleShare = (attraction) => {
+    console.log('📤 Sharing attraction:', attraction.name);
     if (navigator.share) {
+      console.log('📱 Using native share API');
       navigator.share({
         title: attraction.name,
         text: attraction.description,
         url: window.location.href
       });
     } else {
-      // Fallback for browsers that don't support Web Share API
+      console.log('📋 Copying to clipboard');
       navigator.clipboard.writeText(`${attraction.name} - ${window.location.href}`);
       alert('Link copied to clipboard!');
     }
@@ -316,6 +662,7 @@ const ExplorePage = () => {
 
   const openInMaps = (coordinates) => {
     const url = `https://www.google.com/maps?q=${coordinates.lat},${coordinates.lng}`;
+    console.log('🗺️ Opening maps URL:', url);
     window.open(url, '_blank');
   };
 
@@ -332,24 +679,30 @@ const ExplorePage = () => {
         {[...Array(5 - Math.ceil(rating))].map((_, i) => (
           <Star key={i + fullStars} className="star-empty" size={16} />
         ))}
-        <span className="rating-number">({rating})</span>
+        <span className="rating-number">({rating.toFixed(1)})</span>
       </div>
     );
   };
 
-  if (loading) {
+  console.log('🎨 Rendering component...');
+  console.log('  📊 State - Loading:', loading, 'Error:', !!error, 'Attractions:', filteredAttractions.length);
+  console.log('  🗺️ Maps Ready:', mapsReady);
+
+  if (loading && !hasSearched) {
+    console.log('⏳ Rendering loading page');
     return (
       <div className="explore-page">
         <Navbar />
         <div className="explore-loading">
           <div className="loading-spinner"></div>
-          <p>Discovering Sri Lanka's beautiful attractions...</p>
+          <p>Loading Sri Lanka's beautiful attractions...</p>
         </div>
         <Footer />
       </div>
     );
   }
 
+  console.log('✅ Rendering main explore page');
   return (
     <div className="explore-page">
       <Navbar />
@@ -366,11 +719,15 @@ const ExplorePage = () => {
               <Search className="search-icon" size={20} />
               <input
                 type="text"
-                placeholder="Search attractions, districts, or activities..."
+                placeholder="Search for temples, beaches, parks, museums..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => {
+                  console.log('🔍 Search input changed:', e.target.value);
+                  setSearchTerm(e.target.value);
+                }}
                 className="search-input"
               />
+              {searchLoading && <div className="search-loading-spinner"></div>}
             </div>
           </div>
         </div>
@@ -387,7 +744,10 @@ const ExplorePage = () => {
                 <button
                   key={category.value}
                   className={`category-btn ${selectedCategory === category.value ? 'active' : ''}`}
-                  onClick={() => setSelectedCategory(category.value)}
+                  onClick={() => {
+                    console.log('🏷️ Category selected:', category.value);
+                    setSelectedCategory(category.value);
+                  }}
                 >
                   <span className="category-icon">{category.icon}</span>
                   {category.label}
@@ -403,7 +763,10 @@ const ExplorePage = () => {
               <select
                 id="district-select"
                 value={selectedDistrict}
-                onChange={(e) => setSelectedDistrict(e.target.value)}
+                onChange={(e) => {
+                  console.log('🏘️ District selected:', e.target.value);
+                  setSelectedDistrict(e.target.value);
+                }}
                 className="district-select"
               >
                 {districts.map(district => (
@@ -417,14 +780,20 @@ const ExplorePage = () => {
             <div className="view-controls">
               <button
                 className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
-                onClick={() => setViewMode('grid')}
+                onClick={() => {
+                  console.log('👁️ View mode changed to: grid');
+                  setViewMode('grid');
+                }}
                 title="Grid View"
               >
                 <Grid size={20} />
               </button>
               <button
                 className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
-                onClick={() => setViewMode('list')}
+                onClick={() => {
+                  console.log('👁️ View mode changed to: list');
+                  setViewMode('list');
+                }}
                 title="List View"
               >
                 <List size={20} />
@@ -441,23 +810,40 @@ const ExplorePage = () => {
             {searchTerm ? `Search results for "${searchTerm}"` : 'Tourist Attractions'} 
             <span className="results-count">({filteredAttractions.length} found)</span>
           </h2>
+          {!mapsReady && (
+            <div className="info-banner">
+              <p>🔄 Showing curated attractions. Google Maps integration will load shortly...</p>
+            </div>
+          )}
         </div>
 
-        {filteredAttractions.length === 0 ? (
+        {error && mapsReady && (
+          <div className="error-message">
+            <p>⚠️ {error}</p>
+          </div>
+        )}
+
+        {filteredAttractions.length === 0 && !loading ? (
           <div className="no-results">
             <div className="no-results-content">
               <Camera size={64} className="no-results-icon" />
               <h3>No attractions found</h3>
-              <p>Try adjusting your search terms or filters to discover more places.</p>
+              <p>Try searching for specific places like "Sigiriya", "Kandy Temple", or "Galle Fort".</p>
               <button 
                 className="reset-filters-btn"
                 onClick={() => {
+                  console.log('🔄 Resetting search and filters');
                   setSearchTerm('');
                   setSelectedCategory('all');
                   setSelectedDistrict('all');
+                  if (mapsReady) {
+                    loadInitialAttractions();
+                  } else {
+                    filterDemoData();
+                  }
                 }}
               >
-                Reset Filters
+                Reset Search
               </button>
             </div>
           </div>
@@ -534,9 +920,20 @@ const ExplorePage = () => {
                       <MapPin size={16} />
                       View on Map
                     </button>
-                    <button className="btn-primary">
-                      Learn More
-                    </button>
+                    {attraction.website ? (
+                      <a 
+                        href={attraction.website} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="btn-primary"
+                      >
+                        Visit Website
+                      </a>
+                    ) : (
+                      <button className="btn-primary">
+                        Learn More
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
